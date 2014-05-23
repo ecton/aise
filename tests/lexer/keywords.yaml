@@ -1,0 +1,73 @@
+:name: Keywords Test
+:src: lambda do end for while not and or xor
+:tokens:
+  - 
+    :type: 1006
+    :text: lambda
+    :value: lambda
+    :file: 
+    :line: 1
+    :column: 1
+  - 
+    :type: 1007
+    :text: do
+    :value: do
+    :file: 
+    :line: 1
+    :column: 8
+  - 
+    :type: 1008
+    :text: end
+    :value: end
+    :file: 
+    :line: 1
+    :column: 11
+  - 
+    :type: 1009
+    :text: for
+    :value: for
+    :file: 
+    :line: 1
+    :column: 15
+  - 
+    :type: 1010
+    :text: while
+    :value: while
+    :file: 
+    :line: 1
+    :column: 19
+  - 
+    :type: 1011
+    :text: not
+    :value: not
+    :file: 
+    :line: 1
+    :column: 25
+  - 
+    :type: 1012
+    :text: and
+    :value: and
+    :file: 
+    :line: 1
+    :column: 29
+  - 
+    :type: 1013
+    :text: or
+    :value: or
+    :file: 
+    :line: 1
+    :column: 33
+  - 
+    :type: 1014
+    :text: xor
+    :value: xor
+    :file: 
+    :line: 1
+    :column: 36
+  - 
+    :type: 1001
+    :text: ''
+    :value: ''
+    :file: 
+    :line: 1
+    :column: 39

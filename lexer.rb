@@ -15,6 +15,19 @@ class Token
     self.line = args[:line]
     self.column = args[:column]
   end
+
+  def to_h
+    {
+      :type => type,
+      :text => text,
+      :value => value,
+      :file => file,
+      :line => line,
+      :column => column
+    }
+  end
+
+
 end
 
 class Lexer
@@ -218,5 +231,20 @@ class Lexer
   end
 end
 
-require 'pp'
-PP.pp Lexer.new("a + b = c or d = a * 0 + 1.02 + 1003 + 0b101 + 0o666 + 0hFE").parse
+require 'yaml'
+Dir["./tests/lexer/*.yaml"].each do |file|
+  test = YAML.load(open(file).read)
+  puts "Running test #{test[:name]}"
+  tokens = Lexer.new(test[:src]).parse
+  if test[:tokens]
+    tokens.each_with_index do |tk, idx|
+      if tk.to_h != test[:tokens][idx]
+        puts "Expected #{tk.to_h} but got #{test[:tokens][idx]}"
+        break
+      end
+    end
+  else
+    puts "- No tokens... here they are"
+    puts YAML.dump(tokens.collect{|t| t.to_h})
+  end
+end
