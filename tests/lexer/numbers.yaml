@@ -1,63 +1,63 @@
 :name: Numbers Test
 :src: 1 123 123.0 0.123789 -1 -1.01 0xD0d0 0b011011 0o345
 :tokens:
-  - :type: 1004
-    :text: '1'
-    :value: 1
-    :file: 
-    :line: 1
-    :column: 1
-  - :type: 1004
-    :text: '123'
-    :value: 123
-    :file: 
-    :line: 1
-    :column: 3
-  - :type: 1004
-    :text: '123.0'
-    :value: 123.0
-    :file: 
-    :line: 1
-    :column: 7
-  - :type: 1004
-    :text: '0.123789'
-    :value: 0.12378900000000001
-    :file: 
-    :line: 1
-    :column: 13
-  - :type: 1004
-    :text: '-1'
-    :value: -1
-    :file: 
-    :line: 1
-    :column: 22
-  - :type: 1004
-    :text: '-1.01'
-    :value: -1.01
-    :file: 
-    :line: 1
-    :column: 25
-  - :type: 1004
-    :text: '0xD0d0'
-    :value: 53456
-    :file: 
-    :line: 1
-    :column: 31
-  - :type: 1004
-    :text: '0b011011'
-    :value: 27
-    :file: 
-    :line: 1
-    :column: 38
-  - :type: 1004
-    :text: '0o345'
-    :value: 229
-    :file: 
-    :line: 1
-    :column: 47
-  - :type: 1001
-    :text: ''
-    :value: ''
-    :file: 
-    :line: 1
-    :column: 52
+    - :type: :INTEGER
+      :text: '1'
+      :value: 1
+      :file: 
+      :line: 1
+      :column: 1
+    - :type: :INTEGER
+      :text: '123'
+      :value: 123
+      :file: 
+      :line: 1
+      :column: 3
+    - :type: :INTEGER
+      :text: '123.0'
+      :value: 123.0
+      :file: 
+      :line: 1
+      :column: 7
+    - :type: :INTEGER
+      :text: '0.123789'
+      :value: 0.12378900000000001
+      :file: 
+      :line: 1
+      :column: 13
+    - :type: :INTEGER
+      :text: '-1'
+      :value: -1
+      :file: 
+      :line: 1
+      :column: 22
+    - :type: :INTEGER
+      :text: '-1.01'
+      :value: -1.01
+      :file: 
+      :line: 1
+      :column: 25
+    - :type: :INTEGER
+      :text: '0xD0d0'
+      :value: 53456
+      :file: 
+      :line: 1
+      :column: 31
+    - :type: :INTEGER
+      :text: '0b011011'
+      :value: 27
+      :file: 
+      :line: 1
+      :column: 38
+    - :type: :INTEGER
+      :text: '0o345'
+      :value: 229
+      :file: 
+      :line: 1
+      :column: 47
+    - :type: :EOF
+      :text: ''
+      :value: ''
+      :file: 
+      :line: 1
+      :column: 52

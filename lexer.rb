@@ -30,15 +30,13 @@ end
 
 class Lexer
   def self.enumerate(sym)
-    @enum_value ||= 1000
-    @enum_value += 1
-    const_set(sym, @enum_value)
+    const_set(sym, sym)
   end
 
   def self.enumerate_keyword(sym, word)
     enumerate(sym)
     @keywords ||= {}
-    @keywords[word] = @enum_value
+    @keywords[word] = sym
   end
 
   def self.lookup_keyword(word)
@@ -240,7 +238,7 @@ class Lexer
       else
         char = get_char
         next_char!
-        tokens << new_token(char.ord)
+        tokens << new_token(char.to_sym)
       end
     end
     start_token!
