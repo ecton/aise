@@ -26,8 +26,6 @@ class Token
       :column => column
     }
   end
-
-
 end
 
 class Lexer
@@ -52,6 +50,10 @@ class Lexer
   enumerate :IDENTIFIER
   enumerate :INTEGER
   enumerate :REAL
+  enumerate :NOTEQ
+  enumerate :GREATEREQ
+  enumerate :LESSEQ
+  enumerate :ASSIGN
   enumerate_keyword :LAMBDA, "lambda"
   enumerate_keyword :DO, "do"
   enumerate_keyword :END, "end"
@@ -173,7 +175,7 @@ class Lexer
         value = value * 8 + get_char.to_i
         next_char!
       end
-    elsif value == 0 && get_char == 'h' && is_hexadecimal?(get_char(1)) # Hexadecimal
+    elsif value == 0 && get_char == 'x' && is_hexadecimal?(get_char(1)) # Hexadecimal
       next_char!
       while !eof? && is_hexadecimal?(get_char)
         value = value * 16 + get_char.to_i(16)
@@ -219,6 +221,22 @@ class Lexer
              get_char == '_' || 
              get_char.ord > 128
           tokens << parse_identifier
+      elsif get_char == '<' && get_char(1) == '>'
+        next_char!
+        next_char!
+        tokens << new_token(NOTEQ)
+      elsif get_char == '<' && get_char(1) == '='
+        next_char!
+        next_char!
+        tokens << new_token(LESSEQ)
+      elsif get_char == '>' && get_char(1) == '='
+        next_char!
+        next_char!
+        tokens << new_token(GREATEREQ)
+      elsif get_char == ':' && get_char(1) == '='
+        next_char!
+        next_char!
+        tokens << new_token(ASSIGN)
       else
         char = get_char
         next_char!
@@ -228,23 +246,5 @@ class Lexer
     start_token!
     tokens << new_token(EOF)
     return tokens
-  end
-end
-
-require 'yaml'
-Dir["./tests/lexer/*.yaml"].each do |file|
-  test = YAML.load(open(file).read)
-  puts "Running test #{test[:name]}"
-  tokens = Lexer.new(test[:src]).parse
-  if test[:tokens]
-    tokens.each_with_index do |tk, idx|
-      if tk.to_h != test[:tokens][idx]
-        puts "Expected #{tk.to_h} but got #{test[:tokens][idx]}"
-        break
-      end
-    end
-  else
-    puts "- No tokens... here they are"
-    puts YAML.dump(tokens.collect{|t| t.to_h})
   end
 end
