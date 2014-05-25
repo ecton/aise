@@ -1,5 +1,7 @@
 require 'yaml'
 require './lexer.rb'
+require './parser.rb'
+require 'pp'
 
 task :test => [:test_lexer] do |task, args|
 
@@ -29,4 +31,10 @@ task :test_lexer do |task, args|
       puts YAML.dump(tokens.collect{|t| t.to_h})
     end
   end
+end
+
+task :test_parser do |task, args|
+  tokens = Lexer.new("a and 3 or 4.5 < 3 <= 4 >= a > 4 <> 2 := 3 xor false ^ 2 * 3").parse
+  p = Parser.new(tokens)
+  PP.pp(p.parse)
 end
