@@ -25,6 +25,10 @@ class Parser
     @pos >= @tokens.count || peek_token.type == Lexer::EOF
   end
 
+  def syntax_error(token, expected, message = nil)
+    raise "Syntax Error: Got #{token}, expected #{expected} -- #{message}"
+  end
+
   def parse
     parse_statement_list
   end
@@ -165,7 +169,7 @@ class Parser
     when Lexer::IDENTIFIER
       return IdentifierNode.new(:token => take_token!)
     else
-      raise "Unknown token #{peek_token}" # TODO: Better error handling than this!
+      raise syntax_error(peek_token, "term")
     end
   end
 end

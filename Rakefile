@@ -34,7 +34,7 @@ task :test_lexer do |task, args|
 end
 
 task :test_parser do |task, args|
-  tokens = Lexer.new("a and 3 or 4.5 < 3 <= 4 >= a > 4 <> 2 := 3 xor false ^ 2 * 3").parse
+  tokens = Lexer.new("a and 3 or 4.5 < 3 <= 4 >= a > 4 <> 2 := 3 xor false ^ 2 * 3 and").parse
   p = Parser.new(tokens)
   PP.pp(p.parse)
 end
