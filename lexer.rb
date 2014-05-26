@@ -48,6 +48,7 @@ class Lexer
   enumerate :IDENTIFIER
   enumerate :INTEGER
   enumerate :REAL
+  enumerate :STRING
   enumerate :NOTEQ
   enumerate :GREATEREQ
   enumerate :LESSEQ
@@ -199,6 +200,75 @@ class Lexer
     return new_token_with_value(INTEGER, value * sign)
   end
 
+  def parse_string
+    next_char! # Skip the opening quote
+    value = ""
+    while !eof? && get_char != '"'
+      if get_char == '\\'
+        next_char!
+        escape_qualifier = get_char
+        next_char!
+
+        case escape_qualifier
+        when "r"
+          value += "\r"
+        when "n"
+          value += "\n"
+        when "\\"
+          value += "\\"
+        when "0"
+          value += "\0"
+        when "b"
+          value += "\b"
+        when "f"
+          value += "\f"
+        when "t"
+          value += "\t"
+        when "v"
+          value += "\v"
+        when "u"
+          codepoint = 0
+          if get_char == '['
+            next_char!
+            while !eof? && get_char != ']'
+              if is_numeric?(get_char)
+                codepoint = codepoint * 10 + get_char.to_i
+                next_char!
+              else
+                raise "Unexpected character in unicode codepoint #{get_char}"
+              end
+            end
+            if get_char != ']'
+              raise "Expected ] to close unicode codepoint. Got #{get_char}"
+            end
+            next_char!
+          elsif (0..3).find_all{|offset| !is_hexadecimal?(offset)}.count == 0
+            # Four hex characters turned into a codepoint.
+            hex = ""
+            (0..3).each do |i|
+              hex += get_char
+              next_char!
+            end
+            codepoint = hex.to_i(16)
+          else
+            raise "Invalid unicode codepoint specification: #{get_char}"
+          end
+          value += codepoint.chr('UTF-8')
+        else
+          raise "Invalid string escape character: #{escape_qualifier}"
+        end
+      else
+        value += get_char
+        next_char!
+      end
+    end
+    if get_char != '"'
+      raise "Expected end of string. Got #{get_char}"
+    end
+    next_char!
+    return new_token_with_value(STRING, value)
+  end
+
   def new_token_with_value(type, value)
     Token.new(
         :type => type,
@@ -242,6 +312,8 @@ class Lexer
         tokens << new_token(EOL)
       elsif is_numeric?(get_char) || (get_char == '-' && is_numeric?(get_char(1)))
         tokens << parse_numeric
+      elsif get_char == '"'
+        tokens << parse_string
       elsif (get_char >= 'a' && get_char <= 'z') ||
             (get_char >= 'A' && get_char <= 'Z') ||
              get_char == '_' || 

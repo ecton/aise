@@ -34,7 +34,7 @@ task :test_lexer do |task, args|
 end
 
 task :test_parser do |task, args|
-  tokens = Lexer.new("not b and a and 3 or 4.5 < 3 <= 4 >= a > 4 <> 2 := 3 xor false ^ 2 * 3 and true and not false and nil").parse
+  tokens = Lexer.new("\"asdf \\u[22269] \" and not b and a and 3 or 4.5 < 3 <= 4 >= a > 4 <> 2 := 3 xor false ^ 2 * 3 and true and not false and nil").parse
   p = Parser.new(tokens)
   PP.pp(p.parse)
 end
