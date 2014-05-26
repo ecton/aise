@@ -33,6 +33,10 @@ class Lexer
     const_set(sym, sym)
   end
 
+  def report_error(message)
+    raise message + " (#{@file}##{@line}:#{@column})"
+  end
+
   def self.enumerate_keyword(sym, word)
     enumerate(sym)
     @keywords ||= {}
@@ -235,11 +239,11 @@ class Lexer
                 codepoint = codepoint * 10 + get_char.to_i
                 next_char!
               else
-                raise "Unexpected character in unicode codepoint #{get_char}"
+                report_error "Unexpected character in unicode codepoint #{get_char}"
               end
             end
             if get_char != ']'
-              raise "Expected ] to close unicode codepoint. Got #{get_char}"
+              report_error "Expected ] to close unicode codepoint. Got #{get_char}"
             end
             next_char!
           elsif (0..3).find_all{|offset| !is_hexadecimal?(offset)}.count == 0
@@ -251,11 +255,11 @@ class Lexer
             end
             codepoint = hex.to_i(16)
           else
-            raise "Invalid unicode codepoint specification: #{get_char}"
+            report_error "Invalid unicode codepoint specification: #{get_char}"
           end
           value += codepoint.chr('UTF-8')
         else
-          raise "Invalid string escape character: #{escape_qualifier}"
+          report_error "Invalid string escape character: #{escape_qualifier}"
         end
       else
         value += get_char
@@ -263,7 +267,7 @@ class Lexer
       end
     end
     if get_char != '"'
-      raise "Expected end of string. Got #{get_char}"
+      report_error "Expected end of string. Got #{get_char}"
     end
     next_char!
     return new_token_with_value(STRING, value)
