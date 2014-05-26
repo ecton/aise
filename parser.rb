@@ -173,12 +173,19 @@ class Parser
 
   def parse_term
     case peek_token.type
+    when "(".to_sym
+      take_token!
+      inner_expression = parse_expression
+      close = take_token!
+      if close.type != ")".to_sym
+        syntax_error(close, ")")
+      end
     when Lexer::INTEGER, Lexer::REAL, Lexer::TRUE, Lexer::FALSE, Lexer::NIL, Lexer::STRING
       return LiteralNode.new(:token => take_token!)
     when Lexer::IDENTIFIER
       return IdentifierNode.new(:token => take_token!)
     else
-      raise syntax_error(peek_token, "term")
+      syntax_error(peek_token, "term")
     end
   end
 end
