@@ -232,11 +232,19 @@ class Lexer
           value += "\v"
         when "u"
           codepoint = 0
+          hexadecimal = false
+          if get_char == 'x'
+            hexadecimal = true
+            next_char!
+          end
           if get_char == '['
             next_char!
             while !eof? && get_char != ']'
-              if is_numeric?(get_char)
+              if !hexadecimal && is_numeric?(get_char)
                 codepoint = codepoint * 10 + get_char.to_i
+                next_char!
+              elsif hexadecimal && is_hexadecimal?(get_char)
+                codepoint = codepoint * 16 + get_char.to_i(16)
                 next_char!
               else
                 report_error "Unexpected character in unicode codepoint #{get_char}"
@@ -246,14 +254,6 @@ class Lexer
               report_error "Expected ] to close unicode codepoint. Got #{get_char}"
             end
             next_char!
-          elsif (0..3).find_all{|offset| !is_hexadecimal?(offset)}.count == 0
-            # Four hex characters turned into a codepoint.
-            hex = ""
-            (0..3).each do |i|
-              hex += get_char
-              next_char!
-            end
-            codepoint = hex.to_i(16)
           else
             report_error "Invalid unicode codepoint specification: #{get_char}"
           end
