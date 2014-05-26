@@ -173,7 +173,7 @@ class Parser
 
   def parse_term
     case peek_token.type
-    when Lexer::INTEGER, Lexer::REAL
+    when Lexer::INTEGER, Lexer::REAL, Lexer::TRUE, Lexer::FALSE, Lexer::NIL
       return LiteralNode.new(:token => take_token!)
     when Lexer::IDENTIFIER
       return IdentifierNode.new(:token => take_token!)

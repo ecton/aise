@@ -61,6 +61,9 @@ class Lexer
   enumerate_keyword :AND, "and"
   enumerate_keyword :OR, "or"
   enumerate_keyword :XOR, "xor"
+  enumerate_keyword :TRUE, "true"
+  enumerate_keyword :FALSE, "false"
+  enumerate_keyword :NIL, "nil"
 
   def initialize(src)
     @line = 1
@@ -137,7 +140,20 @@ class Lexer
 
     type = self.class.lookup_keyword(current_token_text) || IDENTIFIER
 
-    return new_token(type)
+    # Some words are special values
+    value = nil
+    case type
+    when TRUE
+      value = true
+    when FALSE
+      value = false
+    when NIL
+      value = nil
+    else
+      value = current_token_text
+    end
+
+    return new_token_with_value(type, value)
   end
 
   def parse_numeric
@@ -180,14 +196,26 @@ class Lexer
         next_char!
       end
     end
-    return new_token(INTEGER, value * sign)
+    return new_token_with_value(INTEGER, value * sign)
   end
 
-  def new_token(type, value = nil)
+  def new_token_with_value(type, value)
     Token.new(
         :type => type,
         :text => current_token_text,
-        :value => value || current_token_text,
+        :value => value,
+
+        :file => @file,
+        :line => @token_start[:line],
+        :column => @token_start[:column]
+      )
+  end
+
+  def new_token(type)
+    Token.new(
+        :type => type,
+        :text => current_token_text,
+        :value => current_token_text,
 
         :file => @file,
         :line => @token_start[:line],

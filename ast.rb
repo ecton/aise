@@ -74,6 +74,7 @@ class PowerNode < BinaryNode
 end
 
 class NotNode < UnaryNode
+
 end
 
 
