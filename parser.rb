@@ -26,7 +26,7 @@ class Parser
   end
 
   def syntax_error(token, expected, message = nil)
-    raise "Syntax Error: Got #{token}, expected #{expected} -- #{message}"
+    raise "Syntax Error: Got #{token.to_h}, expected #{expected} -- #{message}"
   end
 
   def parse
@@ -147,19 +147,28 @@ class Parser
   end
 
   def parse_power_expression
-    left = parse_term
+    left = parse_negate_expression
     
     while !eof?
       case peek_token.type
       when "^".to_sym
         operator = take_token!
-        right = parse_term
+        right = parse_negate_expression
         left = PowerNode.new(:token => operator, :left => left, :right => right)
       else
         break
       end
     end
     return left
+  end
+
+  def parse_negate_expression
+    if peek_token.type == Lexer::NOT
+      operator = take_token!
+      return NotNode.new(:token => operator, :node => parse_term)
+    else
+      return parse_term
+    end
   end
 
   def parse_term

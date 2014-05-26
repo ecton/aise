@@ -70,7 +70,10 @@ class DivideNode < BinaryNode
 end
 
 class PowerNode < BinaryNode
-  
+
+end
+
+class NotNode < UnaryNode
 end
 
 
