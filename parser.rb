@@ -183,10 +183,49 @@ class Parser
     when Lexer::INTEGER, Lexer::REAL, Lexer::TRUE, Lexer::FALSE, Lexer::NIL, Lexer::STRING
       return LiteralNode.new(:token => take_token!)
     when Lexer::IDENTIFIER
-      return IdentifierNode.new(:token => take_token!)
+      lval = IdentifierNode.new(:token => take_token!)
+      # We now have the ability to have index operators [] and funciton calls () and lookup operators
+      while !eof?
+        case peek_token.type
+        when "(".to_sym
+          take_token!
+          lval = FunctionCallNode.new(:root => lval, :arguments => parse_argument_list(")"))
+        when "[".to_sym
+          take_token!
+          lval = IndexNode.new(:root => lval, :arguments => parse_argument_list("]"))
+        when ".".to_sym
+          take_token!
+          if peek_token.type != Lexer::IDENTIFIER
+            syntax_error peek_token, "Identifier"
+          end
+          lval = LookupNode.new(:root => lval, :field => take_token!)
+        else
+          break
+        end
+      end
+      return lval
     else
       syntax_error(peek_token, "term")
     end
+  end
+
+  def parse_argument_list(end_char)
+    # caller already has matched and advanced past the open char
+    terms = []
+    while !eof? && peek_token.type != end_char.to_sym
+      terms << parse_expression
+      # if we don't have a comma, bail out
+      if peek_token.type != ",".to_sym
+        break
+      end
+      take_token! # eat the comma, move on.
+    end
+    if peek_token.type != end_char.to_sym
+      syntax_error(peek_token, end_char)
+    end
+
+    take_token!
+    return ArgumentListNode.new(:arguments => terms)
   end
 end
 

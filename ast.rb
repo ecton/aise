@@ -85,3 +85,22 @@ end
 class LiteralNode < SyntaxTreeNode
 
 end
+
+class ArgumentListNode < SyntaxTreeNode
+	attr_accessor :arguments
+end
+
+class FunctionCallNode < SyntaxTreeNode
+	attr_accessor :root
+	attr_accessor :arguments
+end
+
+class IndexNode < SyntaxTreeNode
+	attr_accessor :root
+	attr_accessor :arguments
+end
+
+class LookupNode < SyntaxTreeNode
+	attr_accessor :root
+	attr_accessor :field
+end
