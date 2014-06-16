@@ -180,6 +180,7 @@ class Parser
       if close.type != ")".to_sym
         syntax_error(close, ")")
       end
+      return inner_expression
     when "[".to_sym
       take_token!
       elements = parse_argument_list("]")

@@ -1,6 +1,8 @@
 require 'yaml'
 require './lexer.rb'
 require './parser.rb'
+require './compiler.rb'
+require './interpretter.rb'
 require 'pp'
 
 task :test => [:test_lexer] do |task, args|
@@ -38,4 +40,13 @@ task :test_parser do |task, args|
   tokens = Lexer.new("{[a,b,c] + []: a, b: c}").parse
   p = Parser.new(tokens)
   PP.pp(p.parse)
+end
+
+task :test_shebang do |task, args|
+  tokens = Lexer.new("(5 + 3) / 2").parse
+  tree = Parser.new(tokens).parse
+  PP.pp(tree)
+  instructions = Compiler.new([tree]).compile
+  PP.pp(instructions)
+  p Interpretter.new(instructions).interpret
 end
