@@ -104,3 +104,7 @@ class LookupNode < SyntaxTreeNode
 	attr_accessor :root
 	attr_accessor :field
 end
+
+class ArrayLiteral < SyntaxTreeNode
+  attr_accessor :elements
+end

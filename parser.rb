@@ -180,6 +180,12 @@ class Parser
       if close.type != ")".to_sym
         syntax_error(close, ")")
       end
+    when "[".to_sym
+      take_token!
+      elements = parse_argument_list("]")
+      return ArrayLiteral.new(:elements => elements)
+    when "{".to_sym
+      
     when Lexer::INTEGER, Lexer::REAL, Lexer::TRUE, Lexer::FALSE, Lexer::NIL, Lexer::STRING
       return LiteralNode.new(:token => take_token!)
     when Lexer::IDENTIFIER
