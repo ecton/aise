@@ -183,9 +183,10 @@ class Parser
     when "[".to_sym
       take_token!
       elements = parse_argument_list("]")
-      return ArrayLiteral.new(:elements => elements)
+      return ArrayLiteral.new(:nodes => elements)
     when "{".to_sym
-      
+      take_token!
+      return parse_map_literal
     when Lexer::INTEGER, Lexer::REAL, Lexer::TRUE, Lexer::FALSE, Lexer::NIL, Lexer::STRING
       return LiteralNode.new(:token => take_token!)
     when Lexer::IDENTIFIER
@@ -232,6 +233,32 @@ class Parser
 
     take_token!
     return ArgumentListNode.new(:arguments => terms)
+  end
+
+  def parse_map_literal
+    terms = []
+    while !eof? && peek_token.type != "}".to_sym
+      key = parse_expression
+
+      if peek_token.type != ":".to_sym
+        syntax_error peek_token, ":"
+      end
+      take_token!
+      value = parse_expression
+      terms << KeyValuePairNode.new(:key => key, :value => value)
+
+      # if we don't have a comma, bail out
+      if peek_token.type != ",".to_sym
+        break
+      end
+      take_token! # eat the comma, move on.
+    end
+    if peek_token.type != "}".to_sym
+      syntax_error(peek_token, "}")
+    end
+
+    take_token!
+    return MapLiteral.new(:nodes => terms)
   end
 end
 

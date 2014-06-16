@@ -106,5 +106,14 @@ class LookupNode < SyntaxTreeNode
 end
 
 class ArrayLiteral < SyntaxTreeNode
-  attr_accessor :elements
+  attr_accessor :nodes
+end
+
+class MapLiteral < SyntaxTreeNode
+  attr_accessor :nodes
+end
+
+class KeyValuePairNode < SyntaxTreeNode
+  attr_accessor :key
+  attr_accessor :value
 end
