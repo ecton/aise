@@ -1,2 +1,2 @@
-[Lexical Syntax](./lexical-syntax.md)
-[Grammar](./grammar.md)
+* [Lexical Syntax](./lexical-syntax.md)
+* [Grammar](./grammar.md)

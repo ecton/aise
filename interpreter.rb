@@ -1,4 +1,4 @@
-class Interpretter
+class Interpreter
   def initialize(instructions)
     @instructions = instructions
     @state = {}

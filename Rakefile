@@ -2,7 +2,7 @@ require 'yaml'
 require './lexer.rb'
 require './parser.rb'
 require './compiler.rb'
-require './interpretter.rb'
+require './interpreter.rb'
 require 'pp'
 
 task :test => [:test_lexer] do |task, args|
@@ -48,5 +48,5 @@ task :test_shebang do |task, args|
   PP.pp(tree)
   instructions = Compiler.new([tree]).compile
   PP.pp(instructions)
-  p Interpretter.new(instructions).interpret
+  p Interpreter.new(instructions).interpret
 end
