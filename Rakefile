@@ -44,7 +44,7 @@ end
 
 task :test_shebang do |task, args|
   tokens = Lexer.new("(5 + 3) / 2").parse
-  tree = Parser.new(tokens).parse
+  tree = Parser.new(tokens).parse_expression
   PP.pp(tree)
   instructions = Compiler.new([tree]).compile
   PP.pp(instructions)

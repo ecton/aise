@@ -30,12 +30,117 @@ class Parser
   end
 
   def parse
-    parse_statement_list
+    parse_declaration_statement_list
   end
 
-  def parse_statement_list
-    # TODO: Actual statements
-    parse_expression
+  def parse_declaration_statement_list
+    statements = []
+
+    while !eof?
+      case peek_token.type
+      when Lexer::END, Lexer::ELSE
+        break
+      end
+    end
+
+    return DeclarationStatementList.new(:statements => statements)
+  end
+
+  def parse_code_statement_list
+    statements = []
+
+    while !eof?
+      case peek_token.type
+      when Lexer::EOL
+        take_token!
+        next
+      when Lexer::END, Lexer::ELSE
+        break
+      when Lexer::IF
+        take_token!
+        statements << parse_if_block
+      when Lexer::FOR
+        take_token!
+        statements << parse_for_block
+      when Lexer::WHILE
+        take_token!
+        statements << parse_while_block
+      else
+        # Non flow control statements can be conditional,
+        # so we'll collect the statement then add the condition if present
+        statement = nil
+        if peek_token.type == Lexer::RETURN
+          take_token!
+          statement = ReturnStatement.new(:expr => parse_expression)
+        else
+          expr = parse_term
+          if lhs.is_a?(AssignNode)
+            statement = AssignmentStatement.new(:lhs => expr.lval, :rhs => expr.rval)
+          else
+            statement = CallStatment.new(:expr => lhs)
+          end
+        end
+
+        if peek_token.type == Lexer::IF
+          take_token!
+          condition = parse_expression
+          statement.if_condition = condition
+        end
+        statements << statement
+      end
+      if peek_token.type != Lexer::EOL
+        syntax_error peek_token, "End of Line"
+      else
+        take_token!
+      end
+    end
+
+    return CodeStatementList.new(:statements => statements)
+  end
+
+  def parse_if_block
+    condition = parse_expression
+    if peek_token.type != Lexer::EOL
+      syntax_error peek_token, "End of Line"
+    end
+    take_token!
+
+    body = parse_code_statement_list
+    first_statement = IfStatement.new(:condition => condition, :body => body)
+    last_statement = first_statement
+    while !eof?
+      if peek_token.type == Lexer::ELSE
+        condition = nil
+        if peek_token.type == Lexer::IF
+          condition = parse_expression
+        end
+        body = parse_code_statement_list
+        else_statement = IfStatement.new(:condition => condition, :body => body)
+        last_statement.else_if_statement = else_statement
+        last_statement = else_statement
+      elsif peek_token.type == Lexer::END
+        take_token!
+        break
+      elsif peek_token.type == Lexer::EOL
+        take_token!
+      else
+        syntax_error peek_token, "else or end"
+      end
+    end
+    return first_statement
+  end
+
+  def parse_for_block
+    
+  end
+
+  def parse_while_block
+
+  end
+
+  def parse_return_statement
+    expr = parse_expression
+
   end
 
   def parse_expression

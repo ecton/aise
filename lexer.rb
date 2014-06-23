@@ -69,6 +69,8 @@ class Lexer
   enumerate_keyword :TRUE, "true"
   enumerate_keyword :FALSE, "false"
   enumerate_keyword :NIL, "nil"
+  enumerate_keyword :RETURN, "return"
+  enumerate_keyword :IF, "if"
 
   def initialize(src)
     @line = 1

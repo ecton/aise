@@ -72,11 +72,11 @@ Term is the most complex rule because there are a lot of options and there's rec
 
 `module := declaration_statement_list`
 
+## Declaration Statements
+
 `declaration_statement_list := EOL* (declaration_statement_line EOL*)*`
 
 `declaration_statement_line := declaration_statement (EOL | EOF)`
-
-## Declaration Statements
 
 ## Code Statements
 
@@ -92,10 +92,10 @@ Term is the most complex rule because there are a lot of options and there's rec
 
 ### Flow Control
 
-`if_statement := IF expression THEN EOL statement_list (ELSE IF expression THEN EOL statement_list)* (ELSE EOL statement_list)? END`
+`if_statement := IF expression THEN EOL code_statement_list (ELSE IF expression THEN EOL code_statement_list)* (ELSE EOL code_statement_list)? END`
 
-`while_loop := WHILE expression EOL statement_list END`
+`while_loop := WHILE expression EOL code_statement_list END`
 
-`for_loop := FOR IDENTIFIER ':='' expression TO expression EOL statement_list END`
+`for_loop := FOR IDENTIFIER ':='' expression TO expression (STEP expression) EOL code_statement_list END`
 
-`for_each_loop := FOR EACH IDENTIFIER IN expression EOL statement_list END`
+`for_each_loop := FOR EACH IDENTIFIER IN expression EOL code_statement_list END` 
