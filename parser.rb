@@ -98,6 +98,13 @@ class Parser
     return CodeStatementList.new(:statements => statements)
   end
 
+  def parse_block_end
+    if peek_token.type != Lexer::END
+      syntax_error peek_token, "end"
+    end
+    take_token!
+  end
+
   def parse_if_block
     condition = parse_expression
     if peek_token.type != Lexer::EOL
@@ -131,16 +138,76 @@ class Parser
   end
 
   def parse_for_block
-    
+    if peek_token.type == Lexer::EACH
+      take_token!
+      return parse_for_each_block
+    end
+    var1 = take_token!
+    syntax_error var1, "Identifier" if var1.type != Lexer::IDENTIFIER
+    t = take_token!
+    syntax_error t, ":=" if t.type != ":=".to_sym
+    start = parse_expression
+    t = take_token!
+    syntax_error t, "to" if t.type != Lexer::IDENTIFIER || t.text != "to"
+    endexpr = parse_expression
+    t = take_token!
+    step = nil
+    if t.text == "step"
+      step = parse_expression
+      t = take_token!
+    end
+
+    if t.type != Lexer::EOL
+      syntax_error t, "End of Line"
+      take_token!
+    end
+    body = parse_code_statement_list
+
+    parse_block_end
+    return ForStatement.new(:variable => var1, :start => start, :end => endexpr, :step => step, :body => body)
+  end
+
+  def parse_for_each_block
+    var1 = take_token!
+    syntax_error var1, "Identifier" if var1.type != Lexer::IDENTIFIER
+    var2 = nil
+    if peek_token.type == ",".to_sym
+      take_token!
+      var2 = take_token!
+      syntax_error var2, "Identifier" if var2.type != Lexer::IDENTIFIER
+    end
+
+    t = take_token!
+    syntax_error t, "in" if t.text != "in"
+
+    collection = parse_expression
+
+    t = take_token!
+    syntax_error t, "End of Line" if t.type != Lexer::EOL
+
+    body = parse_code_statement_list
+
+    parse_block_end
+
+    return ForEachStatement.new(:variable => var1, :variable2 => var2, :collection => collection, :body => body)
   end
 
   def parse_while_block
+    expr = parse_expression
 
+    t = take_token!
+    syntax_error t, "End of Line" if t.type != Lexer::EOL
+
+    body = parse_code_statement_list
+
+    parse_block_end
+
+    return WhileStatement.new(:condition => expr, :body => body)
   end
 
   def parse_return_statement
     expr = parse_expression
-
+    return ReturnStatement.new(:expr => expr)
   end
 
   def parse_expression
