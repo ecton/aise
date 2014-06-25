@@ -78,6 +78,20 @@ Term is the most complex rule because there are a lot of options and there's rec
 
 `declaration_statement_line := declaration_statement (EOL | EOF)`
 
+### Namespaces
+
+`class := CLASS IDENTIFIER (INHERITS IDENTIFIER ('.' IDENTIFIER)*)? EOL declaration_statement_list END`
+
+`module := MODULE IDENTIFIER EOL declaration_statement_list END`
+
+### Methods
+
+`method := (METHOD | FUNCTION) IDENTIFIER '(' parameter_list ')' EOL code_statement_list END`
+
+### Properties and Constants
+
+
+
 ## Code Statements
 
 `code_statement_list := EOL* (code_statement_line EOL*)*`
