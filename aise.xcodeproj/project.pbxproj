@@ -14,6 +14,9 @@
 		EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A571B1B7FB500666254 /* SExp.cpp */; };
 		EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A581B1B7FB500666254 /* Tokenizer.cpp */; };
 		EFB35A601B1B7FB500666254 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A591B1B7FB500666254 /* Value.cpp */; };
+		EFB35A631B1B9FFE00666254 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A611B1B9FFE00666254 /* Symbol.cpp */; };
+		EFB35A671B1BA62C00666254 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A651B1BA62C00666254 /* Token.cpp */; };
+		EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A681B1BA6B200666254 /* Source.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +36,6 @@
 		EFB35A4B1B1B7FB500666254 /* Aise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aise.h; sourceTree = SOURCE_ROOT; };
 		EFB35A4C1B1B7FB500666254 /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = SOURCE_ROOT; };
 		EFB35A4D1B1B7FB500666254 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = SOURCE_ROOT; };
-		EFB35A4E1B1B7FB500666254 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = SOURCE_ROOT; };
 		EFB35A4F1B1B7FB500666254 /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = SOURCE_ROOT; };
 		EFB35A501B1B7FB500666254 /* SExp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SExp.h; sourceTree = SOURCE_ROOT; };
 		EFB35A511B1B7FB500666254 /* Tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tokenizer.h; sourceTree = SOURCE_ROOT; };
@@ -45,6 +47,12 @@
 		EFB35A571B1B7FB500666254 /* SExp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SExp.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A581B1B7FB500666254 /* Tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tokenizer.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A591B1B7FB500666254 /* Value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Value.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A611B1B9FFE00666254 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Symbol.cpp; path = ../Symbol.cpp; sourceTree = "<group>"; };
+		EFB35A621B1B9FFE00666254 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Symbol.h; path = ../Symbol.h; sourceTree = "<group>"; };
+		EFB35A651B1BA62C00666254 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Token.cpp; path = ../Token.cpp; sourceTree = "<group>"; };
+		EFB35A661B1BA62C00666254 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Token.h; path = ../Token.h; sourceTree = "<group>"; };
+		EFB35A681B1BA6B200666254 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A691B1BA6B200666254 /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Source.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,23 +85,36 @@
 		EFB35A451B1B7F5300666254 /* aise */ = {
 			isa = PBXGroup;
 			children = (
+				EFB35A641B1BA00D00666254 /* Values */,
 				EFB35A4B1B1B7FB500666254 /* Aise.h */,
 				EFB35A531B1B7FB500666254 /* aise.cpp */,
 				EFB35A4C1B1B7FB500666254 /* Environment.h */,
-				EFB35A4D1B1B7FB500666254 /* List.h */,
-				EFB35A4E1B1B7FB500666254 /* Parser.h */,
-				EFB35A4F1B1B7FB500666254 /* Result.h */,
-				EFB35A501B1B7FB500666254 /* SExp.h */,
-				EFB35A511B1B7FB500666254 /* Tokenizer.h */,
-				EFB35A521B1B7FB500666254 /* Value.h */,
 				EFB35A541B1B7FB500666254 /* Environment.cpp */,
-				EFB35A551B1B7FB500666254 /* List.cpp */,
+				EFB35A4F1B1B7FB500666254 /* Result.h */,
 				EFB35A561B1B7FB500666254 /* Result.cpp */,
-				EFB35A571B1B7FB500666254 /* SExp.cpp */,
+				EFB35A511B1B7FB500666254 /* Tokenizer.h */,
 				EFB35A581B1B7FB500666254 /* Tokenizer.cpp */,
-				EFB35A591B1B7FB500666254 /* Value.cpp */,
+				EFB35A681B1BA6B200666254 /* Source.cpp */,
+				EFB35A691B1BA6B200666254 /* Source.h */,
+				EFB35A651B1BA62C00666254 /* Token.cpp */,
+				EFB35A661B1BA62C00666254 /* Token.h */,
 			);
 			path = aise;
+			sourceTree = "<group>";
+		};
+		EFB35A641B1BA00D00666254 /* Values */ = {
+			isa = PBXGroup;
+			children = (
+				EFB35A501B1B7FB500666254 /* SExp.h */,
+				EFB35A571B1B7FB500666254 /* SExp.cpp */,
+				EFB35A521B1B7FB500666254 /* Value.h */,
+				EFB35A591B1B7FB500666254 /* Value.cpp */,
+				EFB35A621B1B9FFE00666254 /* Symbol.h */,
+				EFB35A611B1B9FFE00666254 /* Symbol.cpp */,
+				EFB35A4D1B1B7FB500666254 /* List.h */,
+				EFB35A551B1B7FB500666254 /* List.cpp */,
+			);
+			name = Values;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,11 +173,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFB35A5C1B1B7FB500666254 /* List.cpp in Sources */,
+				EFB35A631B1B9FFE00666254 /* Symbol.cpp in Sources */,
 				EFB35A5A1B1B7FB500666254 /* aise.cpp in Sources */,
 				EFB35A5D1B1B7FB500666254 /* Result.cpp in Sources */,
 				EFB35A601B1B7FB500666254 /* Value.cpp in Sources */,
 				EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */,
+				EFB35A671B1BA62C00666254 /* Token.cpp in Sources */,
 				EFB35A5B1B1B7FB500666254 /* Environment.cpp in Sources */,
+				EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */,
 				EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

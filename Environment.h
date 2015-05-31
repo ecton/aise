@@ -2,31 +2,18 @@
 
 #include "Aise.h"
 #include <map>
+#include "Source.h"
 
 namespace Aise {
 	class Environment
 	{
-	public:
+    public:
 		Environment();
 		virtual ~Environment();
 		void AddSource(std::string name, const std::string &src);
-		ValuePtr Evaluate();
+        ValuePtr Evaluate(const std::string &main);
 	private:
-		class Source
-		{
-		public:
-			Source(std::string name, StringPtr src) { mName = name; mSrc = src; }
-			Source() { }
-			~Source() { }
-			std::string Name() { return mName; }
-			StringPtr Src() { return mSrc; }
-			ValuePtr Sexp() { return mSexp; }
-			void SetSexp(ValuePtr sexp) { mSexp = sexp; }
-		private:
-			std::string mName;
-			StringPtr mSrc;
-			ValuePtr mSexp;
-		};
-		std::map<std::string, Source> mSources;
-	};
+        std::map<std::string, std::shared_ptr<Source>> mSources;
+        ValuePtr Parse(std::shared_ptr<Source> source);
+    };
 }

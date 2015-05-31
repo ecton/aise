@@ -18,7 +18,8 @@ int main(int argc, const char *argv[])
 {
 	cout << "Running" << endl;
 
-	Aise::SExp *sexp = new Aise::SExp(NULL, NULL);
+    auto env = new Aise::Environment();
+    Aise::ValuePtr result = env->Evaluate("(plus 1 2)");
 	getchar();
 
 	return 0;
