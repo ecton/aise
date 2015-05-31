@@ -112,4 +112,4 @@ Term is the most complex rule because there are a lot of options and there's rec
 
 `for_loop := FOR IDENTIFIER ':='' expression TO expression (STEP expression) EOL code_statement_list END`
 
-`for_each_loop := FOR EACH IDENTIFIER (',' IDENTIFIER)? IN expression EOL statement_list END`
+`for_each_loop := FOR EACH IDENTIFIER IN expression EOL code_statement_list END` 
