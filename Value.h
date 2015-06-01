@@ -9,5 +9,6 @@ namespace Aise {
         virtual std::string Description() = 0;
 	protected:
 		Value();
-	};
+    };
+    typedef std::shared_ptr<Value> ValuePtr;
 };

@@ -15,4 +15,9 @@ namespace Aise {
 	List::~List()
 	{
 	}
+    
+    string List::Description()
+    {
+        return "";
+    }
 }

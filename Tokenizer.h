@@ -11,11 +11,11 @@ namespace Aise {
 		~Tokenizer();
         
         bool EndOfInput();
-        Token &Next();
-        Token &Peek(int offset = 1);
+        std::shared_ptr<Token> Next();
+        std::shared_ptr<Token> Peek(int offset = 1);
         
 	private:
-        std::vector<Token> mTokens;
+        std::vector<std::shared_ptr<Token>> mTokens;
         int mPosition;
 	};
 }

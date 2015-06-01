@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Aise.h"
+#import "Value.h"
 
 namespace Aise {
 	class Result

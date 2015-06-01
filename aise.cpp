@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include "Aise.h"
+#include "Environment.h"
 
 //#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 //#define ARGVTYPE wchar_t
@@ -19,7 +19,8 @@ int main(int argc, const char *argv[])
 	cout << "Running" << endl;
 
     auto env = new Aise::Environment();
-    Aise::ValuePtr result = env->Evaluate("(plus 1 2)");
+    Aise::ValuePtr result = env->Evaluate("(plus 1 2 3 4 5)");
+    cout << "Result: " << result->Description() << endl;
 	getchar();
 
 	return 0;

@@ -4,8 +4,9 @@ using namespace std;
 
 #define IS_IDENTIFIER(chr) ((chr >= 'a' && chr <= 'z') || \
                            (chr >= 'A' && chr <= 'Z') || \
-                           (chr >= '0' && chr <= '9') || \
                             chr == '-' || chr == '_' || chr == '?')
+
+#define IS_NUMERIC(chr) (chr >= '0' && chr <= '9')
 
 namespace Aise {
     Tokenizer::Tokenizer(shared_ptr<Source> source) : mPosition(-1)
@@ -27,15 +28,34 @@ namespace Aise {
                 lineNum++;
             } else if (IS_IDENTIFIER(src->at(pos))) {
                 int start = pos;
-                while (pos < src->length() && IS_IDENTIFIER(src->at(pos))) {
+                while (pos < src->length() && (IS_IDENTIFIER(src->at(pos)) || IS_NUMERIC(src->at(pos)))) {
                     pos++;
                 }
-                mTokens.push_back(Token(Token::TYPE_IDENTIFIER, source, start, pos - start, lineNum, pos - lineStart));
+                mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_IDENTIFIER, source, start, pos - start, lineNum, pos - lineStart)));
+            } else if (IS_NUMERIC(src->at(pos)) ||
+                       (src->at(pos) == '-' && pos + 1 < src->length() && IS_NUMERIC(src->at(pos + 1)))) {
+                int start = pos;
+                pos++;
+                // Handle the integer part
+                while (pos < src->length() && IS_NUMERIC(src->at(pos))) {
+                    pos++;
+                }
+                // Check for a decimal
+                if (pos < src->length() && src->at(pos) == '.') {
+                    pos++;
+                    while (pos < src->length() && IS_NUMERIC(src->at(pos))) {
+                        pos++;
+                    }
+                    mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_REAL, source, start, pos - start, lineNum, pos - lineStart)));
+                } else {
+                    mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_INTEGER, source, start, pos - start, lineNum, pos - lineStart)));
+                }
+                
             } else if (src->at(pos) == '(') {
-                mTokens.push_back(Token(Token::TYPE_OPEN_PAREN, source, pos, 1, lineNum, pos - lineStart));
+                mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_OPEN_PAREN, source, pos, 1, lineNum, pos - lineStart)));
                 pos++;
             } else if (src->at(pos) == ')') {
-                mTokens.push_back(Token(Token::TYPE_CLOSE_PAREN, source, pos, 1, lineNum, pos - lineStart));
+                mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_CLOSE_PAREN, source, pos, 1, lineNum, pos - lineStart)));
                 pos++;
             } else {
                 throw "Unknown character";
@@ -47,12 +67,12 @@ namespace Aise {
         return mPosition + 1 == mTokens.size();
     }
     
-    Token &Tokenizer::Next() {
+    shared_ptr<Token> Tokenizer::Next() {
         mPosition++;
         return mTokens.at(mPosition);
     }
     
-    Token &Tokenizer::Peek(int offset) {
+    shared_ptr<Token> Tokenizer::Peek(int offset) {
         return mTokens[mPosition + offset];
     }
 

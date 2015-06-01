@@ -1,5 +1,6 @@
 #pragma once
 #include "Aise.h"
+#include "Value.h"
 
 namespace Aise {
 	class SExp : public Value
@@ -17,4 +18,5 @@ namespace Aise {
 	private:
 		ValuePtr mLeft, mRight;
 	};
+    typedef std::shared_ptr<SExp> SExpPtr;
 }
