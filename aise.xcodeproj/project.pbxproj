@@ -14,13 +14,13 @@
 		EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A571B1B7FB500666254 /* SExp.cpp */; };
 		EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A581B1B7FB500666254 /* Tokenizer.cpp */; };
 		EFB35A601B1B7FB500666254 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A591B1B7FB500666254 /* Value.cpp */; };
-		EFB35A631B1B9FFE00666254 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A611B1B9FFE00666254 /* Symbol.cpp */; };
-		EFB35A671B1BA62C00666254 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A651B1BA62C00666254 /* Token.cpp */; };
 		EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A681B1BA6B200666254 /* Source.cpp */; };
 		EFB35A6E1B1BB9A500666254 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A6C1B1BB9A500666254 /* Integer.cpp */; };
-		EFB35A711B1BC3CB00666254 /* Binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A6F1B1BC3CB00666254 /* Binding.cpp */; };
-		EFB35A741B1BC62400666254 /* NativeMethod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A721B1BC62400666254 /* NativeMethod.cpp */; };
-		EFB35A771B1BEE3F00666254 /* Real.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A751B1BEE3F00666254 /* Real.cpp */; };
+		EFB35A7B1B2170CA00666254 /* Binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A791B2170CA00666254 /* Binding.cpp */; };
+		EFB35A7E1B2170D500666254 /* NativeMethod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A7C1B2170D500666254 /* NativeMethod.cpp */; };
+		EFB35A811B2170DC00666254 /* Real.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A7F1B2170DC00666254 /* Real.cpp */; };
+		EFB35A841B2170EB00666254 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A821B2170EB00666254 /* Symbol.cpp */; };
+		EFB35A871B2170F600666254 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A851B2170F600666254 /* Token.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,20 +51,21 @@
 		EFB35A571B1B7FB500666254 /* SExp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SExp.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A581B1B7FB500666254 /* Tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tokenizer.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A591B1B7FB500666254 /* Value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Value.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A611B1B9FFE00666254 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Symbol.cpp; path = ../Symbol.cpp; sourceTree = "<group>"; };
-		EFB35A621B1B9FFE00666254 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Symbol.h; path = ../Symbol.h; sourceTree = "<group>"; };
-		EFB35A651B1BA62C00666254 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Token.cpp; path = ../Token.cpp; sourceTree = "<group>"; };
-		EFB35A661B1BA62C00666254 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Token.h; path = ../Token.h; sourceTree = "<group>"; };
 		EFB35A681B1BA6B200666254 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A691B1BA6B200666254 /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Source.h; sourceTree = SOURCE_ROOT; };
 		EFB35A6C1B1BB9A500666254 /* Integer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Integer.cpp; sourceTree = SOURCE_ROOT; };
 		EFB35A6D1B1BB9A500666254 /* Integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Integer.h; sourceTree = SOURCE_ROOT; };
-		EFB35A6F1B1BC3CB00666254 /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Binding.cpp; path = ../Binding.cpp; sourceTree = "<group>"; };
-		EFB35A701B1BC3CB00666254 /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Binding.h; path = ../Binding.h; sourceTree = "<group>"; };
-		EFB35A721B1BC62400666254 /* NativeMethod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NativeMethod.cpp; path = ../../../Documents/NativeMethod.cpp; sourceTree = "<group>"; };
-		EFB35A731B1BC62400666254 /* NativeMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeMethod.h; path = ../../../Documents/NativeMethod.h; sourceTree = "<group>"; };
-		EFB35A751B1BEE3F00666254 /* Real.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Real.cpp; path = ../Real.cpp; sourceTree = "<group>"; };
-		EFB35A761B1BEE3F00666254 /* Real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Real.h; path = ../Real.h; sourceTree = "<group>"; };
+		EFB35A781B21700700666254 /* NativeMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeMethod.h; sourceTree = "<group>"; };
+		EFB35A791B2170CA00666254 /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binding.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A7A1B2170CA00666254 /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binding.h; sourceTree = SOURCE_ROOT; };
+		EFB35A7C1B2170D500666254 /* NativeMethod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NativeMethod.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A7D1B2170D500666254 /* NativeMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeMethod.h; sourceTree = SOURCE_ROOT; };
+		EFB35A7F1B2170DC00666254 /* Real.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Real.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A801B2170DC00666254 /* Real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Real.h; sourceTree = SOURCE_ROOT; };
+		EFB35A821B2170EB00666254 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Symbol.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A831B2170EB00666254 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = SOURCE_ROOT; };
+		EFB35A851B2170F600666254 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Token.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35A861B2170F600666254 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +82,7 @@
 		EFB35A381B1B7D2600666254 = {
 			isa = PBXGroup;
 			children = (
+				EFB35A781B21700700666254 /* NativeMethod.h */,
 				EFB35A451B1B7F5300666254 /* aise */,
 				EFB35A441B1B7F5300666254 /* Products */,
 			);
@@ -107,20 +109,18 @@
 		EFB35A641B1BA00D00666254 /* Values */ = {
 			isa = PBXGroup;
 			children = (
-				EFB35A761B1BEE3F00666254 /* Real.h */,
-				EFB35A751B1BEE3F00666254 /* Real.cpp */,
+				EFB35A7F1B2170DC00666254 /* Real.cpp */,
+				EFB35A801B2170DC00666254 /* Real.h */,
 				EFB35A501B1B7FB500666254 /* SExp.h */,
 				EFB35A571B1B7FB500666254 /* SExp.cpp */,
 				EFB35A521B1B7FB500666254 /* Value.h */,
 				EFB35A591B1B7FB500666254 /* Value.cpp */,
-				EFB35A621B1B9FFE00666254 /* Symbol.h */,
-				EFB35A611B1B9FFE00666254 /* Symbol.cpp */,
 				EFB35A4D1B1B7FB500666254 /* List.h */,
 				EFB35A551B1B7FB500666254 /* List.cpp */,
 				EFB35A6D1B1BB9A500666254 /* Integer.h */,
 				EFB35A6C1B1BB9A500666254 /* Integer.cpp */,
-				EFB35A731B1BC62400666254 /* NativeMethod.h */,
-				EFB35A721B1BC62400666254 /* NativeMethod.cpp */,
+				EFB35A821B2170EB00666254 /* Symbol.cpp */,
+				EFB35A831B2170EB00666254 /* Symbol.h */,
 			);
 			name = Values;
 			sourceTree = "<group>";
@@ -128,8 +128,10 @@
 		EFB35A6B1B1BB70D00666254 /* Runtime */ = {
 			isa = PBXGroup;
 			children = (
-				EFB35A701B1BC3CB00666254 /* Binding.h */,
-				EFB35A6F1B1BC3CB00666254 /* Binding.cpp */,
+				EFB35A7C1B2170D500666254 /* NativeMethod.cpp */,
+				EFB35A7D1B2170D500666254 /* NativeMethod.h */,
+				EFB35A791B2170CA00666254 /* Binding.cpp */,
+				EFB35A7A1B2170CA00666254 /* Binding.h */,
 				EFB35A4B1B1B7FB500666254 /* Aise.h */,
 				EFB35A4C1B1B7FB500666254 /* Environment.h */,
 				EFB35A541B1B7FB500666254 /* Environment.cpp */,
@@ -139,8 +141,8 @@
 				EFB35A581B1B7FB500666254 /* Tokenizer.cpp */,
 				EFB35A681B1BA6B200666254 /* Source.cpp */,
 				EFB35A691B1BA6B200666254 /* Source.h */,
-				EFB35A651B1BA62C00666254 /* Token.cpp */,
-				EFB35A661B1BA62C00666254 /* Token.h */,
+				EFB35A851B2170F600666254 /* Token.cpp */,
+				EFB35A861B2170F600666254 /* Token.h */,
 			);
 			name = Runtime;
 			sourceTree = "<group>";
@@ -201,17 +203,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				EFB35A5C1B1B7FB500666254 /* List.cpp in Sources */,
-				EFB35A631B1B9FFE00666254 /* Symbol.cpp in Sources */,
 				EFB35A5A1B1B7FB500666254 /* aise.cpp in Sources */,
-				EFB35A771B1BEE3F00666254 /* Real.cpp in Sources */,
 				EFB35A5D1B1B7FB500666254 /* Result.cpp in Sources */,
+				EFB35A871B2170F600666254 /* Token.cpp in Sources */,
+				EFB35A7E1B2170D500666254 /* NativeMethod.cpp in Sources */,
+				EFB35A7B1B2170CA00666254 /* Binding.cpp in Sources */,
 				EFB35A601B1B7FB500666254 /* Value.cpp in Sources */,
 				EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */,
 				EFB35A6E1B1BB9A500666254 /* Integer.cpp in Sources */,
-				EFB35A711B1BC3CB00666254 /* Binding.cpp in Sources */,
-				EFB35A741B1BC62400666254 /* NativeMethod.cpp in Sources */,
-				EFB35A671B1BA62C00666254 /* Token.cpp in Sources */,
+				EFB35A841B2170EB00666254 /* Symbol.cpp in Sources */,
 				EFB35A5B1B1B7FB500666254 /* Environment.cpp in Sources */,
+				EFB35A811B2170DC00666254 /* Real.cpp in Sources */,
 				EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */,
 				EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */,
 			);
