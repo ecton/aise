@@ -6,25 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		EFB35A5A1B1B7FB500666254 /* aise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A531B1B7FB500666254 /* aise.cpp */; };
-		EFB35A5B1B1B7FB500666254 /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A541B1B7FB500666254 /* Environment.cpp */; };
-		EFB35A5C1B1B7FB500666254 /* List.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A551B1B7FB500666254 /* List.cpp */; };
-		EFB35A5D1B1B7FB500666254 /* Result.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A561B1B7FB500666254 /* Result.cpp */; };
-		EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A571B1B7FB500666254 /* SExp.cpp */; };
-		EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A581B1B7FB500666254 /* Tokenizer.cpp */; };
-		EFB35A601B1B7FB500666254 /* Value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A591B1B7FB500666254 /* Value.cpp */; };
-		EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A681B1BA6B200666254 /* Source.cpp */; };
-		EFB35A6E1B1BB9A500666254 /* Integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A6C1B1BB9A500666254 /* Integer.cpp */; };
-		EFB35A7B1B2170CA00666254 /* Binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A791B2170CA00666254 /* Binding.cpp */; };
-		EFB35A7E1B2170D500666254 /* NativeMethod.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A7C1B2170D500666254 /* NativeMethod.cpp */; };
-		EFB35A811B2170DC00666254 /* Real.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A7F1B2170DC00666254 /* Real.cpp */; };
-		EFB35A841B2170EB00666254 /* Symbol.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A821B2170EB00666254 /* Symbol.cpp */; };
-		EFB35A871B2170F600666254 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A851B2170F600666254 /* Token.cpp */; };
-		EFB35A8A1B21D42500666254 /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A881B21D42500666254 /* Math.cpp */; };
-		EFB35A8E1B21E2DD00666254 /* MathTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35A8D1B21E2DD00666254 /* MathTests.cpp */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		EFB35A411B1B7F5300666254 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -39,38 +20,7 @@
 
 /* Begin PBXFileReference section */
 		EFB35A431B1B7F5300666254 /* aise */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = aise; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFB35A4B1B1B7FB500666254 /* Aise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aise.h; sourceTree = SOURCE_ROOT; };
-		EFB35A4C1B1B7FB500666254 /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Environment.h; sourceTree = SOURCE_ROOT; };
-		EFB35A4D1B1B7FB500666254 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = SOURCE_ROOT; };
-		EFB35A4F1B1B7FB500666254 /* Result.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Result.h; sourceTree = SOURCE_ROOT; };
-		EFB35A501B1B7FB500666254 /* SExp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SExp.h; sourceTree = SOURCE_ROOT; };
-		EFB35A511B1B7FB500666254 /* Tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tokenizer.h; sourceTree = SOURCE_ROOT; };
-		EFB35A521B1B7FB500666254 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = SOURCE_ROOT; };
-		EFB35A531B1B7FB500666254 /* aise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = aise.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A541B1B7FB500666254 /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Environment.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A551B1B7FB500666254 /* List.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = List.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A561B1B7FB500666254 /* Result.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Result.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A571B1B7FB500666254 /* SExp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SExp.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A581B1B7FB500666254 /* Tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tokenizer.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A591B1B7FB500666254 /* Value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Value.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A681B1BA6B200666254 /* Source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Source.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A691B1BA6B200666254 /* Source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Source.h; sourceTree = SOURCE_ROOT; };
-		EFB35A6C1B1BB9A500666254 /* Integer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Integer.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A6D1B1BB9A500666254 /* Integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Integer.h; sourceTree = SOURCE_ROOT; };
-		EFB35A791B2170CA00666254 /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binding.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A7A1B2170CA00666254 /* Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Binding.h; sourceTree = SOURCE_ROOT; };
-		EFB35A7C1B2170D500666254 /* NativeMethod.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NativeMethod.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A7D1B2170D500666254 /* NativeMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeMethod.h; sourceTree = SOURCE_ROOT; };
-		EFB35A7F1B2170DC00666254 /* Real.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Real.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A801B2170DC00666254 /* Real.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Real.h; sourceTree = SOURCE_ROOT; };
-		EFB35A821B2170EB00666254 /* Symbol.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Symbol.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A831B2170EB00666254 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = SOURCE_ROOT; };
-		EFB35A851B2170F600666254 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Token.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A861B2170F600666254 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = SOURCE_ROOT; };
-		EFB35A881B21D42500666254 /* Math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Math.cpp; sourceTree = SOURCE_ROOT; };
-		EFB35A891B21D42500666254 /* Math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Math.h; sourceTree = SOURCE_ROOT; };
-		EFB35A8B1B21DAA900666254 /* Catch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Catch.h; sourceTree = "<group>"; };
-		EFB35A8D1B21E2DD00666254 /* MathTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MathTests.cpp; sourceTree = SOURCE_ROOT; };
+		EFB35AC21B2206D000666254 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +37,7 @@
 		EFB35A381B1B7D2600666254 = {
 			isa = PBXGroup;
 			children = (
-				EFB35A8B1B21DAA900666254 /* Catch.h */,
-				EFB35A451B1B7F5300666254 /* aise */,
+				EFB35AC21B2206D000666254 /* src */,
 				EFB35A441B1B7F5300666254 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,68 +48,6 @@
 				EFB35A431B1B7F5300666254 /* aise */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		EFB35A451B1B7F5300666254 /* aise */ = {
-			isa = PBXGroup;
-			children = (
-				EFB35A8C1B21E2C400666254 /* Tests */,
-				EFB35A641B1BA00D00666254 /* Values */,
-				EFB35A6B1B1BB70D00666254 /* Runtime */,
-				EFB35A531B1B7FB500666254 /* aise.cpp */,
-			);
-			path = aise;
-			sourceTree = "<group>";
-		};
-		EFB35A641B1BA00D00666254 /* Values */ = {
-			isa = PBXGroup;
-			children = (
-				EFB35A7F1B2170DC00666254 /* Real.cpp */,
-				EFB35A801B2170DC00666254 /* Real.h */,
-				EFB35A501B1B7FB500666254 /* SExp.h */,
-				EFB35A571B1B7FB500666254 /* SExp.cpp */,
-				EFB35A521B1B7FB500666254 /* Value.h */,
-				EFB35A591B1B7FB500666254 /* Value.cpp */,
-				EFB35A4D1B1B7FB500666254 /* List.h */,
-				EFB35A551B1B7FB500666254 /* List.cpp */,
-				EFB35A6D1B1BB9A500666254 /* Integer.h */,
-				EFB35A6C1B1BB9A500666254 /* Integer.cpp */,
-				EFB35A821B2170EB00666254 /* Symbol.cpp */,
-				EFB35A831B2170EB00666254 /* Symbol.h */,
-			);
-			name = Values;
-			sourceTree = "<group>";
-		};
-		EFB35A6B1B1BB70D00666254 /* Runtime */ = {
-			isa = PBXGroup;
-			children = (
-				EFB35A7C1B2170D500666254 /* NativeMethod.cpp */,
-				EFB35A7D1B2170D500666254 /* NativeMethod.h */,
-				EFB35A791B2170CA00666254 /* Binding.cpp */,
-				EFB35A7A1B2170CA00666254 /* Binding.h */,
-				EFB35A4B1B1B7FB500666254 /* Aise.h */,
-				EFB35A4C1B1B7FB500666254 /* Environment.h */,
-				EFB35A541B1B7FB500666254 /* Environment.cpp */,
-				EFB35A4F1B1B7FB500666254 /* Result.h */,
-				EFB35A561B1B7FB500666254 /* Result.cpp */,
-				EFB35A511B1B7FB500666254 /* Tokenizer.h */,
-				EFB35A581B1B7FB500666254 /* Tokenizer.cpp */,
-				EFB35A681B1BA6B200666254 /* Source.cpp */,
-				EFB35A691B1BA6B200666254 /* Source.h */,
-				EFB35A851B2170F600666254 /* Token.cpp */,
-				EFB35A861B2170F600666254 /* Token.h */,
-				EFB35A881B21D42500666254 /* Math.cpp */,
-				EFB35A891B21D42500666254 /* Math.h */,
-			);
-			name = Runtime;
-			sourceTree = "<group>";
-		};
-		EFB35A8C1B21E2C400666254 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				EFB35A8D1B21E2DD00666254 /* MathTests.cpp */,
-			);
-			name = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,22 +105,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFB35A5C1B1B7FB500666254 /* List.cpp in Sources */,
-				EFB35A5A1B1B7FB500666254 /* aise.cpp in Sources */,
-				EFB35A5D1B1B7FB500666254 /* Result.cpp in Sources */,
-				EFB35A871B2170F600666254 /* Token.cpp in Sources */,
-				EFB35A7E1B2170D500666254 /* NativeMethod.cpp in Sources */,
-				EFB35A7B1B2170CA00666254 /* Binding.cpp in Sources */,
-				EFB35A601B1B7FB500666254 /* Value.cpp in Sources */,
-				EFB35A5F1B1B7FB500666254 /* Tokenizer.cpp in Sources */,
-				EFB35A6E1B1BB9A500666254 /* Integer.cpp in Sources */,
-				EFB35A8A1B21D42500666254 /* Math.cpp in Sources */,
-				EFB35A841B2170EB00666254 /* Symbol.cpp in Sources */,
-				EFB35A8E1B21E2DD00666254 /* MathTests.cpp in Sources */,
-				EFB35A5B1B1B7FB500666254 /* Environment.cpp in Sources */,
-				EFB35A811B2170DC00666254 /* Real.cpp in Sources */,
-				EFB35A6A1B1BA6B200666254 /* Source.cpp in Sources */,
-				EFB35A5E1B1B7FB500666254 /* SExp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
