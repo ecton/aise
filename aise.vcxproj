@@ -82,19 +82,33 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aise.h" />
+    <ClInclude Include="Binding.h" />
     <ClInclude Include="Environment.h" />
+    <ClInclude Include="Integer.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="NativeMethod.h" />
+    <ClInclude Include="Real.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="SExp.h" />
+    <ClInclude Include="Source.h" />
+    <ClInclude Include="Symbol.h" />
+    <ClInclude Include="Token.h" />
     <ClInclude Include="Tokenizer.h" />
     <ClInclude Include="Value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="aise.cpp" />
+    <ClCompile Include="Binding.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="Integer.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="NativeMethod.cpp" />
+    <ClCompile Include="Real.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SExp.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Symbol.cpp" />
+    <ClCompile Include="Token.cpp" />
     <ClCompile Include="Tokenizer.cpp" />
     <ClCompile Include="Value.cpp" />
   </ItemGroup>
