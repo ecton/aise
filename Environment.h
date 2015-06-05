@@ -23,12 +23,15 @@ namespace Aise {
 		void AddSource(std::string name, const std::string &src);
         // Evaluates a chunk of Aise source, including any sources previously added if needed
         ValuePtr Evaluate(const std::string &main);
+
+		BindingPtr EnterBinding();
+		void ExitBinding();
 	private:
         std::map<std::string, std::shared_ptr<Source>> mSources;
-        Binding mGlobals;
-        std::vector<std::shared_ptr<Binding>> mBindingStack;
+        std::vector<BindingPtr> mBindingStack;
+		BindingPtr Globals() { return mBindingStack[0]; }
         
         ValuePtr Parse(std::shared_ptr<Source> source);
-        ValuePtr Interpret(ValuePtr expression);
+        ValuePtr Interpret(BindingPtr binding, ValuePtr expression);
     };
 }

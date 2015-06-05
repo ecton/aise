@@ -5,53 +5,17 @@
 #include "Integer.h"
 #include "Real.h"
 #include "NativeMethod.h"
+#include "Math.h"
 
 #include <iostream>
 
 using namespace std;
 
 namespace Aise {
-    class PlusMethod : public NativeMethod::Implementation
-    {
-    public:
-        PlusMethod() { }
-        virtual ValuePtr Invoke(Environment *env, SExpPtr sexp) {
-            bool isReal = false;
-            long intValue = 0;
-            double realValue = 0;
-            SExpPtr current = dynamic_pointer_cast<SExp>(sexp->Right());
-            if (!current) throw "Unknown exp to plus";
-            
-            while (current) {
-                if (auto integer = dynamic_pointer_cast<Integer>(current->Left())) {
-                    if (isReal) {
-                        realValue += integer->Value();
-                    } else {
-                        intValue += integer->Value();
-                    }
-                } else if (auto real = dynamic_pointer_cast<Real>(current->Left())) {
-                    if (!isReal) {
-                        isReal = true;
-                        realValue = intValue;
-                    }
-                    realValue += real->Value();
-                } else {
-                    throw "Unknown lhs to plus";
-                }
-                current = dynamic_pointer_cast<SExp>(current->Right());
-            }
-            if (isReal) {
-                return ValuePtr(new Real(realValue));
-            } else {
-                return ValuePtr(new Integer(intValue));
-            }
-        }
-    };
-    
-    
 	Environment::Environment()
 	{
-        mGlobals.Assign("plus", ValuePtr(new NativeMethod("plus", new PlusMethod())));
+		mBindingStack.push_back(BindingPtr(new Binding(this)));
+		Math::Initialize(Globals());
 	}
 
 
@@ -64,16 +28,26 @@ namespace Aise {
 		mSources[name] = shared_ptr<Source>(new Source(name, StringPtr(new string(src))));
 	}
 
+	BindingPtr Environment::EnterBinding() {
+		BindingPtr newBinding = BindingPtr(new Binding(this));
+		mBindingStack.push_back(newBinding);
+		return newBinding;
+	}
+
+	void Environment::ExitBinding() {
+		mBindingStack.pop_back();
+	}
+
     ValuePtr Environment::Evaluate(const std::string &main)
 	{
         auto mainSource = shared_ptr<Source>(new Source("main", StringPtr(new string(main))));
         
         ValuePtr program = Parse(mainSource);
         
-        return Interpret(program);
+        return Interpret(Globals(), program);
 	}
     
-    ValuePtr Environment::Interpret(ValuePtr expression)
+    ValuePtr Environment::Interpret(BindingPtr binding, ValuePtr expression)
     {
         auto sexp = dynamic_pointer_cast<SExp>(expression);
         if (sexp) {
@@ -81,10 +55,10 @@ namespace Aise {
             auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
             if (!lval) throw "Unknown lval";
             
-            auto method = dynamic_pointer_cast<NativeMethod>(mGlobals.Get(lval->Token()->String()));
+            auto method = dynamic_pointer_cast<NativeMethod>(Globals()->Get(lval->Token()->String()));
             
             if (method) {
-                return method->Invoke(this, sexp);
+                return method->Invoke(binding, sexp);
             } else {
                 throw "Unknown result from binding lookup.";
             }

@@ -11,9 +11,9 @@ using namespace std;
 namespace Aise {
     Tokenizer::Tokenizer(shared_ptr<Source> source) : mPosition(-1)
 	{
-        int pos = 0;
-        int lineStart = 0;
-        int lineNum = 1;
+        size_t pos = 0;
+		size_t lineStart = 0;
+		size_t lineNum = 1;
         const string *src = source->Src().get();
         
         while (pos < src->length()) {
@@ -27,14 +27,14 @@ namespace Aise {
                 lineStart = pos;
                 lineNum++;
             } else if (IS_IDENTIFIER(src->at(pos))) {
-                int start = pos;
+				size_t start = pos;
                 while (pos < src->length() && (IS_IDENTIFIER(src->at(pos)) || IS_NUMERIC(src->at(pos)))) {
                     pos++;
                 }
                 mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_IDENTIFIER, source, start, pos - start, lineNum, pos - lineStart)));
             } else if (IS_NUMERIC(src->at(pos)) ||
                        (src->at(pos) == '-' && pos + 1 < src->length() && IS_NUMERIC(src->at(pos + 1)))) {
-                int start = pos;
+				size_t start = pos;
                 pos++;
                 // Handle the integer part
                 while (pos < src->length() && IS_NUMERIC(src->at(pos))) {
@@ -72,7 +72,7 @@ namespace Aise {
         return mTokens.at(mPosition);
     }
     
-    shared_ptr<Token> Tokenizer::Peek(int offset) {
+	shared_ptr<Token> Tokenizer::Peek(size_t offset) {
         return mTokens[mPosition + offset];
     }
 

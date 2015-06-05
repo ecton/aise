@@ -53,6 +53,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -69,6 +70,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -86,6 +88,7 @@
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Integer.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="NativeMethod.h" />
     <ClInclude Include="Real.h" />
     <ClInclude Include="Result.h" />
@@ -102,6 +105,7 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Integer.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="NativeMethod.cpp" />
     <ClCompile Include="Real.cpp" />
     <ClCompile Include="Result.cpp" />
