@@ -52,8 +52,15 @@ namespace Aise {
         auto sexp = dynamic_pointer_cast<SExp>(expression);
         if (sexp) {
             // Reduce the sexp by evaluating it
+			// If it's another sexp, we should evaluate it and replace it
+			auto innerSexp = dynamic_pointer_cast<SExp>(sexp->Left());
+			if (innerSexp) {
+				return ValuePtr(new SExp(Interpret(binding, sexp->Left()), Interpret(binding, sexp->Right())));
+			}
+			
             auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
-            if (!lval) throw "Unknown lval";
+			// If it's not a method, we can't simplify further
+			if (!lval) return expression;
             
             auto method = dynamic_pointer_cast<NativeMethod>(Globals()->Get(lval->Token()->String()));
             
@@ -67,24 +74,42 @@ namespace Aise {
             return expression;
         }
     }
+
+	class SExpStackEntry
+	{
+	public:
+		ValuePtr root;
+		ValuePtr current;
+	};
     
     ValuePtr Environment::Parse(shared_ptr<Source> source)
     {
         cout << "Parsing: " << *source->Src() << endl;
         auto tokens = Tokenizer(source);
-        vector<ValuePtr> leftStack;
-        ValuePtr main;
+        vector<SExpStackEntry *> stack;
+		ValuePtr main = { 0 };
         
         while (!tokens.EndOfInput()) {
             auto token = tokens.Next();
             if (token->Type() == Token::TYPE_OPEN_PAREN) {
                 // Create a new SExp to contain the insides of these parentheses.
-                leftStack.push_back(ValuePtr(NULL));
-            } else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
-                leftStack.pop_back();
+				stack.push_back(new SExpStackEntry());
+			}
+			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
+				auto terminated = stack[stack.size() - 1];
+				stack.pop_back();
+				if (stack.size() > 0) {
+					auto entry = stack[stack.size() - 1];
+					auto insertion = ValuePtr(new SExp(terminated->root, ValuePtr(NULL)));
+					auto insertAt = dynamic_pointer_cast<SExp>(entry->current);
+					insertAt->ReplaceRight(insertion);
+					entry->current = insertion;
+				}
+				delete terminated;
             } else if (Token::TypeIsLiteral(token->Type())) {
-                if (leftStack.size() == 0) throw "TODO: Empty left stack";
-                ValuePtr current = leftStack[leftStack.size() - 1];
+                if (stack.size() == 0) throw "TODO: Empty left stack";
+				auto entry = stack[stack.size() - 1];
+
                 ValuePtr literal;
                 switch (token->Type()) {
                     case Token::TYPE_INTEGER: {
@@ -100,14 +125,17 @@ namespace Aise {
                         throw "Unhandled token type.";
                 }
                 ValuePtr newSExp = ValuePtr(new SExp(literal, ValuePtr(NULL)));
-                if (current == NULL) {
-                    if (main != NULL) throw "TODO: Already have a main entry";
-                    main = newSExp;
-                } else {
-                    auto sexp = static_pointer_cast<SExp>(current);
-                    sexp->ReplaceRight(newSExp);
-                }
-                leftStack[leftStack.size() - 1] = newSExp;
+				if (entry->root == NULL) {
+					entry->root = newSExp;
+					if (main == NULL) {
+						main = newSExp;
+					}
+				}
+				else {
+					auto current = dynamic_pointer_cast<SExp>(entry->current);
+					current->ReplaceRight(newSExp);
+				}
+				entry->current = newSExp;
             }
         }
         

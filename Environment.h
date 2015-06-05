@@ -26,12 +26,12 @@ namespace Aise {
 
 		BindingPtr EnterBinding();
 		void ExitBinding();
+		ValuePtr Interpret(BindingPtr binding, ValuePtr expression);
 	private:
         std::map<std::string, std::shared_ptr<Source>> mSources;
         std::vector<BindingPtr> mBindingStack;
 		BindingPtr Globals() { return mBindingStack[0]; }
         
         ValuePtr Parse(std::shared_ptr<Source> source);
-        ValuePtr Interpret(BindingPtr binding, ValuePtr expression);
     };
 }

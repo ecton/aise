@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
 	cout << "Running" << endl;
 
     auto env = new Aise::Environment();
-    Aise::ValuePtr result = env->Evaluate("(plus 1 2 3 4 5)");
+    Aise::ValuePtr result = env->Evaluate("(add 1 (subtract 2 3) 4 5)");
     cout << "Result: " << result->Description() << endl;
 	getchar();
 
