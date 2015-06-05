@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include "Environment.h"
+#define CATCH_CONFIG_RUNNER
+#include "Catch.h"
 
 //#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 //#define ARGVTYPE wchar_t
@@ -17,12 +19,18 @@ using namespace std;
 int main(int argc, const char *argv[])
 {
 	cout << "Running" << endl;
-
-    auto env = new Aise::Environment();
-    Aise::ValuePtr result = env->Evaluate("(add 1 (subtract 2 3) 4 5)");
-    cout << "Result: " << result->Description() << endl;
-	getchar();
-
-	return 0;
+    
+    return Catch::Session().run();
+    
+//    auto env = new Aise::Environment();
+//    Aise::Result result = env->Evaluate(")(add 1 (subtract 2 3) (power 4 5))");
+//    if (result.Error()) {
+//        cout << "Error: " << result.ErrorMessage() << " at " << result.Value()->Description() << endl;
+//    } else {
+//        cout << "Result: " << result.Value()->Description() << endl;
+//    }
+//	getchar();
+//
+//	return 0;
 }
 

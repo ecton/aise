@@ -28,16 +28,16 @@ namespace Aise {
         }
         
         TokenType Type() { return mType; }
-        Token(TokenType type, std::shared_ptr<Source> src, int offset, int length, int line, int col)
+        Token(TokenType type, std::shared_ptr<Source> src, size_t offset, size_t length, size_t line, size_t col)
         : mType(type), mSrc(src), mOffset(offset), mLength(length), mLine(line), mCol(col) { }
         
-        int Offset() { return mOffset; }
-        int Length() { return mLength; }
-        int Line() { return mLine; }
-        int Column() { return mCol; }
+        size_t Offset() { return mOffset; }
+        size_t Length() { return mLength; }
+        size_t Line() { return mLine; }
+        size_t Column() { return mCol; }
         std::string String() { return mSrc->Src()->substr(mOffset, mLength); }
     private:
-        int mOffset, mLength, mLine, mCol;
+        size_t mOffset, mLength, mLine, mCol;
         std::shared_ptr<Source> mSrc;
         TokenType mType;
     };

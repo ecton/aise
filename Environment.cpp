@@ -38,16 +38,17 @@ namespace Aise {
 		mBindingStack.pop_back();
 	}
 
-    ValuePtr Environment::Evaluate(const std::string &main)
+    Result Environment::Evaluate(const std::string &main)
 	{
         auto mainSource = shared_ptr<Source>(new Source("main", StringPtr(new string(main))));
         
-        ValuePtr program = Parse(mainSource);
+        Result program = Parse(mainSource);
+        if (program.Error()) return program;
         
-        return Interpret(Globals(), program);
+        return Interpret(Globals(), program.Value());
 	}
     
-    ValuePtr Environment::Interpret(BindingPtr binding, ValuePtr expression)
+    Result Environment::Interpret(BindingPtr binding, ValuePtr expression)
     {
         auto sexp = dynamic_pointer_cast<SExp>(expression);
         if (sexp) {
@@ -55,23 +56,29 @@ namespace Aise {
 			// If it's another sexp, we should evaluate it and replace it
 			auto innerSexp = dynamic_pointer_cast<SExp>(sexp->Left());
 			if (innerSexp) {
-				return ValuePtr(new SExp(Interpret(binding, sexp->Left()), Interpret(binding, sexp->Right())));
+                auto left = Interpret(binding, sexp->Left());
+                if (left.Error()) return left;
+                
+                auto right = Interpret(binding, sexp->Right());
+                if (right.Error()) return right;
+                
+				return Result(ValuePtr(new SExp(left.Value(), right.Value())));
 			}
 			
             auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
 			// If it's not a method, we can't simplify further
-			if (!lval) return expression;
+			if (!lval) return Result(expression);
             
             auto method = dynamic_pointer_cast<NativeMethod>(Globals()->Get(lval->Token()->String()));
             
             if (method) {
                 return method->Invoke(binding, sexp);
             } else {
-                throw "Unknown result from binding lookup.";
+                return Result("Unknown result from binding lookup.", sexp->Left());
             }
         } else {
             // Already a fundamental type, that's the result
-            return expression;
+            return Result(expression);
         }
     }
 
@@ -82,7 +89,7 @@ namespace Aise {
 		ValuePtr current;
 	};
     
-    ValuePtr Environment::Parse(shared_ptr<Source> source)
+    Result Environment::Parse(shared_ptr<Source> source)
     {
         cout << "Parsing: " << *source->Src() << endl;
         auto tokens = Tokenizer(source);
@@ -96,6 +103,8 @@ namespace Aise {
 				stack.push_back(new SExpStackEntry());
 			}
 			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
+                if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(token)));
+                
 				auto terminated = stack[stack.size() - 1];
 				stack.pop_back();
 				if (stack.size() > 0) {
@@ -107,7 +116,7 @@ namespace Aise {
 				}
 				delete terminated;
             } else if (Token::TypeIsLiteral(token->Type())) {
-                if (stack.size() == 0) throw "TODO: Empty left stack";
+                if (stack.size() == 0) return Result("Parse Error: Literal value not inside of an s-expression.", ValuePtr(new Symbol(token)));
 				auto entry = stack[stack.size() - 1];
 
                 ValuePtr literal;
@@ -122,7 +131,7 @@ namespace Aise {
                         literal = ValuePtr(new Symbol(token));
                     } break;
                     default:
-                        throw "Unhandled token type.";
+                        return Result("Parse Error: Unknown literal type", ValuePtr(new Symbol(token)));
                 }
                 ValuePtr newSExp = ValuePtr(new SExp(literal, ValuePtr(NULL)));
 				if (entry->root == NULL) {

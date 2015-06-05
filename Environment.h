@@ -4,6 +4,7 @@
 #include <map>
 #include "Source.h"
 #include "Binding.h"
+#include "Result.h"
 
 namespace Aise {
     /* Aise interpretter class
@@ -22,16 +23,16 @@ namespace Aise {
         // Adds a chunk of Aise source, and associates it with a name to be loaded from
 		void AddSource(std::string name, const std::string &src);
         // Evaluates a chunk of Aise source, including any sources previously added if needed
-        ValuePtr Evaluate(const std::string &main);
+        Result Evaluate(const std::string &main);
 
 		BindingPtr EnterBinding();
 		void ExitBinding();
-		ValuePtr Interpret(BindingPtr binding, ValuePtr expression);
+		Result Interpret(BindingPtr binding, ValuePtr expression);
 	private:
         std::map<std::string, std::shared_ptr<Source>> mSources;
         std::vector<BindingPtr> mBindingStack;
 		BindingPtr Globals() { return mBindingStack[0]; }
         
-        ValuePtr Parse(std::shared_ptr<Source> source);
+        Result Parse(std::shared_ptr<Source> source);
     };
 }
