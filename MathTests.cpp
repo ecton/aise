@@ -158,3 +158,79 @@ TEST_CASE("Simple Division Start Real add Integer", "[math][division]") {
     REQUIRE( value );
     REQUIRE( value->Value() == Approx(1.55) );
 }
+
+#pragma mark Simple Powers
+
+TEST_CASE("Simple Powers", "[math][power]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(power 3 2)");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Integer>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == 9);
+}
+
+TEST_CASE("Simple Powers All Real", "[math][power]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(power 3.3 1.1)");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Real>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == Approx(3.718479) );
+}
+
+TEST_CASE("Simple Powers Start Integer Result Real", "[math][power]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(power 2 1.5)");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Real>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == Approx(2.828427) );
+}
+
+TEST_CASE("Simple Powers Start Real add Integer", "[math][power]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(power 3.1 2)");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Real>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == Approx(9.61) );
+}
+
+#pragma mark Expressions
+
+TEST_CASE("Expressions - Literal first, function second", "[math][expressions]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(add 1 (subtract 3 2))");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Integer>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == 2);
+}
+
+TEST_CASE("Expressions - Funciton first, literal second", "[math][expressions]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(add (subtract 3 2) 1)");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Integer>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == 2);
+}
+
+TEST_CASE("Expressions - Funciton first, function second", "[math][expressions]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(add (subtract 3 2) (subtract 5 2))");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Integer>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == 4);
+}
+
+TEST_CASE("Expressions - Multiple Nests, function second", "[math][expressions]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(add (subtract (power 2 2) 2) (subtract 5 2))");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Integer>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() == 5);
+}
