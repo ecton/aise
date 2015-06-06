@@ -12,9 +12,13 @@
 namespace Aise {
     Binding::Binding(Aise::Environment *environment) : mEnvironment(environment) { }
     
-    Result Binding::Interpret(ValuePtr expression)
+	Result Binding::Interpret(ValuePtr expression, bool simplify)
     {
-        return mEnvironment->Interpret(shared_from_this(), expression);
+		Result result = mEnvironment->Interpret(shared_from_this(), expression);
+		if (simplify && !result.Error()) {
+			return Value::Simplify(result.Value());
+		}
+		return result;
     }
     
     void Binding::Assign(std::string name, ValuePtr value) {

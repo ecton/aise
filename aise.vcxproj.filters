@@ -137,6 +137,9 @@
     <ClCompile Include="src\runtime\Arithmetic.cpp">
       <Filter>runtime</Filter>
     </ClCompile>
+    <ClCompile Include="src\FlowTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="interpretter">

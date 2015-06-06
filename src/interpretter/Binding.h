@@ -21,7 +21,7 @@ namespace Aise {
         ValuePtr Get(std::string name);
 
         Aise::Environment *Environment() { return mEnvironment; }
-        Result Interpret(ValuePtr expression);
+        Result Interpret(ValuePtr expression, bool simplify = false);
     private:
         Aise::Environment *mEnvironment;
 		std::unordered_map<std::string, ValuePtr> mTable;

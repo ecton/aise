@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\aise.cpp" />
+    <ClCompile Include="src\FlowTests.cpp" />
     <ClCompile Include="src\interpretter\Binding.cpp" />
     <ClCompile Include="src\interpretter\Environment.cpp" />
     <ClCompile Include="src\interpretter\Result.cpp" />
