@@ -222,3 +222,8 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+
+# Gcc make:
+*.o
+.depend
+aise
