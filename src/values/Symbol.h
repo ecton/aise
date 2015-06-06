@@ -7,12 +7,12 @@ namespace Aise {
     class Symbol : public Value
     {
     public:
-        Symbol(std::shared_ptr<Token> token);
+        Symbol(std::shared_ptr<Aise::Token> token);
         virtual ~Symbol();
         
         virtual std::string Description();
         
-        std::shared_ptr<Token> Token() { return mToken; }
+        std::shared_ptr<Aise::Token> Token() { return mToken; }
         std::string String() { return mToken->String(); }
     private:
         std::shared_ptr<Aise::Token> mToken;
