@@ -20,7 +20,11 @@ namespace Aise
 				sexp = dynamic_pointer_cast<SExp>(next);
 				if (next && !sexp) return Result("Only SExpressions can be passed to do", next);
 			}
-			return lastResult;
+			if (lastResult.Error()) return lastResult;
+
+			// If not an error, we'll have the result in an sexpression like (result <null>).
+			// Let's return the simple value
+			return Value::Simplify(lastResult.Value());
 		}
 	};
 

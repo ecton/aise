@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-#include "Math.h"
+#include "Arithmetic.h"
 #include "Logic.h"
 #include "Functions.h"
 #include "Flow.h"
@@ -22,7 +22,7 @@ namespace Aise {
 		mBindingStack.push_back(BindingPtr(new Binding(this)));
         Globals()->Assign("true", ValuePtr(new Boolean(true)));
         Globals()->Assign("false", ValuePtr(new Boolean(false)));
-		Math::Initialize(Globals());
+		Arithmetic::Initialize(Globals());
         Logic::Initialize(Globals());
 		Functions::Initialize(Globals());
 		Flow::Initialize(Globals());

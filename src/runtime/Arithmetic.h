@@ -3,7 +3,7 @@
 #include "Environment.h"
 
 namespace Aise {
-	class Math
+	class Arithmetic
 	{
 	public:
 		static void Initialize(BindingPtr binding);

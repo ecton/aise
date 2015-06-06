@@ -1,4 +1,4 @@
-#include "Math.h"
+#include "Arithmetic.h"
 #include "NativeFunction.h"
 #include "Integer.h"
 #include "Real.h"
@@ -137,7 +137,7 @@ namespace Aise
         }
     };
 
-	void Math::Initialize(BindingPtr binding)
+	void Arithmetic::Initialize(BindingPtr binding)
 	{
 		NativeFunction::Initialize(binding, "add", new PlusFunction());
         NativeFunction::Initialize(binding, "subtract", new SubtractFunction());

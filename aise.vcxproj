@@ -12,52 +12,53 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Aise.h" />
-    <ClInclude Include="src\Binding.h" />
-    <ClInclude Include="src\Boolean.h" />
-    <ClInclude Include="src\Catch.h" />
-    <ClInclude Include="src\Environment.h" />
-    <ClInclude Include="src\Flow.h" />
-    <ClInclude Include="src\Integer.h" />
-    <ClInclude Include="src\InterprettedFunction.h" />
-    <ClInclude Include="src\List.h" />
-    <ClInclude Include="src\Logic.h" />
-    <ClInclude Include="src\Math.h" />
-    <ClInclude Include="src\Function.h" />
-    <ClInclude Include="src\Functions.h" />
-    <ClInclude Include="src\NativeFunction.h" />
-    <ClInclude Include="src\Real.h" />
-    <ClInclude Include="src\Result.h" />
-    <ClInclude Include="src\SExp.h" />
-    <ClInclude Include="src\Source.h" />
-    <ClInclude Include="src\Symbol.h" />
-    <ClInclude Include="src\Token.h" />
-    <ClInclude Include="src\Tokenizer.h" />
-    <ClInclude Include="src\Value.h" />
+    <ClInclude Include="src\interpretter\Binding.h" />
+    <ClInclude Include="src\interpretter\Environment.h" />
+    <ClInclude Include="src\interpretter\Result.h" />
+    <ClInclude Include="src\interpretter\Source.h" />
+    <ClInclude Include="src\interpretter\Token.h" />
+    <ClInclude Include="src\interpretter\Tokenizer.h" />
+    <ClInclude Include="src\runtime\Flow.h" />
+    <ClInclude Include="src\runtime\Functions.h" />
+    <ClInclude Include="src\runtime\Logic.h" />
+    <ClInclude Include="src\runtime\Arithmetic.h" />
+    <ClInclude Include="src\tests\Catch.h" />
+    <ClInclude Include="src\values\Boolean.h" />
+    <ClInclude Include="src\values\Function.h" />
+    <ClInclude Include="src\values\Integer.h" />
+    <ClInclude Include="src\values\InterprettedFunction.h" />
+    <ClInclude Include="src\values\List.h" />
+    <ClInclude Include="src\values\NativeFunction.h" />
+    <ClInclude Include="src\values\Real.h" />
+    <ClInclude Include="src\values\SExp.h" />
+    <ClInclude Include="src\values\Symbol.h" />
+    <ClInclude Include="src\values\Value.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\aise.cpp" />
-    <ClCompile Include="src\Binding.cpp" />
-    <ClCompile Include="src\Boolean.cpp" />
-    <ClCompile Include="src\Environment.cpp" />
-    <ClCompile Include="src\Flow.cpp" />
-    <ClCompile Include="src\Integer.cpp" />
-    <ClCompile Include="src\InterprettedFunction.cpp" />
-    <ClCompile Include="src\List.cpp" />
-    <ClCompile Include="src\Logic.cpp" />
-    <ClCompile Include="src\LogicTests.cpp" />
-    <ClCompile Include="src\Math.cpp" />
-    <ClCompile Include="src\MathTests.cpp" />
-    <ClCompile Include="src\Function.cpp" />
-    <ClCompile Include="src\Functions.cpp" />
-    <ClCompile Include="src\NativeFunction.cpp" />
-    <ClCompile Include="src\Real.cpp" />
-    <ClCompile Include="src\Result.cpp" />
-    <ClCompile Include="src\SExp.cpp" />
-    <ClCompile Include="src\Source.cpp" />
-    <ClCompile Include="src\Symbol.cpp" />
-    <ClCompile Include="src\Token.cpp" />
-    <ClCompile Include="src\Tokenizer.cpp" />
-    <ClCompile Include="src\Value.cpp" />
+    <ClCompile Include="src\interpretter\Binding.cpp" />
+    <ClCompile Include="src\interpretter\Environment.cpp" />
+    <ClCompile Include="src\interpretter\Result.cpp" />
+    <ClCompile Include="src\interpretter\Source.cpp" />
+    <ClCompile Include="src\interpretter\Token.cpp" />
+    <ClCompile Include="src\interpretter\Tokenizer.cpp" />
+    <ClCompile Include="src\runtime\Flow.cpp" />
+    <ClCompile Include="src\runtime\Functions.cpp" />
+    <ClCompile Include="src\runtime\Logic.cpp" />
+    <ClCompile Include="src\runtime\Arithmetic.cpp" />
+    <ClCompile Include="src\tests\FunctionTests.cpp" />
+    <ClCompile Include="src\tests\LogicTests.cpp" />
+    <ClCompile Include="src\tests\MathTests.cpp" />
+    <ClCompile Include="src\values\Boolean.cpp" />
+    <ClCompile Include="src\values\Function.cpp" />
+    <ClCompile Include="src\values\Integer.cpp" />
+    <ClCompile Include="src\values\InterprettedFunction.cpp" />
+    <ClCompile Include="src\values\List.cpp" />
+    <ClCompile Include="src\values\NativeFunction.cpp" />
+    <ClCompile Include="src\values\Real.cpp" />
+    <ClCompile Include="src\values\SExp.cpp" />
+    <ClCompile Include="src\values\Symbol.cpp" />
+    <ClCompile Include="src\values\Value.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{944E9422-DA3E-4DEB-BE6F-3CA8E737AE0B}</ProjectGuid>
@@ -103,8 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/src/interpretter;$(ProjectDir)/src/runtime;$(ProjectDir)/src;$(ProjectDir)/src/values;$(ProjectDir)/src/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,8 +122,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)/src/interpretter;$(ProjectDir)/src/runtime;$(ProjectDir)/src;$(ProjectDir)/src/values;$(ProjectDir)/src/tests;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
