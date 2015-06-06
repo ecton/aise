@@ -3,6 +3,7 @@
 #include "Environment.h"
 #include "Integer.h"
 #include "Real.h"
+#include "Boolean.h"
 
 using namespace std;
 using namespace Aise;
@@ -233,4 +234,24 @@ TEST_CASE("Expressions - Multiple Nests, function second", "[math][expressions]"
     auto value = dynamic_pointer_cast<Integer>(result.Value());
     REQUIRE( value );
     REQUIRE( value->Value() == 5);
+}
+
+#pragma mark Real Edges
+
+TEST_CASE("Real Edges - infinity", "[math][infinity]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(infinity? (divide 1.0 0))");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Boolean>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() );
+}
+
+TEST_CASE("Real Edges - not a number", "[math][nan]") {
+    auto env = new Aise::Environment();
+    Aise::Result result = env->Evaluate("(nan? (divide 0.0 0.0))");
+    REQUIRE( result.Error() == false );
+    auto value = dynamic_pointer_cast<Boolean>(result.Value());
+    REQUIRE( value );
+    REQUIRE( value->Value() );
 }

@@ -3,25 +3,27 @@
 #include "Aise.h"
 #include "Value.h"
 #include <unordered_map>
+#include "Result.h"
 
 
 namespace Aise {
 	class Environment;
 
-    class Binding
+    class Binding : public std::enable_shared_from_this<Binding>
     {
     public:
         // Standard constructor
-        Binding(Environment *environment) : mEnvironment(environment) { }
+        Binding(Environment *environment);
         // Standard Destructor
         virtual ~Binding() { }
         
         void Assign(std::string name, ValuePtr value);
         ValuePtr Get(std::string name);
 
-		Environment *Environment() { return mEnvironment; }
+        Aise::Environment *Environment() { return mEnvironment; }
+        Result Interpret(ValuePtr expression);
     private:
-		class Environment *mEnvironment;
+        Aise::Environment *mEnvironment;
 		std::unordered_map<std::string, ValuePtr> mTable;
     };
 

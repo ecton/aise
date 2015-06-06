@@ -4,17 +4,19 @@
 #include "Value.h"
 
 namespace Aise {
-    class Symbol : public Value
+    class Boolean : public Value
     {
     public:
-        Symbol(std::shared_ptr<Token> token);
-        virtual ~Symbol();
+        Boolean(std::shared_ptr<Token> token);
+        Boolean(bool value) : mValue(value) { }
+        virtual ~Boolean() { }
         
         virtual std::string Description();
         
         std::shared_ptr<Token> Token() { return mToken; }
-        std::string String() { return mToken->String(); }
+        long Value() { return mValue; }
     private:
         std::shared_ptr<Aise::Token> mToken;
+        bool mValue;
     };
 }

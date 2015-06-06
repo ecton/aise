@@ -5,6 +5,8 @@
 #include "Source.h"
 #include "Binding.h"
 #include "Result.h"
+#include "Symbol.h"
+#include "SExp.h"
 
 namespace Aise {
     /* Aise interpretter class
@@ -28,11 +30,17 @@ namespace Aise {
 		BindingPtr EnterBinding();
 		void ExitBinding();
 		Result Interpret(BindingPtr binding, ValuePtr expression);
+        
+        ValuePtr TrueValue();
+        ValuePtr FalseValue();
 	private:
         std::map<std::string, std::shared_ptr<Source>> mSources;
         std::vector<BindingPtr> mBindingStack;
 		BindingPtr Globals() { return mBindingStack[0]; }
         
         Result Parse(std::shared_ptr<Source> source);
+        Result Invoke(BindingPtr binding, ValuePtr method, SExpPtr expression);
+        Result LookupAndInvoke(BindingPtr binding, std::shared_ptr<Symbol> symbol, SExpPtr expression);
+        Result Lookup(BindingPtr binding, std::shared_ptr<Symbol> symbol, ValuePtr expression);
     };
 }

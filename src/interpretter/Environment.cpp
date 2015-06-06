@@ -5,9 +5,12 @@
 #include "Integer.h"
 #include "Real.h"
 #include "NativeMethod.h"
-#include "Math.h"
+#include "Boolean.h"
 
 #include <iostream>
+
+#include "Math.h"
+#include "Logic.h"
 
 using namespace std;
 
@@ -15,13 +18,23 @@ namespace Aise {
 	Environment::Environment()
 	{
 		mBindingStack.push_back(BindingPtr(new Binding(this)));
+        Globals()->Assign("true", ValuePtr(new Boolean(true)));
+        Globals()->Assign("false", ValuePtr(new Boolean(false)));
 		Math::Initialize(Globals());
+        Logic::Initialize(Globals());
 	}
-
 
 	Environment::~Environment()
 	{
 	}
+    
+    ValuePtr Environment::TrueValue() {
+        return Globals()->Get("true");
+    }
+    
+    ValuePtr Environment::FalseValue() {
+        return Globals()->Get("false");
+    }
 
 	void Environment::AddSource(string name, const std::string &src)
 	{
@@ -48,6 +61,45 @@ namespace Aise {
         return Interpret(Globals(), program.Value());
 	}
     
+    Result Environment::Invoke(BindingPtr binding, ValuePtr lookup, SExpPtr expression)
+    {
+        auto method = dynamic_pointer_cast<Method>(lookup);
+        if (method) {
+            return method->Invoke(binding, expression);
+        }
+        return Result(lookup);
+    }
+    
+    Result Environment::LookupAndInvoke(BindingPtr binding, shared_ptr<Symbol> symbol, SExpPtr expression)
+    {
+        auto value = binding->Get(symbol->String());
+        if (value) {
+            return Invoke(binding, value, expression);
+        }
+        if (binding != Globals()) {
+            value = Globals()->Get(symbol->String());
+            if (value) {
+                return Invoke(binding, value, expression);
+            }
+        }
+        return Result("Unknown reference", expression);
+    }
+    
+    Result Environment::Lookup(BindingPtr binding, shared_ptr<Symbol> symbol, ValuePtr expression)
+    {
+        auto value = binding->Get(symbol->String());
+        if (value) {
+            return Result(value);
+        }
+        if (binding != Globals()) {
+            value = Globals()->Get(symbol->String());
+            if (value) {
+                return Result(value);
+            }
+        }
+        return Result("Unknown reference", expression);
+    }
+    
     Result Environment::Interpret(BindingPtr binding, ValuePtr expression)
     {
         auto sexp = dynamic_pointer_cast<SExp>(expression);
@@ -69,13 +121,9 @@ namespace Aise {
 			// If it's not a method, we can't simplify further
 			if (!lval) return Result(expression);
             
-            auto method = dynamic_pointer_cast<NativeMethod>(Globals()->Get(lval->Token()->String()));
-            
-            if (method) {
-                return method->Invoke(binding, sexp);
-            } else {
-                return Result("Unknown result from binding lookup.", sexp->Left());
-            }
+            return LookupAndInvoke(binding, lval, sexp);
+        } else if (auto symbol = dynamic_pointer_cast<Symbol>(expression)) {
+            return Lookup(binding, symbol, expression);
         } else {
             // Already a fundamental type, that's the result
             return Result(expression);

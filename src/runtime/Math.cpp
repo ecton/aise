@@ -2,12 +2,14 @@
 #include "NativeMethod.h"
 #include "Integer.h"
 #include "Real.h"
+#include <math.h>
+#include "Boolean.h"
 
 using namespace std;
 
 namespace Aise
 {
-	class AssociativeMathMethod : public NativeMethod::Implementation
+	class AssociativeMathMethod : public NativeMethod::VariableArgumentMethodImplementation
 	{
 	public:
 		AssociativeMathMethod() { }
@@ -25,55 +27,45 @@ namespace Aise
             Result error;
 		};
 
-		MathResult GetValue(BindingPtr binding, ValuePtr value, bool firstPass = true)
+		MathResult GetValue(BindingPtr binding, ValuePtr value)
 		{
-			if (auto integer = dynamic_pointer_cast<Integer>(value)) {
+            Result result = binding->Interpret(value);
+            if (result.Error()) return result;
+            
+			if (auto integer = dynamic_pointer_cast<Integer>(result.Value())) {
 				return MathResult(integer->Value());
 			}
-			else if (auto real = dynamic_pointer_cast<Real>(value)) {
+			else if (auto real = dynamic_pointer_cast<Real>(result.Value())) {
 				return MathResult(real->Value());
 			}
 			else {
-				if (!firstPass) throw "Unknown argument to math function";
-                
-                auto result = binding->Environment()->Interpret(binding, value);
-                if (result.Error()) return MathResult(result);
-
-                return GetValue(binding, result.Value(), false);
+				return MathResult(Result("Unknown argument to math function", value));
 			}
 		}
 
-		virtual ValuePtr Invoke(BindingPtr binding, SExpPtr sexp) {
-			MathResult result = MathResult(0L);
-			bool isFirst = true;
-			SExpPtr current = dynamic_pointer_cast<SExp>(sexp->Right());
-			if (!current) throw "Unknown exp to plus";
-
-			while (current) {
-				MathResult evaluated = GetValue(binding, current->Left());
-				if (isFirst) {
-					result = evaluated;
-					isFirst = false;
-				}
-				else if (evaluated.isReal) {
-					if (!result.isReal) {
-						result.isReal = true;
-						result.realValue = result.intValue;
-					}
-					result.realValue = Operate(result.realValue, evaluated.realValue);
-				}
-				else if (result.isReal) {
+		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
+            MathResult result = GetValue(binding, arguments[0]);
+            for (size_t i = 1; i < arguments.size(); i++) {
+                MathResult evaluated = GetValue(binding, arguments[i]);
+                if (evaluated.isReal) {
+                    if (!result.isReal) {
+                        result.isReal = true;
+                        result.realValue = result.intValue;
+                    }
+                    result.realValue = Operate(result.realValue, evaluated.realValue);
+                }
+                else if (result.isReal) {
                     result.realValue = Operate(result.realValue, (double)evaluated.intValue);
                 } else {
-					result.intValue = Operate(result.intValue, evaluated.intValue);
-				}
-				current = dynamic_pointer_cast<SExp>(current->Right());
-			}
+                    result.intValue = Operate(result.intValue, evaluated.intValue);
+                }
+            }
+            
 			if (result.isReal) {
-				return ValuePtr(new Real(result.realValue));
+				return Result(ValuePtr(new Real(result.realValue)));
 			}
 			else {
-				return ValuePtr(new Integer(result.intValue));
+				return Result(ValuePtr(new Integer(result.intValue)));
 			}
 		}
 	};
@@ -112,6 +104,38 @@ namespace Aise
         virtual double Operate(double left, double right) { return pow(left, right); }
         virtual long Operate(long left, long right)  { return (long)pow(left, right); }
     };
+    
+    class NanMethod : public NativeMethod::UnaryMethodImplementation
+    {
+    public:
+        NanMethod() { }
+        
+        virtual Result Invoke(BindingPtr binding, ValuePtr value)
+        {
+            auto real = dynamic_pointer_cast<Real>(value);
+            if (real) {
+                return ValuePtr(new Boolean(isnan(real->Value())));
+            }
+            
+            return ValuePtr(new Boolean(false));
+        }
+    };
+    
+    class InfinityMethod : public NativeMethod::UnaryMethodImplementation
+    {
+    public:
+        InfinityMethod() { }
+        
+        virtual Result Invoke(BindingPtr binding, ValuePtr value)
+        {
+            auto real = dynamic_pointer_cast<Real>(value);
+            if (real) {
+                return ValuePtr(new Boolean(isinf(real->Value())));
+            }
+            
+            return ValuePtr(new Boolean(false));
+        }
+    };
 
 	void Math::Initialize(BindingPtr binding)
 	{
@@ -120,5 +144,7 @@ namespace Aise
         NativeMethod::Initialize(binding, "divide", new DivideMethod());
         NativeMethod::Initialize(binding, "multiply", new MultiplyMethod());
         NativeMethod::Initialize(binding, "power", new PowerMethod());
+        NativeMethod::Initialize(binding, "nan?", new NanMethod());
+        NativeMethod::Initialize(binding, "infinity?", new InfinityMethod());
 	}
 }
