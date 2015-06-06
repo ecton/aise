@@ -13,7 +13,7 @@ namespace Aise {
     {
     public:
         // Standard constructor
-        Binding(Environment *environment);
+        Binding(Aise::Environment *environment);
         // Standard Destructor
         virtual ~Binding() { }
         
