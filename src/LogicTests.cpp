@@ -6,8 +6,6 @@
 using namespace std;
 using namespace Aise;
 
-#pragma mark And
-
 TEST_CASE("And - True False", "[logic][and]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(and true false)");
@@ -44,8 +42,6 @@ TEST_CASE("And - true nan?", "[logic][and]") {
     REQUIRE( value->Value() == true );
 }
 
-#pragma mark Or
-
 TEST_CASE("Or - True False", "[logic][or]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(or true false)");
@@ -81,8 +77,6 @@ TEST_CASE("Or - false nan?", "[logic][or]") {
     REQUIRE( value );
     REQUIRE( value->Value() == true );
 }
-
-#pragma mark Not
 
 TEST_CASE("Not - true", "[logic][not]") {
     auto env = new Aise::Environment();

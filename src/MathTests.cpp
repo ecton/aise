@@ -8,8 +8,6 @@
 using namespace std;
 using namespace Aise;
 
-#pragma mark Simple Addition
-
 TEST_CASE("Simple Addition", "[math][addition]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(add 1 2)");
@@ -45,8 +43,6 @@ TEST_CASE("Simple Addition Start Real add Integer", "[math][addition]") {
     REQUIRE( value );
     REQUIRE( value->Value() == Approx(3.1) );
 }
-
-#pragma mark Simple Subtraction
 
 TEST_CASE("Simple Subtraction", "[math][subtraction]") {
     auto env = new Aise::Environment();
@@ -84,8 +80,6 @@ TEST_CASE("Simple Subtraction Start Real add Integer", "[math][subtraction]") {
     REQUIRE( value->Value() == Approx(1.1) );
 }
 
-#pragma mark Simple Multiplication
-
 TEST_CASE("Simple Multiplication", "[math][multiplication]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(multiply 3 2)");
@@ -121,8 +115,6 @@ TEST_CASE("Simple Multiplication Start Real add Integer", "[math][multiplication
     REQUIRE( value );
     REQUIRE( value->Value() == Approx(6.2) );
 }
-
-#pragma mark Simple Division
 
 TEST_CASE("Simple Division", "[math][division]") {
     auto env = new Aise::Environment();
@@ -160,8 +152,6 @@ TEST_CASE("Simple Division Start Real add Integer", "[math][division]") {
     REQUIRE( value->Value() == Approx(1.55) );
 }
 
-#pragma mark Simple Powers
-
 TEST_CASE("Simple Powers", "[math][power]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(power 3 2)");
@@ -198,8 +188,6 @@ TEST_CASE("Simple Powers Start Real add Integer", "[math][power]") {
     REQUIRE( value->Value() == Approx(9.61) );
 }
 
-#pragma mark Expressions
-
 TEST_CASE("Expressions - Literal first, function second", "[math][expressions]") {
     auto env = new Aise::Environment();
     Aise::Result result = env->Evaluate("(add 1 (subtract 3 2))");
@@ -235,8 +223,6 @@ TEST_CASE("Expressions - Multiple Nests, function second", "[math][expressions]"
     REQUIRE( value );
     REQUIRE( value->Value() == 5);
 }
-
-#pragma mark Real Edges
 
 TEST_CASE("Real Edges - infinity", "[math][infinity]") {
     auto env = new Aise::Environment();

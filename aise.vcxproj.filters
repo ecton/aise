@@ -1,114 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClInclude Include="src\Aise.h" />
+    <ClInclude Include="src\Binding.h" />
+    <ClInclude Include="src\Boolean.h" />
+    <ClInclude Include="src\Catch.h" />
+    <ClInclude Include="src\Environment.h" />
+    <ClInclude Include="src\Integer.h" />
+    <ClInclude Include="src\InterprettedMethod.h" />
+    <ClInclude Include="src\List.h" />
+    <ClInclude Include="src\Logic.h" />
+    <ClInclude Include="src\Math.h" />
+    <ClInclude Include="src\Method.h" />
+    <ClInclude Include="src\Methods.h" />
+    <ClInclude Include="src\NativeMethod.h" />
+    <ClInclude Include="src\Real.h" />
+    <ClInclude Include="src\Result.h" />
+    <ClInclude Include="src\SExp.h" />
+    <ClInclude Include="src\Source.h" />
+    <ClInclude Include="src\Symbol.h" />
+    <ClInclude Include="src\Token.h" />
+    <ClInclude Include="src\Tokenizer.h" />
+    <ClInclude Include="src\Value.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Result.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SExp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aise.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Environment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tokenizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Binding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Integer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Real.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Token.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Symbol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMethod.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="aise.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Value.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Result.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SExp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="List.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Environment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tokenizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Binding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Integer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Real.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Symbol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Token.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeMethod.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="src\Binding.cpp" />
+    <ClCompile Include="src\Boolean.cpp" />
+    <ClCompile Include="src\Environment.cpp" />
+    <ClCompile Include="src\Integer.cpp" />
+    <ClCompile Include="src\InterprettedMethod.cpp" />
+    <ClCompile Include="src\List.cpp" />
+    <ClCompile Include="src\Logic.cpp" />
+    <ClCompile Include="src\LogicTests.cpp" />
+    <ClCompile Include="src\Math.cpp" />
+    <ClCompile Include="src\MathTests.cpp" />
+    <ClCompile Include="src\Method.cpp" />
+    <ClCompile Include="src\Methods.cpp" />
+    <ClCompile Include="src\NativeMethod.cpp" />
+    <ClCompile Include="src\Real.cpp" />
+    <ClCompile Include="src\Result.cpp" />
+    <ClCompile Include="src\SExp.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Symbol.cpp" />
+    <ClCompile Include="src\Token.cpp" />
+    <ClCompile Include="src\Tokenizer.cpp" />
+    <ClCompile Include="src\Value.cpp" />
+    <ClCompile Include="src\aise.cpp" />
   </ItemGroup>
 </Project>

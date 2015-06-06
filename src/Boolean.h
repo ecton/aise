@@ -14,7 +14,7 @@ namespace Aise {
         virtual std::string Description();
         
         std::shared_ptr<Token> Token() { return mToken; }
-        long Value() { return mValue; }
+        bool Value() { return mValue; }
     private:
         std::shared_ptr<Aise::Token> mToken;
         bool mValue;
