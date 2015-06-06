@@ -4,7 +4,7 @@
 #include "Symbol.h"
 #include "Integer.h"
 #include "Real.h"
-#include "NativeMethod.h"
+#include "NativeFunction.h"
 #include "Boolean.h"
 
 #include <iostream>
@@ -63,7 +63,7 @@ namespace Aise {
     
     Result Environment::Invoke(BindingPtr binding, ValuePtr lookup, SExpPtr expression)
     {
-        auto method = dynamic_pointer_cast<Method>(lookup);
+        auto method = dynamic_pointer_cast<Function>(lookup);
         if (method) {
             return method->Invoke(binding, expression);
         }

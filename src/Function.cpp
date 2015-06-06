@@ -1,4 +1,4 @@
-#include "Method.h"
+#include "Function.h"
 
 namespace Aise
 {

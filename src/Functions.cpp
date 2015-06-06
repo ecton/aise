@@ -1,11 +1,11 @@
-#include "Methods.h"
-#include "NativeMethod.h"
+#include "Functions.h"
+#include "NativeFunction.h"
 
 using namespace std;
 
 namespace Aise
 {
-    class DefineMethod : public NativeMethod::Implementation
+    class DefineFunction : public NativeFunction::Implementation
     {
         virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
         {
@@ -22,8 +22,8 @@ namespace Aise
         }
     };
     
-    void Methods::Initialize(BindingPtr binding)
+    void Functions::Initialize(BindingPtr binding)
     {
-        NativeMethod::Initialize(binding, "function", new DefineMethod());
+        NativeFunction::Initialize(binding, "function", new DefineFunction());
     }
 }

@@ -1,15 +1,15 @@
 #pragma once
 #include "Aise.h"
 #include "Token.h"
-#include "Method.h"
+#include "Function.h"
 #include "SExp.h"
 
 namespace Aise {
-    class InterprettedMethod : public Method
+    class InterprettedFunction : public Function
     {
     public:
-        InterprettedMethod(std::shared_ptr<Token> name, SExpPtr arguments, SExpPtr body) : mName(name), mArguments(arguments), mBody(body) { }
-        virtual ~InterprettedMethod() { }
+        InterprettedFunction(std::shared_ptr<Token> name, SExpPtr arguments, SExpPtr body) : mName(name), mArguments(arguments), mBody(body) { }
+        virtual ~InterprettedFunction() { }
         
         virtual std::string Description() { return mName->String(); }
         

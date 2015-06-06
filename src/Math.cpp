@@ -1,5 +1,5 @@
 #include "Math.h"
-#include "NativeMethod.h"
+#include "NativeFunction.h"
 #include "Integer.h"
 #include "Real.h"
 #include <math.h>
@@ -9,10 +9,10 @@ using namespace std;
 
 namespace Aise
 {
-	class AssociativeMathMethod : public NativeMethod::VariableArgumentMethodImplementation
+	class AssociativeMathFunction : public NativeFunction::VariableArgumentFunctionImplementation
 	{
 	public:
-		AssociativeMathMethod() { }
+		AssociativeMathFunction() { }
 		virtual double Operate(double left, double right) = 0;
 		virtual long Operate(long left, long right) = 0;
 
@@ -70,45 +70,45 @@ namespace Aise
 		}
 	};
 
-	class PlusMethod : public AssociativeMathMethod
+	class PlusFunction : public AssociativeMathFunction
 	{
 	public:
 		virtual double Operate(double left, double right) { return left + right; }
 		virtual long Operate(long left, long right)  { return left + right; }
 	};
 
-	class SubtractMethod : public AssociativeMathMethod
+	class SubtractFunction : public AssociativeMathFunction
 	{
 	public:
 		virtual double Operate(double left, double right) { return left - right; }
 		virtual long Operate(long left, long right)  { return left - right; }
     };
     
-    class MultiplyMethod : public AssociativeMathMethod
+    class MultiplyFunction : public AssociativeMathFunction
     {
     public:
         virtual double Operate(double left, double right) { return left * right; }
         virtual long Operate(long left, long right)  { return left * right; }
     };
     
-    class DivideMethod : public AssociativeMathMethod
+    class DivideFunction : public AssociativeMathFunction
     {
     public:
         virtual double Operate(double left, double right) { return left / right; }
         virtual long Operate(long left, long right)  { return left / right; }
     };
     
-    class PowerMethod : public AssociativeMathMethod
+    class PowerFunction : public AssociativeMathFunction
     {
     public:
         virtual double Operate(double left, double right) { return pow(left, right); }
         virtual long Operate(long left, long right)  { return (long)pow(left, right); }
     };
     
-    class NanMethod : public NativeMethod::UnaryMethodImplementation
+    class NanFunction : public NativeFunction::UnaryFunctionImplementation
     {
     public:
-        NanMethod() { }
+        NanFunction() { }
         
         virtual Result Invoke(BindingPtr binding, ValuePtr value)
         {
@@ -121,10 +121,10 @@ namespace Aise
         }
     };
     
-    class InfinityMethod : public NativeMethod::UnaryMethodImplementation
+    class InfinityFunction : public NativeFunction::UnaryFunctionImplementation
     {
     public:
-        InfinityMethod() { }
+        InfinityFunction() { }
         
         virtual Result Invoke(BindingPtr binding, ValuePtr value)
         {
@@ -139,12 +139,12 @@ namespace Aise
 
 	void Math::Initialize(BindingPtr binding)
 	{
-		NativeMethod::Initialize(binding, "add", new PlusMethod());
-        NativeMethod::Initialize(binding, "subtract", new SubtractMethod());
-        NativeMethod::Initialize(binding, "divide", new DivideMethod());
-        NativeMethod::Initialize(binding, "multiply", new MultiplyMethod());
-        NativeMethod::Initialize(binding, "power", new PowerMethod());
-        NativeMethod::Initialize(binding, "nan?", new NanMethod());
-        NativeMethod::Initialize(binding, "infinity?", new InfinityMethod());
+		NativeFunction::Initialize(binding, "add", new PlusFunction());
+        NativeFunction::Initialize(binding, "subtract", new SubtractFunction());
+        NativeFunction::Initialize(binding, "divide", new DivideFunction());
+        NativeFunction::Initialize(binding, "multiply", new MultiplyFunction());
+        NativeFunction::Initialize(binding, "power", new PowerFunction());
+        NativeFunction::Initialize(binding, "nan?", new NanFunction());
+        NativeFunction::Initialize(binding, "infinity?", new InfinityFunction());
 	}
 }

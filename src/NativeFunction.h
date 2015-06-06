@@ -1,13 +1,13 @@
 #pragma once
 #include "Aise.h"
 #include "Binding.h"
-#include "Method.h"
+#include "Function.h"
 #include "SExp.h"
 #include "Result.h"
 
 namespace Aise {
     
-    class NativeMethod : public Method
+    class NativeFunction : public Function
     {
     public:
         class Implementation {
@@ -16,22 +16,22 @@ namespace Aise {
             virtual ~Implementation() { }
 			virtual Result Invoke(BindingPtr binding, SExpPtr sexp) = 0;
         };
-        NativeMethod(std::string name, Implementation *impl) : mName(name), mImplementation(impl) { }
-        virtual ~NativeMethod() { }
+        NativeFunction(std::string name, Implementation *impl) : mName(name), mImplementation(impl) { }
+        virtual ~NativeFunction() { }
 
-		static void Initialize(BindingPtr binding, std::string name, NativeMethod::Implementation *impl) { binding->Assign(name, ValuePtr(new NativeMethod(name, impl))); }
+		static void Initialize(BindingPtr binding, std::string name, NativeFunction::Implementation *impl) { binding->Assign(name, ValuePtr(new NativeFunction(name, impl))); }
         
         virtual std::string Description();
 		virtual Result Invoke(BindingPtr binding, SExpPtr sexp);
         
-        class UnaryMethodImplementation : public Implementation
+        class UnaryFunctionImplementation : public Implementation
         {
         public:
             virtual Result Invoke(BindingPtr binding, SExpPtr sexp);
             virtual Result Invoke(BindingPtr binding, ValuePtr arg) = 0;
         };
         
-        class VariableArgumentMethodImplementation : public Implementation
+        class VariableArgumentFunctionImplementation : public Implementation
         {
         public:
             virtual Result Invoke(BindingPtr binding, SExpPtr sexp);

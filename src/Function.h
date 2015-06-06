@@ -5,7 +5,7 @@
 
 namespace Aise
 {
-    class Method : public Value
+    class Function : public Value
     {
     public:
         virtual Result Invoke(BindingPtr binding, SExpPtr arguments) = 0;

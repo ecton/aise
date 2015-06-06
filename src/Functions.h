@@ -3,7 +3,7 @@
 #include "Environment.h"
 
 namespace Aise {
-    class Methods
+    class Functions
     {
     public:
         static void Initialize(BindingPtr binding);

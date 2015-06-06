@@ -7,13 +7,9 @@
     <ClInclude Include="src\Catch.h" />
     <ClInclude Include="src\Environment.h" />
     <ClInclude Include="src\Integer.h" />
-    <ClInclude Include="src\InterprettedMethod.h" />
     <ClInclude Include="src\List.h" />
     <ClInclude Include="src\Logic.h" />
     <ClInclude Include="src\Math.h" />
-    <ClInclude Include="src\Method.h" />
-    <ClInclude Include="src\Methods.h" />
-    <ClInclude Include="src\NativeMethod.h" />
     <ClInclude Include="src\Real.h" />
     <ClInclude Include="src\Result.h" />
     <ClInclude Include="src\SExp.h" />
@@ -22,21 +18,21 @@
     <ClInclude Include="src\Token.h" />
     <ClInclude Include="src\Tokenizer.h" />
     <ClInclude Include="src\Value.h" />
+    <ClInclude Include="src\InterprettedFunction.h" />
+    <ClInclude Include="src\Functions.h" />
+    <ClInclude Include="src\NativeFunction.h" />
+    <ClInclude Include="src\Function.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Binding.cpp" />
     <ClCompile Include="src\Boolean.cpp" />
     <ClCompile Include="src\Environment.cpp" />
     <ClCompile Include="src\Integer.cpp" />
-    <ClCompile Include="src\InterprettedMethod.cpp" />
     <ClCompile Include="src\List.cpp" />
     <ClCompile Include="src\Logic.cpp" />
     <ClCompile Include="src\LogicTests.cpp" />
     <ClCompile Include="src\Math.cpp" />
     <ClCompile Include="src\MathTests.cpp" />
-    <ClCompile Include="src\Method.cpp" />
-    <ClCompile Include="src\Methods.cpp" />
-    <ClCompile Include="src\NativeMethod.cpp" />
     <ClCompile Include="src\Real.cpp" />
     <ClCompile Include="src\Result.cpp" />
     <ClCompile Include="src\SExp.cpp" />
@@ -46,5 +42,9 @@
     <ClCompile Include="src\Tokenizer.cpp" />
     <ClCompile Include="src\Value.cpp" />
     <ClCompile Include="src\aise.cpp" />
+    <ClCompile Include="src\InterprettedFunction.cpp" />
+    <ClCompile Include="src\Functions.cpp" />
+    <ClCompile Include="src\NativeFunction.cpp" />
+    <ClCompile Include="src\Function.cpp" />
   </ItemGroup>
 </Project>

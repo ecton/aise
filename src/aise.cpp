@@ -20,7 +20,11 @@ int main(int argc, const char *argv[])
 {
 	cout << "Running" << endl;
     
-    return Catch::Session().run();
+    int result = Catch::Session().run();
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+	getchar();
+#endif
+	return result;
     
 //    auto env = new Aise::Environment();
 //    Aise::Result result = env->Evaluate(")(add 1 (subtract 2 3) (power 4 5))");

@@ -1,12 +1,12 @@
 #include "Logic.h"
-#include "NativeMethod.h"
+#include "NativeFunction.h"
 #include "Boolean.h"
 
 using namespace std;
 
 namespace Aise
 {
-    class AndMethod : public NativeMethod::VariableArgumentMethodImplementation
+    class AndFunction : public NativeFunction::VariableArgumentFunctionImplementation
     {
         virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
             for (size_t i = 0; i < arguments.size(); i++) {
@@ -20,7 +20,7 @@ namespace Aise
             return binding->Environment()->TrueValue();
         }
     };
-    class OrMethod : public NativeMethod::VariableArgumentMethodImplementation
+    class OrFunction : public NativeFunction::VariableArgumentFunctionImplementation
     {
         virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
             for (size_t i = 0; i < arguments.size(); i++) {
@@ -35,7 +35,7 @@ namespace Aise
         }
     };
     
-    class NotMethod : public NativeMethod::UnaryMethodImplementation
+    class NotFunction : public NativeFunction::UnaryFunctionImplementation
     {
     public:
         virtual Result Invoke(BindingPtr binding, ValuePtr value)
@@ -55,8 +55,8 @@ namespace Aise
     
     void Logic::Initialize(BindingPtr binding)
     {
-        NativeMethod::Initialize(binding, "and", new AndMethod());
-        NativeMethod::Initialize(binding, "or", new OrMethod());
-        NativeMethod::Initialize(binding, "not", new NotMethod());
+        NativeFunction::Initialize(binding, "and", new AndFunction());
+        NativeFunction::Initialize(binding, "or", new OrFunction());
+        NativeFunction::Initialize(binding, "not", new NotFunction());
     }
 }
