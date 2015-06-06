@@ -11,7 +11,7 @@ namespace Aise
 		virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
 		{
 			// sexp left is "do", right is the container of the first statement
-			Result lastResult = sexp;
+			Result lastResult = dynamic_pointer_cast<Value>(sexp);
 			while (sexp) {
 				lastResult = binding->Interpret(sexp->Left());
 				if (lastResult.Error()) break;
