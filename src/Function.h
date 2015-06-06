@@ -1,3 +1,4 @@
+#pragma once
 #include "Value.h"
 #include "Result.h"
 #include "SExp.h"

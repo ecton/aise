@@ -15,8 +15,20 @@ namespace Aise {
 	}
     
     std::string SExp::Description() {
-        string left = mLeft->Description();
-        string right = (mRight == NULL ? "<NUL>" : mRight->Description());
-        return string("(") + left + " " + right + ")";
+		string output = "(";
+		if (mLeft) {
+			output += mLeft->Description();
+		}
+		else {
+			output += "NULL";
+		}
+		if (mRight) {
+			output += " " + mRight->Description();
+		}
+		else {
+			output += " NULL";
+		}
+		output += ")";
+		return output;
     }
 }

@@ -22,6 +22,7 @@
     <ClInclude Include="src\Functions.h" />
     <ClInclude Include="src\NativeFunction.h" />
     <ClInclude Include="src\Function.h" />
+    <ClInclude Include="src\Flow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Binding.cpp" />
@@ -46,5 +47,6 @@
     <ClCompile Include="src\Functions.cpp" />
     <ClCompile Include="src\NativeFunction.cpp" />
     <ClCompile Include="src\Function.cpp" />
+    <ClCompile Include="src\Flow.cpp" />
   </ItemGroup>
 </Project>

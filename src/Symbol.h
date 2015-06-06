@@ -17,4 +17,5 @@ namespace Aise {
     private:
         std::shared_ptr<Aise::Token> mToken;
     };
+	typedef std::shared_ptr<Symbol> SymbolPtr;
 }

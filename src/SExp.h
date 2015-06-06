@@ -13,6 +13,7 @@ namespace Aise {
 
 		ValuePtr Left() { return mLeft; }
 		ValuePtr Right() { return mRight; }
+		bool IsEmpty() { return mLeft == NULL && mRight == NULL; }
         
         void ReplaceRight(ValuePtr newRight) { mRight = newRight; }
 	private:

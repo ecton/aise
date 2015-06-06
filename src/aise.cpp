@@ -19,20 +19,22 @@ using namespace std;
 int main(int argc, const char *argv[])
 {
 	cout << "Running" << endl;
-    
-    int result = Catch::Session().run();
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (function mul-by-5 (x) (multiply x 5)) (mul-by-5 3))");
+	if (result.Error()) {
+		cout << "Error: " << result.ErrorMessage() << " at " << result.Value()->Description() << endl;
+	}
+	else {
+		cout << "Result: " << result.Value()->Description() << endl;
+	}
+	getchar();
+/*    int result = Catch::Session().run();
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 	getchar();
-#endif
-	return result;
+#endif*/
+	return 0;
     
-//    auto env = new Aise::Environment();
-//    Aise::Result result = env->Evaluate(")(add 1 (subtract 2 3) (power 4 5))");
-//    if (result.Error()) {
-//        cout << "Error: " << result.ErrorMessage() << " at " << result.Value()->Description() << endl;
-//    } else {
-//        cout << "Result: " << result.Value()->Description() << endl;
-//    }
+
 //	getchar();
 //
 //	return 0;

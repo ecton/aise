@@ -11,6 +11,8 @@
 
 #include "Math.h"
 #include "Logic.h"
+#include "Functions.h"
+#include "Flow.h"
 
 using namespace std;
 
@@ -22,6 +24,8 @@ namespace Aise {
         Globals()->Assign("false", ValuePtr(new Boolean(false)));
 		Math::Initialize(Globals());
         Logic::Initialize(Globals());
+		Functions::Initialize(Globals());
+		Flow::Initialize(Globals());
 	}
 
 	Environment::~Environment()
@@ -157,6 +161,8 @@ namespace Aise {
 				stack.pop_back();
 				if (stack.size() > 0) {
 					auto entry = stack[stack.size() - 1];
+					// Special case, if we never created any root, we have an empty SExpression, and so we should insert an empty one rather than NULL
+					if (!terminated->root) terminated->root = ValuePtr(new SExp(NULL, NULL));
 					auto insertion = ValuePtr(new SExp(terminated->root, ValuePtr(NULL)));
 					auto insertAt = dynamic_pointer_cast<SExp>(entry->current);
 					insertAt->ReplaceRight(insertion);

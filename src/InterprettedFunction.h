@@ -3,12 +3,13 @@
 #include "Token.h"
 #include "Function.h"
 #include "SExp.h"
+#include "Symbol.h"
 
 namespace Aise {
     class InterprettedFunction : public Function
     {
     public:
-        InterprettedFunction(std::shared_ptr<Token> name, SExpPtr arguments, SExpPtr body) : mName(name), mArguments(arguments), mBody(body) { }
+		InterprettedFunction(SymbolPtr name, SExpPtr parameters, SExpPtr body) : mName(name), mParameters(parameters), mBody(body) { }
         virtual ~InterprettedFunction() { }
         
         virtual std::string Description() { return mName->String(); }
@@ -16,8 +17,8 @@ namespace Aise {
         virtual Result Invoke(BindingPtr binding, SExpPtr arguments);
         
     private:
-        std::shared_ptr<Aise::Token> mName;
-        SExpPtr mArguments;
+        SymbolPtr mName;
+        SExpPtr mParameters;
         SExpPtr mBody;
     };
 }
