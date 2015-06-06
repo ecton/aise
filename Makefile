@@ -1,6 +1,6 @@
 appname := aise
 
-CXX := clang++
+CXX := g++
 CXXFLAGS := -std=c++11 -Isrc/ -Isrc/values/ -Isrc/runtime/ -Isrc/interpretter -Isrc/tests/
 
 srcfiles := $(shell find . -name "*.cpp")
