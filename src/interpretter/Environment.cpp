@@ -101,7 +101,7 @@ namespace Aise {
                 return Result(value);
             }
         }
-        return Result("Unknown reference", expression);
+        return Result(dynamic_pointer_cast<Value>(symbol));
     }
     
     Result Environment::Interpret(BindingPtr binding, ValuePtr expression)

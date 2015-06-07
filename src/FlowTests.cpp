@@ -70,3 +70,121 @@ TEST_CASE("If - nested if -- else if else", "[flow][if]") {
 	REQUIRE(value);
 	REQUIRE(value->Value() == 2);
 }
+
+TEST_CASE("equals - real", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(equals 1.1 1.1)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("equals - real negative", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(equals 1.2 1.1)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == false);
+}
+
+TEST_CASE("less-than - real", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(less-than 1.1 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("less-than - real negative", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(less-than 1.3 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == false);
+}
+
+TEST_CASE("less-than-or-equal - real", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(less-than-or-equal 1.1 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("less-than-or-equal - real negative", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(less-than-or-equal 1.3 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == false);
+}
+
+TEST_CASE("less-than-or-equal - real equal", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(less-than-or-equal 1.2 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("greater-than - real", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(greater-than 1.2 1.1)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("greater-than - real negative", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(greater-than 1.1 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == false);
+}
+
+TEST_CASE("greater-than-or-equal - real", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(greater-than-or-equal 1.3 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+TEST_CASE("greater-than-or-equal - real negative", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(greater-than-or-equal 1.1 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == false);
+}
+
+TEST_CASE("greater-than-or-equal - real equal", "[flow][equals][real]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(greater-than-or-equal 1.2 1.2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Boolean>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == true);
+}
+
+
+TEST_CASE("Loop to 10", "[loop][set]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (set x 0) (while (less-than x 10) (set x (add x 1)))");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 10);
+}

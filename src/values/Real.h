@@ -11,7 +11,8 @@ namespace Aise {
         Real(double value) : mValue(value) { }
         virtual ~Real() { }
         
-        virtual std::string Description();
+		virtual std::string Description();
+		virtual int Compare(std::shared_ptr<Value> to);
         
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         double Value() { return mValue; }

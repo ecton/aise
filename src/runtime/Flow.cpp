@@ -61,11 +61,134 @@ namespace Aise
 		}
 	};
 
+	class SetFunction : public NativeFunction::Implementation
+	{
+		virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
+		{
+			// sexp left is "set", right is the container of the symbol
+			auto nameContainer = dynamic_pointer_cast<SExp>(sexp->Right());
+			if (!nameContainer) return Result("Expected sexp for set name and value", sexp);
+
+			// name needs to be a symbol 
+			auto name = dynamic_pointer_cast<Symbol>(nameContainer->Left());
+			if (!name) {
+				// Try to interpret it to see if the result is a symbol
+				auto nameResult = binding->Interpret(nameContainer->Left(), true);
+				if (nameResult.Error()) return nameResult;
+				name = dynamic_pointer_cast<Symbol>(nameResult.Value());
+				if (!name) return Result("set requires name to be a symbol", nameResult.Value());
+			}
+
+			auto value = binding->Interpret(nameContainer->Right(), true);
+			if (value.Error()) return value;
+
+			binding->Assign(name->String(), value.Value());
+			return value;
+		}
+	};
+
+	class WhileFunction : public NativeFunction::Implementation
+	{
+		virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
+		{
+			// sexp left is "while", right is the container of the test condition
+			auto conditionContainer = dynamic_pointer_cast<SExp>(sexp->Right());
+			if (!conditionContainer) return Result("Expected sexp for while condition", sexp);
+
+			Result lastResult = ValuePtr(NULL);
+			while (true) {
+				// Interpret the condition
+				auto condition = binding->Interpret(conditionContainer->Left());
+				if (condition.Error()) return condition;
+
+				// Condition needs to be a boolean
+				auto conditionBoolean = dynamic_pointer_cast<Boolean>(Value::Simplify(condition.Value()));
+				if (!conditionBoolean) return Result("while requires a boolean condition", condition.Value());
+
+				if (!conditionBoolean->Value()) break;
+
+				lastResult = binding->Interpret(conditionContainer->Right(), true);
+				if (lastResult.Error()) return lastResult;
+			}
+
+			return lastResult;
+		}
+	};
+
+	class ComparisonFunction : public NativeFunction::Implementation
+	{
+		virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
+		{
+			// sexp left is "equals", right is the container of the left and right
+			auto valuesContainer = dynamic_pointer_cast<SExp>(sexp->Right());
+			if (!valuesContainer) return Result("Expected sexp for equals condition", sexp);
+
+			auto leftResult = binding->Interpret(valuesContainer->Left(), true);
+			if (leftResult.Error()) return leftResult;
+
+			auto rightResult = binding->Interpret(valuesContainer->Right(), true);
+			if (rightResult.Error()) return rightResult;
+
+			int comparison = leftResult.Value()->Compare(rightResult.Value());
+
+			if (InterpretResult(comparison)) {
+				return binding->Environment()->TrueValue();
+			}
+			else {
+				return binding->Environment()->FalseValue();
+			}
+		}
+		virtual bool InterpretResult(int result) = 0;
+
+	};
+
+	class EqualsFunction : public ComparisonFunction
+	{
+		virtual bool InterpretResult(int result) {
+			return result == 0;
+		}
+	};
+
+	class LessThanFunction : public ComparisonFunction
+	{
+		virtual bool InterpretResult(int result) {
+			return result < 0;
+		}
+	};
+
+	class LessThanOrEqualFunction : public ComparisonFunction
+	{
+		virtual bool InterpretResult(int result) {
+			return result <= 0;
+		}
+	};
+
+	class GreaterThanFunction : public ComparisonFunction
+	{
+		virtual bool InterpretResult(int result) {
+			return result > 0;
+		}
+	};
+
+	class GreaterThanOrEqualFunction : public ComparisonFunction
+	{
+		virtual bool InterpretResult(int result) {
+			return result >= 0;
+		}
+	};
+
 
 
 	void Flow::Initialize(BindingPtr binding)
 	{
 		NativeFunction::Initialize(binding, "do", new DoFunction());
 		NativeFunction::Initialize(binding, "if", new IfFunction());
+		NativeFunction::Initialize(binding, "set", new SetFunction());
+		NativeFunction::Initialize(binding, "while", new WhileFunction());
+		NativeFunction::Initialize(binding, "equals", new EqualsFunction());
+		NativeFunction::Initialize(binding, "less-than", new LessThanFunction());
+		NativeFunction::Initialize(binding, "less-than-or-equal", new LessThanOrEqualFunction());
+		NativeFunction::Initialize(binding, "greater-than", new GreaterThanFunction());
+		NativeFunction::Initialize(binding, "greater-than-or-equal", new GreaterThanOrEqualFunction());
 	}
 }

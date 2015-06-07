@@ -10,7 +10,8 @@ namespace Aise {
         Symbol(std::shared_ptr<Aise::Token> token);
         virtual ~Symbol();
         
-        virtual std::string Description();
+		virtual std::string Description();
+		virtual int Compare(std::shared_ptr<Value> to);
         
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         std::string String() { return mToken->String(); }

@@ -9,7 +9,8 @@ namespace Aise {
 		SExp(ValuePtr left, ValuePtr right);
 		virtual ~SExp();
         
-        virtual std::string Description();
+		virtual std::string Description();
+		virtual int Compare(std::shared_ptr<Value> to);
 
 		ValuePtr Left() { return mLeft; }
 		ValuePtr Right() { return mRight; }

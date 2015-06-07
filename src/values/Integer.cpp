@@ -17,5 +17,13 @@ namespace Aise {
         stringstream ss;
         ss << mValue;
         return ss.str();
-    }
+	}
+
+	int Integer::Compare(std::shared_ptr<Aise::Value> to)
+	{
+		auto otherCasted = dynamic_pointer_cast<Integer>(to);
+		if (!otherCasted) return -1;
+
+		return mValue - otherCasted->Value();
+	}
 }

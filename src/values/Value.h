@@ -9,6 +9,7 @@ namespace Aise {
 		~Value();
         virtual std::string Description() = 0;
 		static std::shared_ptr<Value> Simplify(std::shared_ptr<Value> value);
+		virtual int Compare(std::shared_ptr<Value> to) = 0;
 	protected:
 		Value();
     };

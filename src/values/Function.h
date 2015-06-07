@@ -8,7 +8,8 @@ namespace Aise
 {
     class Function : public Value
     {
-    public:
+	public:
+		virtual int Compare(std::shared_ptr<Value> to);
         virtual Result Invoke(BindingPtr binding, SExpPtr arguments) = 0;
     };
 }

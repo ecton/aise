@@ -12,9 +12,11 @@ namespace Aise {
         virtual ~Boolean() { }
         
         virtual std::string Description();
-        
+		virtual int Compare(std::shared_ptr<Value> to);
+
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         bool Value() { return mValue; }
+
     private:
         std::shared_ptr<Aise::Token> mToken;
         bool mValue;

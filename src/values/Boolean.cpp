@@ -23,4 +23,14 @@ namespace Aise {
         ss << boolalpha << mValue;
         return ss.str();
     }
+
+	int Boolean::Compare(std::shared_ptr<Aise::Value> to)
+	{
+		auto otherCasted = dynamic_pointer_cast<Boolean>(to);
+		if (!otherCasted) return -1;
+
+		if (mValue == otherCasted->Value()) return 0;
+		if (mValue) return 1;
+		return -1;
+	}
 }

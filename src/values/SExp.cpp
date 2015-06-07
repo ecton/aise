@@ -30,5 +30,14 @@ namespace Aise {
 		}
 		output += ")";
 		return output;
-    }
+	}
+
+	int SExp::Compare(std::shared_ptr<Value> to)
+	{
+		auto otherCasted = dynamic_pointer_cast<SExp>(to);
+		if (!otherCasted) return -1;
+
+		// Todo
+		return -1;
+	}
 }
