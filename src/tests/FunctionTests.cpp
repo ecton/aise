@@ -32,5 +32,5 @@ TEST_CASE("Simple Function - operate on two parameters", "[functions][do]") {
 	REQUIRE(result.Error() == false);
 	auto value = dynamic_pointer_cast<Integer>(result.Value());
 	REQUIRE(value);
-	REQUIRE(value->Value() == 3);
+	REQUIRE(value->Value() == 2);
 }
