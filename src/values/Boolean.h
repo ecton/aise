@@ -7,7 +7,7 @@ namespace Aise {
     class Boolean : public Value
     {
     public:
-        Boolean(std::shared_ptr<Token> token);
+        Boolean(std::shared_ptr<Aise::Token> token);
         Boolean(bool value) : mValue(value) { }
         virtual ~Boolean() { }
         
