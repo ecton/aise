@@ -144,6 +144,7 @@ namespace Aise {
 	class SExpStackEntry
 	{
 	public:
+		SExpStackEntry(bool tpl) : isTemplate(tpl) {}
 		ValuePtr root;
 		ValuePtr current;
 		bool isTemplate;
@@ -171,7 +172,7 @@ namespace Aise {
             auto token = tokens.Next();
             if (token->Type() == Token::TYPE_OPEN_PAREN) {
                 // Create a new SExp to contain the insides of these parentheses.
-				stack.push_back(new SExpStackEntry() { NULL, NULL, thisIsTemplate });
+				stack.push_back(new SExpStackEntry(thisIsTemplate));
 			}
 			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
 				if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(thisIsTemplate, token)));
