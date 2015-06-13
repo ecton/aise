@@ -31,10 +31,20 @@ namespace Aise
 			binding->Assign(name->String(), newFunction);
 			return newFunction;
         }
-    };
+	};
+	class EvalFunction : public NativeFunction::UnaryFunctionImplementation
+	{
+		virtual Result Invoke(BindingPtr binding, ValuePtr value)
+		{
+			// This is the simplest function of them all, just interpret the value.
+			// This is useful for finally invoking a template.
+			return binding->Interpret(value, true);
+		}
+	};
     
     void Functions::Initialize(BindingPtr binding)
     {
-        NativeFunction::Initialize(binding, "function", new DefineFunction());
+		NativeFunction::Initialize(binding, "function", new DefineFunction());
+		NativeFunction::Initialize(binding, "eval", new EvalFunction());
     }
 }

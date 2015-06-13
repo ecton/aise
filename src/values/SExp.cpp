@@ -46,11 +46,17 @@ namespace Aise {
 	{
 		if (mTemplate) {
 			// Templates need to just be returned
-			Result newLeft = mLeft->EvaluateTemplate(binding);
-			if (newLeft.Error()) return newLeft;
+			Result newLeft = ValuePtr(NULL);
+			if (mLeft) {
+				newLeft = mLeft->EvaluateTemplate(binding);
+				if (newLeft.Error()) return newLeft;
+			}
 
-			Result newRight = mRight->EvaluateTemplate(binding);
-			if (newRight.Error()) return newRight;
+			Result newRight = ValuePtr(NULL);
+			if (mRight) {
+				newRight = mRight->EvaluateTemplate(binding);
+				if (newRight.Error()) return newRight;
+			}
 
 			return ValuePtr(new SExp(false, newLeft.Value(), newRight.Value()));
 		}

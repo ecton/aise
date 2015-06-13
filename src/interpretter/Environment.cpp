@@ -106,6 +106,13 @@ namespace Aise {
     
     Result Environment::Interpret(BindingPtr binding, ValuePtr expression)
     {
+		if (!expression) return expression;
+
+		// If the expression is a template, evaluate the template
+		if (expression->IsTemplate()) {
+			return expression->EvaluateTemplate(binding);
+		}
+
         auto sexp = dynamic_pointer_cast<SExp>(expression);
         if (sexp) {
             // Reduce the sexp by evaluating it
@@ -164,7 +171,7 @@ namespace Aise {
             auto token = tokens.Next();
             if (token->Type() == Token::TYPE_OPEN_PAREN) {
                 // Create a new SExp to contain the insides of these parentheses.
-				stack.push_back(new SExpStackEntry());
+				stack.push_back(new SExpStackEntry() { NULL, NULL, thisIsTemplate });
 			}
 			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
 				if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(thisIsTemplate, token)));
