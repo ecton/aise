@@ -27,7 +27,7 @@ namespace Aise
 			auto body = dynamic_pointer_cast<SExp>(argumentsContainer->Right());
 			if (!body) return Result("Expected function body to be an sexpression", argumentsContainer);
 
-			auto newFunction = ValuePtr(new InterprettedFunction(name, arguments, body));
+			auto newFunction = ValuePtr(new InterprettedFunction(false, name, arguments, body));
 			binding->Assign(name->String(), newFunction);
 			return newFunction;
         }

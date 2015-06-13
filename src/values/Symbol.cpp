@@ -7,11 +7,12 @@
 //
 
 #include "Symbol.h"
+#include "Binding.h"
 
 using namespace std;
 
 namespace Aise {
-    Symbol::Symbol(shared_ptr<Aise::Token> token) : mToken(token) { }
+    Symbol::Symbol(bool isTemplate, shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token) { }
     
     Symbol::~Symbol() { }
     
@@ -26,5 +27,10 @@ namespace Aise {
 		if (!otherCasted) return -1;
 
 		return String().compare(otherCasted->String());
+	}
+
+	Result Symbol::EvaluateTemplate(BindingPtr binding)
+	{
+		return ValuePtr(new Symbol(false, mToken));
 	}
 }

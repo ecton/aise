@@ -8,6 +8,7 @@
 
 #include "NativeFunction.h"
 #include "Environment.h"
+#include "Binding.h"
 
 using namespace std;
 
@@ -53,5 +54,11 @@ namespace Aise {
             current = next;
         }
         return Invoke(binding, arguments);
-    }
+	}
+
+	Result NativeFunction::EvaluateTemplate(BindingPtr binding)
+	{
+		throw "Need to figure out how to EvaluateTemplate an Implementation";
+		//return ValuePtr(new Integer(false, mValue));
+	}
 }

@@ -9,6 +9,7 @@
 #include "Real.h"
 
 #include <sstream>
+#include "Binding.h"
 
 using namespace std;
 
@@ -28,5 +29,10 @@ namespace Aise {
 		if (mValue == otherCasted->Value()) return 0;
 		if (mValue > otherCasted->Value()) return 1;
 		return -1;
+	}
+
+	Result Real::EvaluateTemplate(BindingPtr binding)
+	{
+		return ValuePtr(new Real(false, mValue));
 	}
 }

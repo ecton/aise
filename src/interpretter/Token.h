@@ -13,7 +13,9 @@ namespace Aise {
             TYPE_IDENTIFIER,
             TYPE_REAL,
             TYPE_INTEGER,
-            TYPE_STRING
+            TYPE_STRING,
+			TYPE_BACKTICK,
+			TYPE_COMMA
         } TokenType;
         static bool TypeIsLiteral(TokenType type) {
             switch (type) {

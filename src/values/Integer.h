@@ -7,8 +7,8 @@ namespace Aise {
     class Integer : public Value
     {
     public:
-        Integer(std::shared_ptr<Aise::Token> token) : mToken(token) { mValue = std::stol(mToken->String()); }
-        Integer(long value) : mValue(value) { }
+        Integer(bool isTemplate, std::shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token) { mValue = std::stol(mToken->String()); }
+        Integer(bool isTemplate, long value) : Aise::Value(isTemplate), mValue(value) { }
         virtual ~Integer() { }
         
 		virtual std::string Description();
@@ -16,6 +16,8 @@ namespace Aise {
         
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         long Value() { return mValue; }
+
+		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding);
     private:
         std::shared_ptr<Aise::Token> mToken;
         long mValue;

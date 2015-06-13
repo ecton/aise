@@ -62,10 +62,10 @@ namespace Aise
             }
             
 			if (result.isReal) {
-				return Result(ValuePtr(new Real(result.realValue)));
+				return Result(ValuePtr(new Real(false, result.realValue)));
 			}
 			else {
-				return Result(ValuePtr(new Integer(result.intValue)));
+				return Result(ValuePtr(new Integer(false, result.intValue)));
 			}
 		}
 	};
@@ -114,10 +114,10 @@ namespace Aise
         {
             auto real = dynamic_pointer_cast<Real>(value);
             if (real) {
-                return ValuePtr(new Boolean(isnan(real->Value())));
+                return ValuePtr(new Boolean(false, isnan(real->Value())));
             }
             
-            return ValuePtr(new Boolean(false));
+            return ValuePtr(new Boolean(false, false));
         }
     };
     
@@ -130,10 +130,10 @@ namespace Aise
         {
             auto real = dynamic_pointer_cast<Real>(value);
             if (real) {
-                return ValuePtr(new Boolean(isinf(real->Value())));
+                return ValuePtr(new Boolean(false, isinf(real->Value())));
             }
             
-            return ValuePtr(new Boolean(false));
+            return ValuePtr(new Boolean(false, false));
         }
     };
 

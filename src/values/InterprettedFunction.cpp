@@ -8,6 +8,7 @@
 
 #include "InterprettedFunction.h"
 #include "Environment.h"
+#include "Binding.h"
 
 using namespace std;
 
@@ -47,5 +48,19 @@ namespace Aise
 		Result evaluation = methodBinding->Interpret(mBody);
 		binding->Environment()->ExitBinding();
 		return evaluation;
+	}
+
+	Result InterprettedFunction::EvaluateTemplate(BindingPtr binding)
+	{
+		Result newName = mName->EvaluateTemplate(binding);
+		if (newName.Error()) return newName;
+
+		Result newParameters = mParameters->EvaluateTemplate(binding);
+		if (newParameters.Error()) return newParameters;
+
+		Result newBody = mBody->EvaluateTemplate(binding);
+		if (newBody.Error()) return newBody;
+
+		return ValuePtr(new InterprettedFunction(false, dynamic_pointer_cast<Symbol>(newName.Value()), dynamic_pointer_cast<SExp>(newParameters.Value()), dynamic_pointer_cast<SExp>(newBody.Value())));
 	}
 }

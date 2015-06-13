@@ -20,8 +20,8 @@ namespace Aise {
 	Environment::Environment()
 	{
 		mBindingStack.push_back(BindingPtr(new Binding(this)));
-        Globals()->Assign("true", ValuePtr(new Boolean(true)));
-        Globals()->Assign("false", ValuePtr(new Boolean(false)));
+        Globals()->Assign("true", ValuePtr(new Boolean(false, true)));
+        Globals()->Assign("false", ValuePtr(new Boolean(false, false)));
 		Arithmetic::Initialize(Globals());
         Logic::Initialize(Globals());
 		Functions::Initialize(Globals());
@@ -118,7 +118,7 @@ namespace Aise {
                 auto right = Interpret(binding, sexp->Right());
                 if (right.Error()) return right;
                 
-				return Result(ValuePtr(new SExp(left.Value(), right.Value())));
+				return Result(ValuePtr(new SExp(false, left.Value(), right.Value())));
 			}
 			
             auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
@@ -139,6 +139,7 @@ namespace Aise {
 	public:
 		ValuePtr root;
 		ValuePtr current;
+		bool isTemplate;
 	};
     
     Result Environment::Parse(shared_ptr<Source> source)
@@ -147,47 +148,69 @@ namespace Aise {
         auto tokens = Tokenizer(source);
         vector<SExpStackEntry *> stack;
 		ValuePtr main = { 0 };
+		bool overrideNextTemplateFlag = false;
+		bool nextIsTemplate = false;
         
         while (!tokens.EndOfInput()) {
+			bool thisIsTemplate = false;
+			if (overrideNextTemplateFlag) {
+				overrideNextTemplateFlag = false;
+				thisIsTemplate = nextIsTemplate;
+			}
+			else if (stack.size() > 0) {
+				thisIsTemplate = stack[stack.size() - 1]->isTemplate;
+			} 
+
             auto token = tokens.Next();
             if (token->Type() == Token::TYPE_OPEN_PAREN) {
                 // Create a new SExp to contain the insides of these parentheses.
 				stack.push_back(new SExpStackEntry());
 			}
 			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
-                if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(token)));
-                
+				if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(thisIsTemplate, token)));
+
 				auto terminated = stack[stack.size() - 1];
 				stack.pop_back();
 				if (stack.size() > 0) {
 					auto entry = stack[stack.size() - 1];
 					// Special case, if we never created any root, we have an empty SExpression, and so we should insert an empty one rather than NULL
-					if (!terminated->root) terminated->root = ValuePtr(new SExp(NULL, NULL));
-					auto insertion = ValuePtr(new SExp(terminated->root, ValuePtr(NULL)));
+					if (!terminated->root) terminated->root = ValuePtr(new SExp(thisIsTemplate, NULL, NULL));
+					auto insertion = ValuePtr(new SExp(thisIsTemplate, terminated->root, ValuePtr(NULL)));
 					auto insertAt = dynamic_pointer_cast<SExp>(entry->current);
 					insertAt->ReplaceRight(insertion);
 					entry->current = insertion;
 				}
 				delete terminated;
+			}
+			else if (token->Type() == Token::TYPE_BACKTICK) {
+				// Next token should be treated as a template
+				nextIsTemplate = true;
+				overrideNextTemplateFlag = true;
+			}
+			else if (token->Type() == Token::TYPE_COMMA) {
+				// Next token should be treated as a regular token
+				nextIsTemplate = false;
+				overrideNextTemplateFlag = true;
+
             } else if (Token::TypeIsLiteral(token->Type())) {
-                if (stack.size() == 0) return Result("Parse Error: Literal value not inside of an s-expression.", ValuePtr(new Symbol(token)));
+                if (stack.size() == 0) return Result("Parse Error: Literal value not inside of an s-expression.", ValuePtr(new Symbol(thisIsTemplate, token)));
 				auto entry = stack[stack.size() - 1];
 
                 ValuePtr literal;
                 switch (token->Type()) {
                     case Token::TYPE_INTEGER: {
-                        literal = ValuePtr(new Integer(token));
+                        literal = ValuePtr(new Integer(thisIsTemplate, token));
                     } break;
                     case Token::TYPE_REAL: {
-                        literal = ValuePtr(new Real(token));
+                        literal = ValuePtr(new Real(thisIsTemplate, token));
                     } break;
                     case Token::TYPE_IDENTIFIER: {
-                        literal = ValuePtr(new Symbol(token));
+                        literal = ValuePtr(new Symbol(thisIsTemplate, token));
                     } break;
                     default:
-                        return Result("Parse Error: Unknown literal type", ValuePtr(new Symbol(token)));
+                        return Result("Parse Error: Unknown literal type", ValuePtr(new Symbol(thisIsTemplate, token)));
                 }
-                ValuePtr newSExp = ValuePtr(new SExp(literal, ValuePtr(NULL)));
+                ValuePtr newSExp = ValuePtr(new SExp(thisIsTemplate, literal, ValuePtr(NULL)));
 				if (entry->root == NULL) {
 					entry->root = newSExp;
 					if (main == NULL) {

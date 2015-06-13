@@ -1,13 +1,14 @@
 #include "List.h"
+#include "Binding.h"
 
 using namespace std;
 
 namespace Aise {
-	List::List()
+	List::List(bool isTemplate) : Aise::Value(isTemplate)
 	{
 	}
 
-	List::List(vector<ValuePtr> vector) 
+	List::List(bool isTemplate, vector<ValuePtr> vector) : Aise::Value(isTemplate)
 	{
 		mVector = vector;
 	}
@@ -28,5 +29,11 @@ namespace Aise {
 
 		// Todo
 		return -1;
+	}
+
+	Result List::EvaluateTemplate(BindingPtr binding)
+	{
+		throw "Unimplemnted";
+		//return ValuePtr(new Integer(false, mValue));
 	}
 }

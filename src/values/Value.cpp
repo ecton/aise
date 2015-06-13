@@ -4,13 +4,6 @@
 using namespace std;
 
 namespace Aise {
-	Value::Value()
-	{
-	}
-
-	Value::~Value()
-	{
-	}
 
 	// This function will take an SExpression that is wrapped in as many nulls as possible, and return the minimum s expression.
 	// If it's not an s expression, it will return the original value.
