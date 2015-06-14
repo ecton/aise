@@ -178,7 +178,7 @@ TEST_CASE("greater-than-or-equal - real equal", "[flow][equals][real]") {
 
 TEST_CASE("Loop to 10", "[loop][set]") {
 	auto env = new Aise::Environment();
-	Aise::Result result = env->Evaluate("(do (set x 0) (while (less-than x 10) (set x (add x 1)))");
+	Aise::Result result = env->Evaluate("(do (set x 0) (while (less-than x 10) (set x (add x 1))))");
 	REQUIRE(result.Error() == false);
 	auto value = dynamic_pointer_cast<Integer>(result.Value());
 	REQUIRE(value);
@@ -187,9 +187,11 @@ TEST_CASE("Loop to 10", "[loop][set]") {
 
 TEST_CASE("Template - Simple", "[template]") {
 	auto env = new Aise::Environment();
-	Aise::Result result = env->Evaluate("`(add 1 2)");
+	Aise::Result result = env->Evaluate("(`(add 1 2))");
 	REQUIRE(result.Error() == false);
-	auto value = dynamic_pointer_cast<SExp>(result.Value());
+	auto wrapper = dynamic_pointer_cast<SExp>(result.Value());
+	REQUIRE(wrapper);
+	auto value = dynamic_pointer_cast<SExp>(wrapper->Left());
 	REQUIRE(value);
 	auto add = dynamic_pointer_cast<Symbol>(value->Left());
 	REQUIRE(add);

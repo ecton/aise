@@ -158,95 +158,86 @@ namespace Aise {
 		ValuePtr current;
 		bool isTemplate;
 	};
+
+	Result Environment::ParseValue(Tokenizer &tokens, bool isTemplate)
+	{
+		// Evaluate any modifiers if we have them
+		bool doneWithModifiers = false;
+		while (!tokens.EndOfInput() && !doneWithModifiers) {
+			switch (tokens.Peek()->Type())
+			{
+			case Token::TYPE_COMMA: tokens.Next();  isTemplate = false; break;
+			case Token::TYPE_BACKTICK: tokens.Next();  isTemplate = true; break;
+			default:
+				doneWithModifiers = true;
+				break;
+			}
+		}
+		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
+
+		switch (tokens.Peek()->Type())
+		{
+			case Token::TYPE_OPEN_PAREN: {
+				return ParseSExp(tokens, isTemplate);
+			} break;
+			case Token::TYPE_INTEGER: {
+				return ValuePtr(new Integer(isTemplate, tokens.Next()));
+			} break;
+			case Token::TYPE_REAL: {
+				return ValuePtr(new Real(isTemplate, tokens.Next()));
+			} break;
+			case Token::TYPE_IDENTIFIER: {
+				return ValuePtr(new Symbol(isTemplate, tokens.Next()));
+			} break;
+			default:
+				return Result("Unexpected token", ValuePtr(NULL));
+		}
+	}
+
+	Result Environment::ParseSExp(Tokenizer &tokens, bool isTemplate)
+	{
+
+		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
+		auto openParen = tokens.Next();
+		if (openParen->Type() != Token::TYPE_OPEN_PAREN) return Result("Expected SExpression start", ValuePtr(NULL));
+		if (tokens.EndOfInput()) return Result("Expected end paren or SExpression body", ValuePtr(NULL));
+
+		// First edge case is handling an empty SExp -- () is transformed into (NULL NULL)
+		if (tokens.Peek()->Type() == Token::TYPE_CLOSE_PAREN) {
+			tokens.Next();
+			return SExp::Create(isTemplate, ValuePtr(NULL), ValuePtr(NULL));;
+		}
+
+		auto leftResult = ParseValue(tokens, isTemplate);
+		if (leftResult.Error()) return leftResult;
+		SExpPtr top = SExpPtr(new SExp(isTemplate, leftResult.Value(), ValuePtr(NULL)));
+		auto current = top;
+
+		// Iterate until we run into the close paren, expanding the tree such that (a b c) is (a (b (c NULL)))
+		while (!tokens.EndOfInput() && tokens.Peek()->Type() != Token::TYPE_CLOSE_PAREN) {
+			auto rightResult = ParseValue(tokens, isTemplate);
+			if (rightResult.Error()) return rightResult;
+			auto next = SExpPtr(new SExp(isTemplate, rightResult.Value(), ValuePtr(NULL)));
+			current->ReplaceRight(next);
+			current = next;
+		}
+
+		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
+		auto closeParen = tokens.Next();
+		if (closeParen->Type() != Token::TYPE_CLOSE_PAREN) return Result("Expected )", ValuePtr(NULL));
+		return dynamic_pointer_cast<Value>(top);
+	}
     
     Result Environment::Parse(shared_ptr<Source> source)
     {
         cout << "Parsing: " << *source->Src() << endl;
         auto tokens = Tokenizer(source);
-        vector<SExpStackEntry *> stack;
-		ValuePtr main = { 0 };
-		bool overrideNextTemplateFlag = false;
-		bool nextIsTemplate = false;
-		bool containerShouldBeTemplate = false;
-        
-        while (!tokens.EndOfInput()) {
-			bool thisIsTemplate = false;
-			if (overrideNextTemplateFlag) {
-				overrideNextTemplateFlag = false;
-				thisIsTemplate = nextIsTemplate;
-			}
-			else if (stack.size() > 0) {
-				thisIsTemplate = stack[stack.size() - 1]->isTemplate;
-			} 
 
-            auto token = tokens.Next();
-            if (token->Type() == Token::TYPE_OPEN_PAREN) {
-                // Create a new SExp to contain the insides of these parentheses.
-				stack.push_back(new SExpStackEntry(thisIsTemplate));
-			}
-			else if (token->Type() == Token::TYPE_CLOSE_PAREN) {
-				if (stack.size() == 0) return Result("Parse Error: Closing parentheses does not have a match.", ValuePtr(new Symbol(thisIsTemplate, token)));
-
-				auto terminated = stack[stack.size() - 1];
-				stack.pop_back();
-				if (stack.size() > 0) {
-					auto entry = stack[stack.size() - 1];
-					// Special case, if we never created any root, we have an empty SExpression, and so we should insert an empty one rather than NULL
-                    if (!terminated->root) terminated->root = SExp::Create(thisIsTemplate, NULL, NULL);
-                    auto insertion = SExp::Create(thisIsTemplate, terminated->root, ValuePtr(NULL));
-					auto insertAt = dynamic_pointer_cast<SExp>(entry->current);
-					insertAt->ReplaceRight(insertion);
-					entry->current = insertion;
-				}
-				delete terminated;
-			}
-			else if (token->Type() == Token::TYPE_BACKTICK) {
-				// Next token should be treated as a template
-				nextIsTemplate = true;
-				overrideNextTemplateFlag = true;
-			}
-			else if (token->Type() == Token::TYPE_COMMA) {
-				// Next token should be treated as a regular token
-				nextIsTemplate = false;
-				overrideNextTemplateFlag = true;
-
-            } else if (Token::TypeIsLiteral(token->Type())) {
-                if (stack.size() == 0) return Result("Parse Error: Literal value not inside of an s-expression.", ValuePtr(new Symbol(thisIsTemplate, token)));
-				auto entry = stack[stack.size() - 1];
-
-                ValuePtr literal;
-                switch (token->Type()) {
-                    case Token::TYPE_INTEGER: {
-                        literal = ValuePtr(new Integer(thisIsTemplate, token));
-                    } break;
-                    case Token::TYPE_REAL: {
-                        literal = ValuePtr(new Real(thisIsTemplate, token));
-                    } break;
-                    case Token::TYPE_IDENTIFIER: {
-                        literal = ValuePtr(new Symbol(thisIsTemplate, token));
-                    } break;
-                    default:
-                        return Result("Parse Error: Unknown literal type", ValuePtr(new Symbol(thisIsTemplate, token)));
-                }
-				// We need to inherit the template status from the current stack head rather than use thisIsTemplate
-				// because if we have `(x ,y z) and we just got "y", we need y to be isTemplate = false, but (,y z) to be a template.
-                ValuePtr newSExp = SExp::Create(stack[stack.size() - 1]->isTemplate, literal, ValuePtr(NULL));
-				if (entry->root == NULL) {
-					entry->root = newSExp;
-					if (main == NULL) {
-						main = newSExp;
-					}
-				}
-				else {
-					auto current = dynamic_pointer_cast<SExp>(entry->current);
-					current->ReplaceRight(newSExp);
-				}
-				entry->current = newSExp;
-            }
-        }
-        
-        cout << "Reproduced Tree: " << main->Description() << endl;
-        
-        return main;
+		auto result = ParseSExp(tokens, false);
+		if (!result.Error()) {
+			if (!tokens.EndOfInput()) return Result("Expected end of file", ValuePtr(NULL));
+			cout << "Reproduced Tree: " << result.Value()->Description() << endl;
+		}
+		return result;
     }
 }

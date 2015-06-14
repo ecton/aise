@@ -29,7 +29,7 @@ namespace Aise
 
 		MathResult GetValue(BindingPtr binding, ValuePtr value)
 		{
-            Result result = binding->Interpret(value);
+            Result result = binding->Interpret(value, true);
             if (result.Error()) return result;
             
 			if (auto integer = dynamic_pointer_cast<Integer>(result.Value())) {
@@ -46,6 +46,8 @@ namespace Aise
 		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
 			if (arguments.size() == 0) return Result("No arguments provided to math operation", NULL);
             MathResult result = GetValue(binding, arguments[0]);
+			if (result.error.Error()) return result.error;
+
             for (size_t i = 1; i < arguments.size(); i++) {
                 MathResult evaluated = GetValue(binding, arguments[i]);
                 if (evaluated.isReal) {

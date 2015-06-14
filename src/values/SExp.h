@@ -3,7 +3,7 @@
 #include "Value.h"
 
 namespace Aise {
-	class SExp : private std::enable_shared_from_this<SExp>, public Value
+	class SExp : public std::enable_shared_from_this<SExp>, public Value
 	{
 	public:
 		SExp(bool isTemplate, ValuePtr left, ValuePtr right);
