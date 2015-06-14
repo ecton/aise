@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF0F31081B2DB85A00C76A01 /* FunctionTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF0F31071B2DB85A00C76A01 /* FunctionTests.cpp */; };
+		EF0F310B1B2DB86D00C76A01 /* Macro.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF0F31091B2DB86D00C76A01 /* Macro.cpp */; };
 		EFB35AEF1B224C0A00666254 /* Binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35ACA1B224C0A00666254 /* Binding.cpp */; };
 		EFB35AF01B224C0A00666254 /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35ACC1B224C0A00666254 /* Environment.cpp */; };
 		EFB35AF11B224C0A00666254 /* Result.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFB35ACE1B224C0A00666254 /* Result.cpp */; };
@@ -45,6 +47,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EF0F31071B2DB85A00C76A01 /* FunctionTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionTests.cpp; sourceTree = "<group>"; };
+		EF0F31091B2DB86D00C76A01 /* Macro.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Macro.cpp; sourceTree = "<group>"; };
+		EF0F310A1B2DB86D00C76A01 /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
+		EF0F310C1B2DB8CF00C76A01 /* AiseCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AiseCommon.h; path = src/AiseCommon.h; sourceTree = "<group>"; };
 		EFB35A431B1B7F5300666254 /* aise */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = aise; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFB35AC81B224C0A00666254 /* Aise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Aise.h; path = src/Aise.h; sourceTree = "<group>"; };
 		EFB35ACA1B224C0A00666254 /* Binding.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Binding.cpp; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				EFB35AC81B224C0A00666254 /* Aise.h */,
+				EF0F310C1B2DB8CF00C76A01 /* AiseCommon.h */,
 				EFB35B101B23969000666254 /* aise.cpp */,
 				EFB35AC91B224C0A00666254 /* interpretter */,
 				EFB35AD61B224C0A00666254 /* runtime */,
@@ -165,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				EFB35ADC1B224C0A00666254 /* Catch.h */,
+				EF0F31071B2DB85A00C76A01 /* FunctionTests.cpp */,
 				EFB35ADD1B224C0A00666254 /* MathTests.cpp */,
 				EFB35B021B2265A700666254 /* LogicTests.cpp */,
 			);
@@ -185,6 +193,8 @@
 				EFB35B161B2396A400666254 /* InterprettedFunction.h */,
 				EFB35AE31B224C0A00666254 /* List.cpp */,
 				EFB35AE41B224C0A00666254 /* List.h */,
+				EF0F31091B2DB86D00C76A01 /* Macro.cpp */,
+				EF0F310A1B2DB86D00C76A01 /* Macro.h */,
 				EFB35B181B2396AE00666254 /* NativeFunction.cpp */,
 				EFB35B191B2396AE00666254 /* NativeFunction.h */,
 				EFB35AE71B224C0A00666254 /* Real.cpp */,
@@ -262,10 +272,12 @@
 				EFB35AF71B224C0A00666254 /* MathTests.cpp in Sources */,
 				EFB35B221B2396C500666254 /* Flow.cpp in Sources */,
 				EFB35AF31B224C0A00666254 /* Token.cpp in Sources */,
+				EF0F310B1B2DB86D00C76A01 /* Macro.cpp in Sources */,
 				EFB35AFC1B224C0A00666254 /* Real.cpp in Sources */,
 				EFB35AEF1B224C0A00666254 /* Binding.cpp in Sources */,
 				EFB35AF41B224C0A00666254 /* Tokenizer.cpp in Sources */,
 				EFB35AF91B224C0A00666254 /* Integer.cpp in Sources */,
+				EF0F31081B2DB85A00C76A01 /* FunctionTests.cpp in Sources */,
 				EFB35AF81B224C0A00666254 /* Boolean.cpp in Sources */,
 				EFB35AFF1B224C0A00666254 /* Value.cpp in Sources */,
 				EFB35AFD1B224C0A00666254 /* SExp.cpp in Sources */,

@@ -25,7 +25,7 @@ namespace Aise {
 		auto otherCasted = dynamic_pointer_cast<Integer>(to);
 		if (!otherCasted) return -1;
 
-		return mValue - otherCasted->Value();
+		return (int)(mValue - otherCasted->Value());
 	}
 
 	Result Integer::EvaluateTemplate(BindingPtr binding)

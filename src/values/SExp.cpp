@@ -58,7 +58,7 @@ namespace Aise {
 				if (newRight.Error()) return newRight;
 			}
 
-			return ValuePtr(new SExp(false, newLeft.Value(), newRight.Value()));
+            return SExp::Create(false, newLeft.Value(), newRight.Value());
 		}
 		else {
 			return binding->Interpret(dynamic_pointer_cast<Value>(shared_from_this()), false);

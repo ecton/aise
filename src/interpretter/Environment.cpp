@@ -134,7 +134,7 @@ namespace Aise {
                 auto right = Interpret(binding, sexp->Right());
                 if (right.Error()) return right;
                 
-				return Result(ValuePtr(new SExp(false, left.Value(), right.Value())));
+                return SExp::Create(false, left.Value(), right.Value());
 			}
 			
             auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
@@ -192,8 +192,8 @@ namespace Aise {
 				if (stack.size() > 0) {
 					auto entry = stack[stack.size() - 1];
 					// Special case, if we never created any root, we have an empty SExpression, and so we should insert an empty one rather than NULL
-					if (!terminated->root) terminated->root = ValuePtr(new SExp(thisIsTemplate, NULL, NULL));
-					auto insertion = ValuePtr(new SExp(thisIsTemplate, terminated->root, ValuePtr(NULL)));
+                    if (!terminated->root) terminated->root = SExp::Create(thisIsTemplate, NULL, NULL);
+                    auto insertion = SExp::Create(thisIsTemplate, terminated->root, ValuePtr(NULL));
 					auto insertAt = dynamic_pointer_cast<SExp>(entry->current);
 					insertAt->ReplaceRight(insertion);
 					entry->current = insertion;
@@ -230,7 +230,7 @@ namespace Aise {
                 }
 				// We need to inherit the template status from the current stack head rather than use thisIsTemplate
 				// because if we have `(x ,y z) and we just got "y", we need y to be isTemplate = false, but (,y z) to be a template.
-				ValuePtr newSExp = ValuePtr(new SExp(stack[stack.size() - 1]->isTemplate, literal, ValuePtr(NULL)));
+                ValuePtr newSExp = SExp::Create(stack[stack.size() - 1]->isTemplate, literal, ValuePtr(NULL));
 				if (entry->root == NULL) {
 					entry->root = newSExp;
 					if (main == NULL) {
