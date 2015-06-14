@@ -51,3 +51,33 @@ TEST_CASE("Lists - SExpression inside, trailing comma", "[lists]") {
 	REQUIRE(value);
 	REQUIRE(value->Count() == 2);
 }
+
+TEST_CASE("Lists - get", "[lists][get]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(get [10, 20] 1)");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 20);
+}
+
+TEST_CASE("Lists - push", "[lists][push][get]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (set x [10, 20]) (push x 30) (get x 2))");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 30);
+}
+
+TEST_CASE("Lists - pop", "[lists][pop]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(pop [10, 20])");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 20);
+}

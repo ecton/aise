@@ -14,6 +14,7 @@
 #include "Logic.h"
 #include "Functions.h"
 #include "Flow.h"
+#include "Collections.h"
 
 #define CATCH_CONFIG_RUNNER
 #include "Catch.h"
@@ -30,6 +31,7 @@ namespace Aise {
         Logic::Initialize(Globals());
 		Functions::Initialize(Globals());
 		Flow::Initialize(Globals());
+		Collections::Initialize(Globals());
 	}
 
 	Environment::~Environment()
