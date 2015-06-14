@@ -47,6 +47,7 @@ namespace Aise {
 		// Parsing
 		Result ParseValue(Tokenizer &tokens, bool isTemplate);
 		Result ParseSExp(Tokenizer &tokens, bool isTemplate);
+		Result ParseList(Tokenizer &tokens, bool isTemplate);
 
 		// Interpeting
         Result Invoke(BindingPtr binding, ValuePtr method, SExpPtr expression);

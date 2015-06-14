@@ -50,6 +50,7 @@
     <ClCompile Include="src\runtime\Logic.cpp" />
     <ClCompile Include="src\runtime\Arithmetic.cpp" />
     <ClCompile Include="src\tests\FunctionTests.cpp" />
+    <ClCompile Include="src\tests\ListTests.cpp" />
     <ClCompile Include="src\tests\LogicTests.cpp" />
     <ClCompile Include="src\tests\MathTests.cpp" />
     <ClCompile Include="src\values\Boolean.cpp" />

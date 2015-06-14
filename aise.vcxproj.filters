@@ -147,6 +147,9 @@
     <ClCompile Include="src\values\Macro.cpp">
       <Filter>values</Filter>
     </ClCompile>
+    <ClCompile Include="src\tests\ListTests.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="interpretter">

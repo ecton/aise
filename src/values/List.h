@@ -14,6 +14,10 @@ namespace Aise {
 		virtual ~List();
 
 		virtual Result EvaluateTemplate(BindingPtr binding);
+
+		void Push(ValuePtr value) { mVector.push_back(value); }
+		size_t Count() { return mVector.size(); }
+
 	private:
 		std::vector<ValuePtr> mVector;
 	};
