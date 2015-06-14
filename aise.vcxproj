@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Aise.h" />
     <ClInclude Include="src\AiseCommon.h" />
     <ClInclude Include="src\interpretter\Binding.h" />
     <ClInclude Include="src\interpretter\Environment.h" />

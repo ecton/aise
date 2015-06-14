@@ -21,6 +21,8 @@ namespace Aise {
 		Environment();
         // Standard Destructor
 		virtual ~Environment();
+
+		static int UnitTest();
         
         // Adds a chunk of Aise source, and associates it with a name to be loaded from
 		void AddSource(std::string name, const std::string &src);

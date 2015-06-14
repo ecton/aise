@@ -68,6 +68,7 @@
       <Filter>values</Filter>
     </ClInclude>
     <ClInclude Include="src\AiseCommon.h" />
+    <ClInclude Include="src\Aise.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\aise.cpp" />

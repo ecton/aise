@@ -3,9 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include "Environment.h"
-#define CATCH_CONFIG_RUNNER
-#include "Catch.h"
+#include "Aise.h"
 
 //#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 //#define ARGVTYPE wchar_t
@@ -20,7 +18,7 @@ int main(int argc, const char *argv[])
 {
 	cout << "Running" << endl;
 
-    int result = Catch::Session().run();
+	int result = Aise::Environment::UnitTest();
 
 	// VC++ will kill the window right away, even if it fails. Leave it up if a test fails
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)

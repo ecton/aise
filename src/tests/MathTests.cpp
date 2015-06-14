@@ -1,9 +1,5 @@
 #include "Catch.h"
-#include "AiseCommon.h"
-#include "Environment.h"
-#include "Integer.h"
-#include "Real.h"
-#include "Boolean.h"
+#include "Aise.h"
 
 using namespace std;
 using namespace Aise;
