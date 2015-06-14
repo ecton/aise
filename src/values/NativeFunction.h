@@ -1,5 +1,5 @@
 #pragma once
-#include "Aise.h"
+#include "AiseCommon.h"
 #include "Binding.h"
 #include "Function.h"
 #include "SExp.h"
@@ -38,7 +38,7 @@ namespace Aise {
             virtual Result Invoke(BindingPtr binding, std::vector<ValuePtr> &args) = 0;
         };
 
-		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding);
+		virtual Result EvaluateTemplate(BindingPtr binding);
         
     private:
         std::string mName;

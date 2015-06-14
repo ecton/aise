@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Aise.h"
+#include "AiseCommon.h"
 #include "Value.h"
 #include <unordered_map>
 #include "Result.h"
@@ -26,6 +26,4 @@ namespace Aise {
         Aise::Environment *mEnvironment;
 		std::unordered_map<std::string, ValuePtr> mTable;
     };
-
-	typedef std::shared_ptr<Binding> BindingPtr;
 }

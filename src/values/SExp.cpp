@@ -33,7 +33,7 @@ namespace Aise {
 		return output;
 	}
 
-	int SExp::Compare(std::shared_ptr<Value> to)
+	int SExp::Compare(ValuePtr to)
 	{
 		auto otherCasted = dynamic_pointer_cast<SExp>(to);
 		if (!otherCasted) return -1;

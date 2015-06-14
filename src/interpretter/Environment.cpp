@@ -14,6 +14,9 @@
 #include "Functions.h"
 #include "Flow.h"
 
+#define CATCH_CONFIG_RUNNER
+#include "Catch.h"
+
 using namespace std;
 
 namespace Aise {
@@ -30,6 +33,12 @@ namespace Aise {
 
 	Environment::~Environment()
 	{
+	}
+
+
+	int Environment::UnitTest()
+	{
+		return Catch::Session().run();
 	}
     
     ValuePtr Environment::TrueValue() {

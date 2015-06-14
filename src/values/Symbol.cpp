@@ -21,7 +21,7 @@ namespace Aise {
         return mToken->String();
 	}
 
-	int Symbol::Compare(std::shared_ptr<Value> to)
+	int Symbol::Compare(ValuePtr to)
 	{
 		auto otherCasted = dynamic_pointer_cast<Symbol>(to);
 		if (!otherCasted) return -1;

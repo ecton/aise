@@ -1,5 +1,5 @@
 #pragma once
-#include "Aise.h"
+#include "AiseCommon.h"
 #include "Value.h"
 
 namespace Aise {
@@ -10,7 +10,7 @@ namespace Aise {
 		virtual ~SExp();
         
 		virtual std::string Description();
-		virtual int Compare(std::shared_ptr<Value> to);
+		virtual int Compare(ValuePtr to);
 
 		ValuePtr Left() { return mLeft; }
 		ValuePtr Right() { return mRight; }
@@ -18,9 +18,8 @@ namespace Aise {
         
         void ReplaceRight(ValuePtr newRight) { mRight = newRight; }
 
-		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding);
+		virtual Result EvaluateTemplate(BindingPtr binding);
 	private:
 		ValuePtr mLeft, mRight;
 	};
-    typedef std::shared_ptr<SExp> SExpPtr;
 }

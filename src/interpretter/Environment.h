@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Aise.h"
+#include "AiseCommon.h"
 #include <map>
 #include "Source.h"
 #include "Binding.h"
@@ -21,6 +21,8 @@ namespace Aise {
 		Environment();
         // Standard Destructor
 		virtual ~Environment();
+
+		static int UnitTest();
         
         // Adds a chunk of Aise source, and associates it with a name to be loaded from
 		void AddSource(std::string name, const std::string &src);
@@ -40,7 +42,7 @@ namespace Aise {
         
         Result Parse(std::shared_ptr<Source> source);
         Result Invoke(BindingPtr binding, ValuePtr method, SExpPtr expression);
-        Result LookupAndInvoke(BindingPtr binding, std::shared_ptr<Symbol> symbol, SExpPtr expression);
-        Result Lookup(BindingPtr binding, std::shared_ptr<Symbol> symbol, ValuePtr expression);
+        Result LookupAndInvoke(BindingPtr binding, SymbolPtr symbol, SExpPtr expression);
+        Result Lookup(BindingPtr binding, SymbolPtr symbol, ValuePtr expression);
     };
 }
