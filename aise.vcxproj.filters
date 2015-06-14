@@ -65,6 +65,9 @@
     <ClInclude Include="src\runtime\Arithmetic.h">
       <Filter>runtime</Filter>
     </ClInclude>
+    <ClInclude Include="src\values\Macro.h">
+      <Filter>values</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\aise.cpp" />
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="src\FlowTests.cpp">
       <Filter>tests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\values\Macro.cpp">
+      <Filter>values</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

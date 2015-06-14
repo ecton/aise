@@ -16,7 +16,7 @@ namespace Aise {
     {
 		Result result = mEnvironment->Interpret(shared_from_this(), expression);
 		if (simplify && !result.Error()) {
-			return Value::Simplify(result.Value());
+			return Value::Simplify(shared_from_this(), result.Value());
 		}
 		return result;
     }

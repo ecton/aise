@@ -17,11 +17,11 @@ namespace Aise {
         // Standard Destructor
         virtual ~Binding() { }
         
-        void Assign(std::string name, ValuePtr value);
-        ValuePtr Get(std::string name);
+        virtual void Assign(std::string name, ValuePtr value);
+        virtual ValuePtr Get(std::string name);
 
         Aise::Environment *Environment() { return mEnvironment; }
-        Result Interpret(ValuePtr expression, bool simplify = false);
+        virtual Result Interpret(ValuePtr expression, bool simplify = false);
     private:
         Aise::Environment *mEnvironment;
 		std::unordered_map<std::string, ValuePtr> mTable;

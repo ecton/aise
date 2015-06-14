@@ -158,6 +158,7 @@ namespace Aise {
 		ValuePtr main = { 0 };
 		bool overrideNextTemplateFlag = false;
 		bool nextIsTemplate = false;
+		bool containerShouldBeTemplate = false;
         
         while (!tokens.EndOfInput()) {
 			bool thisIsTemplate = false;
@@ -218,7 +219,9 @@ namespace Aise {
                     default:
                         return Result("Parse Error: Unknown literal type", ValuePtr(new Symbol(thisIsTemplate, token)));
                 }
-                ValuePtr newSExp = ValuePtr(new SExp(thisIsTemplate, literal, ValuePtr(NULL)));
+				// We need to inherit the template status from the current stack head rather than use thisIsTemplate
+				// because if we have `(x ,y z) and we just got "y", we need y to be isTemplate = false, but (,y z) to be a template.
+				ValuePtr newSExp = ValuePtr(new SExp(stack[stack.size() - 1]->isTemplate, literal, ValuePtr(NULL)));
 				if (entry->root == NULL) {
 					entry->root = newSExp;
 					if (main == NULL) {

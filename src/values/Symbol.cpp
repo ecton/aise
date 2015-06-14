@@ -31,6 +31,13 @@ namespace Aise {
 
 	Result Symbol::EvaluateTemplate(BindingPtr binding)
 	{
-		return ValuePtr(new Symbol(false, mToken));
+		if (mTemplate) {
+			return ValuePtr(new Symbol(false, mToken));
+		}
+		else {
+			ValuePtr value = binding->Get(mToken->String());
+			if (value) return value;
+			return Result("Unknown Reference", NULL); // TODO
+		}
 	}
 }

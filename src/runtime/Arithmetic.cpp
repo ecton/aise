@@ -44,6 +44,7 @@ namespace Aise
 		}
 
 		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
+			if (arguments.size() == 0) return Result("No arguments provided to math operation", NULL);
             MathResult result = GetValue(binding, arguments[0]);
             for (size_t i = 1; i < arguments.size(); i++) {
                 MathResult evaluated = GetValue(binding, arguments[i]);
