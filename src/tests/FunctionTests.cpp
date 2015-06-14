@@ -40,6 +40,15 @@ TEST_CASE("Simple Macro - increment", "[functions][macro]") {
 	REQUIRE(value->Value() == 6);
 }
 
+TEST_CASE("Simple Macro - increment increment", "[functions][macro]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (macro incr (x) `(add ,x 1)) (incr (incr 5)))");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 7);
+}
+
 TEST_CASE("Simple Macro - Namespace test -- macro parameter properly set", "[functions][macro]") {
 	auto env = new Aise::Environment();
 	Aise::Result result = env->Evaluate("(do (set x 2) (macro incr (x) `(add ,x 1)) (incr 5))");

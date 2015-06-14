@@ -14,6 +14,7 @@ namespace Aise {
      * This class encapsulates the logic for the base Aise interpretter. 
      */
      
+	class Tokenizer;
 	class Environment
 	{
     public:
@@ -32,15 +33,22 @@ namespace Aise {
 		BindingPtr EnterBinding();
 		void ExitBinding();
 		Result Interpret(BindingPtr binding, ValuePtr expression);
+
+		Result Parse(std::shared_ptr<Source> source);
         
         ValuePtr TrueValue();
         ValuePtr FalseValue();
 	private:
         std::map<std::string, std::shared_ptr<Source>> mSources;
         std::vector<BindingPtr> mBindingStack;
+
 		BindingPtr Globals() { return mBindingStack[0]; }
-        
-        Result Parse(std::shared_ptr<Source> source);
+		
+		// Parsing
+		Result ParseValue(Tokenizer &tokens, bool isTemplate);
+		Result ParseSExp(Tokenizer &tokens, bool isTemplate);
+
+		// Interpeting
         Result Invoke(BindingPtr binding, ValuePtr method, SExpPtr expression);
         Result LookupAndInvoke(BindingPtr binding, SymbolPtr symbol, SExpPtr expression);
         Result Lookup(BindingPtr binding, SymbolPtr symbol, ValuePtr expression);
