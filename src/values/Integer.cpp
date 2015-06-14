@@ -8,6 +8,7 @@
 
 #include "Integer.h"
 #include <sstream>
+#include "Binding.h"
 
 using namespace std;
 
@@ -25,5 +26,10 @@ namespace Aise {
 		if (!otherCasted) return -1;
 
 		return mValue - otherCasted->Value();
+	}
+
+	Result Integer::EvaluateTemplate(BindingPtr binding)
+	{
+		return ValuePtr(new Integer(false, mValue));
 	}
 }

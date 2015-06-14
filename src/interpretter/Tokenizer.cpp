@@ -54,9 +54,18 @@ namespace Aise {
             } else if (src->at(pos) == '(') {
                 mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_OPEN_PAREN, source, pos, 1, lineNum, pos - lineStart)));
                 pos++;
-            } else if (src->at(pos) == ')') {
-                mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_CLOSE_PAREN, source, pos, 1, lineNum, pos - lineStart)));
-                pos++;
+			}
+			else if (src->at(pos) == ')') {
+				mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_CLOSE_PAREN, source, pos, 1, lineNum, pos - lineStart)));
+				pos++;
+			}
+			else if (src->at(pos) == '`') {
+				mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_BACKTICK, source, pos, 1, lineNum, pos - lineStart)));
+				pos++;
+			}
+			else if (src->at(pos) == ',') {
+				mTokens.push_back(shared_ptr<Token>(new Token(Token::TYPE_COMMA, source, pos, 1, lineNum, pos - lineStart)));
+				pos++;
             } else {
                 throw "Unknown character";
             }

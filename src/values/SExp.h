@@ -3,10 +3,10 @@
 #include "Value.h"
 
 namespace Aise {
-	class SExp : public Value
+	class SExp : public Value, public std::enable_shared_from_this<SExp>
 	{
 	public:
-		SExp(ValuePtr left, ValuePtr right);
+		SExp(bool isTemplate, ValuePtr left, ValuePtr right);
 		virtual ~SExp();
         
 		virtual std::string Description();
@@ -17,6 +17,8 @@ namespace Aise {
 		bool IsEmpty() { return mLeft == NULL && mRight == NULL; }
         
         void ReplaceRight(ValuePtr newRight) { mRight = newRight; }
+
+		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding);
 	private:
 		ValuePtr mLeft, mRight;
 	};

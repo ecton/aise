@@ -188,3 +188,34 @@ TEST_CASE("Loop to 10", "[loop][set]") {
 	REQUIRE(value);
 	REQUIRE(value->Value() == 10);
 }
+
+TEST_CASE("Template - Simple", "[template]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("`(add 1 2)");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<SExp>(result.Value());
+	REQUIRE(value);
+	auto add = dynamic_pointer_cast<Symbol>(value->Left());
+	REQUIRE(add);
+	REQUIRE(add->String() == "add");
+	auto firstParameterContainer = dynamic_pointer_cast<SExp>(value->Right());
+	REQUIRE(firstParameterContainer);
+	auto firstOne = dynamic_pointer_cast<Integer>(firstParameterContainer->Left());
+	REQUIRE(firstOne);
+	REQUIRE(firstOne->Value() == 1);
+	auto secondParameterContainer = dynamic_pointer_cast<SExp>(firstParameterContainer->Right());
+	REQUIRE(secondParameterContainer);
+	auto secondOne = dynamic_pointer_cast<Integer>(secondParameterContainer->Left());
+	REQUIRE(secondOne);
+	REQUIRE(secondOne->Value() == 2);
+	REQUIRE(!secondParameterContainer->Right());
+}
+
+TEST_CASE("Template - Simple Eval", "[template][eval]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(eval `(add 1 2))");
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 3);
+}

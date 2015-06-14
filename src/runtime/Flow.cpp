@@ -36,7 +36,7 @@ namespace Aise
 			if (condition.Error()) return condition;
 
 			// Condition needs to be a boolean
-			auto conditionBoolean = dynamic_pointer_cast<Boolean>(Value::Simplify(condition.Value()));
+			auto conditionBoolean = dynamic_pointer_cast<Boolean>(Value::Simplify(binding, condition.Value()));
 			if (!conditionBoolean) return Result("if requires a boolean condition", condition.Value());
 
 			auto resultContainer = dynamic_pointer_cast<SExp>(conditionContainer->Right());
@@ -102,7 +102,7 @@ namespace Aise
 				if (condition.Error()) return condition;
 
 				// Condition needs to be a boolean
-				auto conditionBoolean = dynamic_pointer_cast<Boolean>(Value::Simplify(condition.Value()));
+				auto conditionBoolean = dynamic_pointer_cast<Boolean>(Value::Simplify(binding, condition.Value()));
 				if (!conditionBoolean) return Result("while requires a boolean condition", condition.Value());
 
 				if (!conditionBoolean->Value()) break;

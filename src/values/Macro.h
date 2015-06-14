@@ -6,11 +6,11 @@
 #include "Symbol.h"
 
 namespace Aise {
-    class InterprettedFunction : public Function
+    class Macro : public Function
     {
     public:
-		InterprettedFunction(bool isTemplate, SymbolPtr name, SExpPtr parameters, SExpPtr body) : Aise::Function(isTemplate), mName(name), mParameters(parameters), mBody(body) { }
-        virtual ~InterprettedFunction() { }
+		Macro(bool isTemplate, SymbolPtr name, SExpPtr parameters, SExpPtr body) : Aise::Function(isTemplate), mName(name), mParameters(parameters), mBody(body) { }
+		virtual ~Macro() { }
         
         virtual std::string Description() { return mName->String(); }
         

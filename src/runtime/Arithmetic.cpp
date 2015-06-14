@@ -44,6 +44,7 @@ namespace Aise
 		}
 
 		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments) {
+			if (arguments.size() == 0) return Result("No arguments provided to math operation", NULL);
             MathResult result = GetValue(binding, arguments[0]);
             for (size_t i = 1; i < arguments.size(); i++) {
                 MathResult evaluated = GetValue(binding, arguments[i]);
@@ -62,10 +63,10 @@ namespace Aise
             }
             
 			if (result.isReal) {
-				return Result(ValuePtr(new Real(result.realValue)));
+				return Result(ValuePtr(new Real(false, result.realValue)));
 			}
 			else {
-				return Result(ValuePtr(new Integer(result.intValue)));
+				return Result(ValuePtr(new Integer(false, result.intValue)));
 			}
 		}
 	};
@@ -114,10 +115,10 @@ namespace Aise
         {
             auto real = dynamic_pointer_cast<Real>(value);
             if (real) {
-                return ValuePtr(new Boolean(isnan(real->Value())));
+                return ValuePtr(new Boolean(false, isnan(real->Value())));
             }
             
-            return ValuePtr(new Boolean(false));
+            return ValuePtr(new Boolean(false, false));
         }
     };
     
@@ -130,10 +131,10 @@ namespace Aise
         {
             auto real = dynamic_pointer_cast<Real>(value);
             if (real) {
-                return ValuePtr(new Boolean(isinf(real->Value())));
+                return ValuePtr(new Boolean(false, isinf(real->Value())));
             }
             
-            return ValuePtr(new Boolean(false));
+            return ValuePtr(new Boolean(false, false));
         }
     };
 

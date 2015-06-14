@@ -6,7 +6,7 @@
 //
 //
 
-#include "InterprettedFunction.h"
+#include "Macro.h"
 #include "Environment.h"
 #include "Binding.h"
 
@@ -14,9 +14,25 @@ using namespace std;
 
 namespace Aise 
 {
-	Result InterprettedFunction::Invoke(BindingPtr binding, SExpPtr arguments)
+	class MacroBinding : public Binding
 	{
-		BindingPtr methodBinding = binding->Environment()->EnterBinding();
+	private:
+		BindingPtr mWrappedBinding;
+	public:
+		MacroBinding(BindingPtr binding) : Binding(binding->Environment()), mWrappedBinding(binding) { }
+
+		virtual ValuePtr Get(std::string name)
+		{
+			ValuePtr result = Binding::Get(name);
+			if (result) return result;
+
+			return mWrappedBinding->Get(name);
+		}
+	};
+
+	Result Macro::Invoke(BindingPtr binding, SExpPtr arguments)
+	{
+		BindingPtr methodBinding = BindingPtr(dynamic_cast<Binding *>(new MacroBinding(binding)));
 
 		// Loop over the parameters and try to extract arguments
 		auto currentParameterContainer = mParameters;
@@ -46,11 +62,10 @@ namespace Aise
 		}
 
 		Result evaluation = methodBinding->Interpret(mBody);
-		binding->Environment()->ExitBinding();
 		return evaluation;
 	}
 
-	Result InterprettedFunction::EvaluateTemplate(BindingPtr binding)
+	Result Macro::EvaluateTemplate(BindingPtr binding)
 	{
 		Result newName = mName->EvaluateTemplate(binding);
 		if (newName.Error()) return newName;
@@ -61,6 +76,6 @@ namespace Aise
 		Result newBody = mBody->EvaluateTemplate(binding);
 		if (newBody.Error()) return newBody;
 
-		return ValuePtr(new InterprettedFunction(false, dynamic_pointer_cast<Symbol>(newName.Value()), dynamic_pointer_cast<SExp>(newParameters.Value()), dynamic_pointer_cast<SExp>(newBody.Value())));
+		return ValuePtr(new Macro(false, dynamic_pointer_cast<Symbol>(newName.Value()), dynamic_pointer_cast<SExp>(newParameters.Value()), dynamic_pointer_cast<SExp>(newBody.Value())));
 	}
 }

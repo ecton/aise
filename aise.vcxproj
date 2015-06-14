@@ -28,6 +28,7 @@
     <ClInclude Include="src\values\Integer.h" />
     <ClInclude Include="src\values\InterprettedFunction.h" />
     <ClInclude Include="src\values\List.h" />
+    <ClInclude Include="src\values\Macro.h" />
     <ClInclude Include="src\values\NativeFunction.h" />
     <ClInclude Include="src\values\Real.h" />
     <ClInclude Include="src\values\SExp.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="src\values\Integer.cpp" />
     <ClCompile Include="src\values\InterprettedFunction.cpp" />
     <ClCompile Include="src\values\List.cpp" />
+    <ClCompile Include="src\values\Macro.cpp" />
     <ClCompile Include="src\values\NativeFunction.cpp" />
     <ClCompile Include="src\values\Real.cpp" />
     <ClCompile Include="src\values\SExp.cpp" />

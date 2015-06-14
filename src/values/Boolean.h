@@ -7,8 +7,8 @@ namespace Aise {
     class Boolean : public Value
     {
     public:
-        Boolean(std::shared_ptr<Aise::Token> token);
-        Boolean(bool value) : mValue(value) { }
+        Boolean(bool isTemplate, std::shared_ptr<Aise::Token> token);
+		Boolean(bool isTemplate, bool value) : Aise::Value(isTemplate), mValue(value) {  }
         virtual ~Boolean() { }
         
         virtual std::string Description();
@@ -16,6 +16,9 @@ namespace Aise {
 
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         bool Value() { return mValue; }
+
+
+		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding);
 
     private:
         std::shared_ptr<Aise::Token> mToken;

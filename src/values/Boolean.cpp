@@ -8,11 +8,12 @@
 
 #include "Boolean.h"
 #include <sstream>
+#include "Binding.h"
 
 using namespace std;
 
 namespace Aise {
-    Boolean::Boolean(shared_ptr<Aise::Token> token) : mToken(token)
+	Boolean::Boolean(bool isTemplate, shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token)
     {
          stringstream(token->String()) >> boolalpha >> mValue;
     }
@@ -32,5 +33,10 @@ namespace Aise {
 		if (mValue == otherCasted->Value()) return 0;
 		if (mValue) return 1;
 		return -1;
+	}
+
+	Result Boolean::EvaluateTemplate(BindingPtr binding)
+	{
+		return ValuePtr(new Boolean(false, mValue));
 	}
 }
