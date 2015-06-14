@@ -3,7 +3,7 @@
 namespace Aise
 {
 
-	int Function::Compare(std::shared_ptr<Value> to)
+	int Function::Compare(ValuePtr to)
 	{
 		// Functions can't be compared.
 		return -1;

@@ -1,6 +1,5 @@
 #pragma once
-#include <string>
-#include <memory>
+#include "AiseCommon.h"
 
 namespace Aise {
 	class Binding; 
@@ -10,15 +9,14 @@ namespace Aise {
 	public:
 		virtual ~Value() { }
         virtual std::string Description() = 0;
-		static std::shared_ptr<Value> Simplify(std::shared_ptr<Aise::Binding> binding, std::shared_ptr<Value> value);
-		virtual int Compare(std::shared_ptr<Value> to) = 0;
+		static ValuePtr Simplify(BindingPtr binding, ValuePtr value);
+		virtual int Compare(ValuePtr to) = 0;
 		bool IsTemplate() {
 			return mTemplate;
 		}
-		virtual Result EvaluateTemplate(std::shared_ptr<Aise::Binding> binding) = 0;
+		virtual Result EvaluateTemplate(BindingPtr binding) = 0;
 	protected:
 		Value(bool isTemplate) : mTemplate(isTemplate) { }
 		bool mTemplate;
     };
-    typedef std::shared_ptr<Value> ValuePtr;
 };

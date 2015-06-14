@@ -22,7 +22,7 @@ namespace Aise {
         return "";
 	}
 
-	int List::Compare(std::shared_ptr<Value> to)
+	int List::Compare(ValuePtr to)
 	{
 		auto otherCasted = dynamic_pointer_cast<List>(to);
 		if (!otherCasted) return -1;
