@@ -81,3 +81,13 @@ TEST_CASE("Lists - pop", "[lists][pop]") {
 	REQUIRE(value);
 	REQUIRE(value->Value() == 20);
 }
+
+TEST_CASE("Lists - count", "[lists][pop]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(count [10, 20])");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 2);
+}

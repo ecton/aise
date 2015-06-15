@@ -66,10 +66,23 @@ namespace Aise
 		}
 	};
 
+	class CountFunction : public NativeFunction::UnaryFunctionImplementation
+	{
+	public:
+		virtual Result Invoke(BindingPtr binding, ValuePtr value)
+		{
+			auto list = dynamic_pointer_cast<List>(value);
+			if (!list) return Result("count currently only works on lists.", value);
+
+			return ValuePtr(new Integer(false, list->Count()));
+		}
+	};
+
 	void Collections::Initialize(BindingPtr binding)
 	{
 		NativeFunction::Initialize(binding, "get", new GetFunction());
 		NativeFunction::Initialize(binding, "push", new PushFunction());
 		NativeFunction::Initialize(binding, "pop", new PopFunction());
+		NativeFunction::Initialize(binding, "count", new CountFunction());
 	}
 }
