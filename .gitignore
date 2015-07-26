@@ -227,3 +227,4 @@ DerivedData
 *.o
 .depend
 aise
+*.swp

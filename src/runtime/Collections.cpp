@@ -78,11 +78,62 @@ namespace Aise
 		}
 	};
 
+  class RemoveFunction : public NativeFunction::VariableArgumentFunctionImplementation
+	{
+	public:
+		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments)
+		{
+			if (arguments.size() != 2) return Result("remove takes two arguments", arguments[0]);
+
+			auto collection = binding->Interpret(arguments[0], true);
+			if (collection.Error()) return collection;
+
+			auto list = dynamic_pointer_cast<List>(collection.Value());
+			if (!list) return Result("Only lists are supported with remove currently.", collection.Value());
+  
+      auto index = dynamic_pointer_cast<Integer>(arguments[1]);
+      if (!index) return Result("Second parameter to remove must be an integer", arguments[1]);
+
+      return list->Remove(index->Value());
+		}
+	};
+
+  class InsertFunction : public NativeFunction::VariableArgumentFunctionImplementation
+	{
+	public:
+		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments)
+		{
+			if (arguments.size() < 3) return Result("insert takes at least three arguments", arguments[0]);
+
+			auto collection = binding->Interpret(arguments[0], true);
+			if (collection.Error()) return collection;
+
+			auto list = dynamic_pointer_cast<List>(collection.Value());
+			if (!list) return Result("Only lists are supported with insert currently.", collection.Value());
+      
+      auto index = dynamic_pointer_cast<Integer>(arguments[1]);
+      if (!index) return Result("Second parameter to insert must be an integer", arguments[1]);
+
+			Result lastResult = Result(ValuePtr(NULL));
+			for (size_t i = 2; i < arguments.size(); i++) {
+				lastResult = binding->Interpret(arguments[i], true);
+				if (lastResult.Error()) return lastResult;
+				list->Insert(index->Value() + i - 2, lastResult.Value());
+			}
+
+			return lastResult;
+		}
+	};
+
+
+
 	void Collections::Initialize(BindingPtr binding)
 	{
 		NativeFunction::Initialize(binding, "get", new GetFunction());
 		NativeFunction::Initialize(binding, "push", new PushFunction());
 		NativeFunction::Initialize(binding, "pop", new PopFunction());
 		NativeFunction::Initialize(binding, "count", new CountFunction());
+    NativeFunction::Initialize(binding, "remove", new RemoveFunction());
+    NativeFunction::Initialize(binding, "insert", new InsertFunction());
 	}
 }
