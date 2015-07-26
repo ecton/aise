@@ -19,6 +19,8 @@ namespace Aise {
 		size_t Count() { return mVector.size(); }
 		Result Get(size_t index);
 		Result Pop();
+    Result Remove(size_t index);
+    Result Insert(size_t index, ValuePtr value);
 
 	private:
 		std::vector<ValuePtr> mVector;

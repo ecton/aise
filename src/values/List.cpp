@@ -72,4 +72,21 @@ namespace Aise {
 
 		return mVector[index];
 	}
+  
+  Result List::Remove(size_t index)
+  {
+    if (index >= mVector.size()) return Result("Out Of Bounds", dynamic_pointer_cast<Value>(shared_from_this()));
+
+    ValuePtr value = mVector[index];
+    mVector.erase(mVector.begin() + index);
+    return value;
+  }
+
+  Result List::Insert(size_t index, ValuePtr value)
+  {
+    if (index > mVector.size()) return Result("Out Of Bounds", dynamic_pointer_cast<Value>(shared_from_this()));
+
+    mVector.insert(mVector.begin() + index, value);
+    return value;
+  }
 }

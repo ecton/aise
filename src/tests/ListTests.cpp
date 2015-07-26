@@ -91,3 +91,34 @@ TEST_CASE("Lists - count", "[lists][pop]") {
 	REQUIRE(value);
 	REQUIRE(value->Value() == 2);
 }
+
+
+TEST_CASE("Lists - insert at 0", "[lists][insert]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (set x [2, 3]) (insert x 0 1) (get x 0))");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 1);
+}
+
+TEST_CASE("Lists - insert as append", "[lists][insert]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (set x [1, 2]) (insert x 2 3) (get x 2))");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 3);
+}
+
+TEST_CASE("Lists - remove", "[lists][remove]") {
+	auto env = new Aise::Environment();
+	Aise::Result result = env->Evaluate("(do (set x [1, 2, 3]) (remove x 1) (get x 1))");
+	INFO(result.ErrorMessage());
+	REQUIRE(result.Error() == false);
+	auto value = dynamic_pointer_cast<Integer>(result.Value());
+	REQUIRE(value);
+	REQUIRE(value->Value() == 3);
+}
