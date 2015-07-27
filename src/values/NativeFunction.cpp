@@ -17,13 +17,13 @@ namespace Aise {
         return mName + "<native>";
     }
 
-	Result NativeFunction::Invoke(BindingPtr binding, SExpPtr sexp)
-	{
-		BindingPtr innerBinding = binding->Environment()->EnterBinding();
-		Result result = mImplementation->Invoke(binding, sexp);
-		binding->Environment()->ExitBinding();
-		return result;
-	}
+  Result NativeFunction::Invoke(BindingPtr binding, SExpPtr sexp)
+  {
+    BindingPtr innerBinding = binding->Environment()->EnterBinding();
+    Result result = mImplementation->Invoke(binding, sexp);
+    binding->Environment()->ExitBinding();
+    return result;
+  }
     
     Result NativeFunction::UnaryFunctionImplementation::Invoke(BindingPtr binding, SExpPtr sexp)
     {
@@ -54,11 +54,11 @@ namespace Aise {
             current = next;
         }
         return Invoke(binding, arguments);
-	}
+  }
 
-	Result NativeFunction::EvaluateTemplate(BindingPtr binding)
-	{
-		throw "Need to figure out how to EvaluateTemplate an Implementation";
-		//return ValuePtr(new Integer(false, mValue));
-	}
+  Result NativeFunction::EvaluateTemplate(BindingPtr binding)
+  {
+    throw "Need to figure out how to EvaluateTemplate an Implementation";
+    //return ValuePtr(new Integer(false, mValue));
+  }
 }

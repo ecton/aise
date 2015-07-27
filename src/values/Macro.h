@@ -9,14 +9,14 @@ namespace Aise {
     class Macro : public Function
     {
     public:
-		Macro(bool isTemplate, SymbolPtr name, SExpPtr parameters, SExpPtr body) : Aise::Function(isTemplate), mName(name), mParameters(parameters), mBody(body) { }
-		virtual ~Macro() { }
+    Macro(bool isTemplate, SymbolPtr name, SExpPtr parameters, SExpPtr body) : Aise::Function(isTemplate), mName(name), mParameters(parameters), mBody(body) { }
+    virtual ~Macro() { }
         
         virtual std::string Description() { return mName->String(); }
         
         virtual Result Invoke(BindingPtr binding, SExpPtr arguments);
 
-		virtual Result EvaluateTemplate(BindingPtr binding);
+    virtual Result EvaluateTemplate(BindingPtr binding);
         
     private:
         SymbolPtr mName;

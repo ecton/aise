@@ -7,7 +7,7 @@
 
 
 namespace Aise {
-	class Environment;
+  class Environment;
 
     class Binding : public std::enable_shared_from_this<Binding>
     {
@@ -24,6 +24,6 @@ namespace Aise {
         virtual Result Interpret(ValuePtr expression, bool simplify = false);
     private:
         Aise::Environment *mEnvironment;
-		std::unordered_map<std::string, ValuePtr> mTable;
+    std::unordered_map<std::string, ValuePtr> mTable;
     };
 }
