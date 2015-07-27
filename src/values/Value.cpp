@@ -30,17 +30,17 @@ namespace Aise {
 		}
 	}
 
-  Result Value::Get(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  Result Value::Get(BindingPtr binding, std::vector<ValuePtr> &arguments) 
   { 
     return Result("Unimplemented", ValuePtr(NULL)); 
   }
 
-  Result Value::Push(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  Result Value::Push(BindingPtr binding, std::vector<ValuePtr> &arguments) 
   { 
     return Result("Unimplemented", ValuePtr(NULL)); 
   }
 
-  Result Value::Pop(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  Result Value::Pop(BindingPtr binding, std::vector<ValuePtr> &arguments) 
   { 
     return Result("Unimplemented", ValuePtr(NULL)); 
   }
@@ -50,12 +50,12 @@ namespace Aise {
     return Result("Unimplemented", ValuePtr(NULL)); 
   }
 
-  Result Value::Remove(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  Result Value::Remove(BindingPtr binding, std::vector<ValuePtr> &arguments) 
   { 
     return Result("Unimplemented", ValuePtr(NULL)); 
   }
   
-  Result Value::Insert(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  Result Value::Insert(BindingPtr binding, std::vector<ValuePtr> &arguments) 
   { 
     return Result("Unimplemented", ValuePtr(NULL)); 
   }

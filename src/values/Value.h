@@ -19,12 +19,12 @@ namespace Aise {
     virtual std::string Name() { return "Value"; }
 
     // Collections
-    virtual Result Get(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Push(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Pop(BindingPtr binding, std::vector<ValuePtr> arguments);
+    virtual Result Get(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Push(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Pop(BindingPtr binding, std::vector<ValuePtr> &arguments);
     virtual Result Count(BindingPtr binding);
-    virtual Result Remove(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Insert(BindingPtr binding, std::vector<ValuePtr> arguments);
+    virtual Result Remove(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Insert(BindingPtr binding, std::vector<ValuePtr> &arguments);
 	protected:
 		Value(bool isTemplate) : mTemplate(isTemplate) { }
 		bool mTemplate;

@@ -23,12 +23,12 @@ namespace Aise {
     Result Insert(size_t index, ValuePtr value);
 
     // Overrides
-    virtual Result Get(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Push(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Pop(BindingPtr binding, std::vector<ValuePtr> arguments);
+    virtual Result Get(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Push(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Pop(BindingPtr binding, std::vector<ValuePtr> &arguments);
     virtual Result Count(BindingPtr binding);
-    virtual Result Remove(BindingPtr binding, std::vector<ValuePtr> arguments);
-    virtual Result Insert(BindingPtr binding, std::vector<ValuePtr> arguments);
+    virtual Result Remove(BindingPtr binding, std::vector<ValuePtr> &arguments);
+    virtual Result Insert(BindingPtr binding, std::vector<ValuePtr> &arguments);
 	private:
 		std::vector<ValuePtr> mVector;
 	};

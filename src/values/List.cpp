@@ -91,7 +91,7 @@ namespace Aise {
     return value;
   }
 
-  Result List::Get(BindingPtr binding, std::vector<ValuePtr> arguments)
+  Result List::Get(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     auto indexResult = binding->Interpret(arguments[1], true);
     if (indexResult.Error()) return indexResult;
@@ -103,7 +103,7 @@ namespace Aise {
 
   }
   
-  Result List::Push(BindingPtr binding, std::vector<ValuePtr> arguments)
+  Result List::Push(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     Result lastResult = Result(ValuePtr(NULL));
     for (size_t i = 1; i < arguments.size(); i++) {
@@ -115,7 +115,7 @@ namespace Aise {
     return lastResult;
   }
 
-  Result List::Pop(BindingPtr binding, std::vector<ValuePtr> arguments)
+  Result List::Pop(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     // TODO: Support arguments array for popping more than one
     return Pop();
@@ -126,7 +126,7 @@ namespace Aise {
     return ValuePtr(new Integer(false, Count()));
   }
 
-  Result List::Remove(BindingPtr binding, std::vector<ValuePtr> arguments)
+  Result List::Remove(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     auto index = dynamic_pointer_cast<Integer>(arguments[1]);
     if (!index) return Result("Second parameter to remove must be an integer", arguments[1]);
@@ -134,7 +134,7 @@ namespace Aise {
     return Remove(index->Value());
   }
 
-  Result List::Insert(BindingPtr binding, std::vector<ValuePtr> arguments)
+  Result List::Insert(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     auto index = dynamic_pointer_cast<Integer>(arguments[1]);
     if (!index) return Result("Second parameter to insert must be an integer", arguments[1]);
