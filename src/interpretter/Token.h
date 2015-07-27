@@ -14,12 +14,12 @@ namespace Aise {
             TYPE_REAL,
             TYPE_INTEGER,
             TYPE_STRING,
-			TYPE_BACKTICK,
-			TYPE_COMMA,
-			TYPE_OPEN_BRACKET,
-			TYPE_CLOSE_BRACKET,
-			TYPE_OPEN_BRACE,
-			TYPE_CLOSE_BRACE
+      TYPE_BACKTICK,
+      TYPE_COMMA,
+      TYPE_OPEN_BRACKET,
+      TYPE_CLOSE_BRACKET,
+      TYPE_OPEN_BRACE,
+      TYPE_CLOSE_BRACE
         } TokenType;
         static bool TypeIsLiteral(TokenType type) {
             switch (type) {
