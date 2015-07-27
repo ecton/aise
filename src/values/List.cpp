@@ -1,6 +1,7 @@
 #include "List.h"
 #include "Binding.h"
 #include <sstream>
+#include "Integer.h"
 
 using namespace std;
 
@@ -89,4 +90,63 @@ namespace Aise {
     mVector.insert(mVector.begin() + index, value);
     return value;
   }
+
+  Result List::Get(BindingPtr binding, std::vector<ValuePtr> arguments)
+  {
+    auto indexResult = binding->Interpret(arguments[1], true);
+    if (indexResult.Error()) return indexResult;
+
+			auto index = dynamic_pointer_cast<Integer>(indexResult.Value());
+			if (!index) return Result("get with a list only accepts integer indicies", indexResult.Value());
+
+			return Get(index->Value());
+
+  }
+  
+  Result List::Push(BindingPtr binding, std::vector<ValuePtr> arguments)
+  {
+    Result lastResult = Result(ValuePtr(NULL));
+    for (size_t i = 1; i < arguments.size(); i++) {
+      lastResult = binding->Interpret(arguments[i], true);
+      if (lastResult.Error()) return lastResult;
+      Push(lastResult.Value());
+    }
+
+    return lastResult;
+  }
+
+  Result List::Pop(BindingPtr binding, std::vector<ValuePtr> arguments)
+  {
+    // TODO: Support arguments array for popping more than one
+    return Pop();
+  }
+
+  Result List::Count(BindingPtr binding)
+  {
+    return ValuePtr(new Integer(false, Count()));
+  }
+
+  Result List::Remove(BindingPtr binding, std::vector<ValuePtr> arguments)
+  {
+    auto index = dynamic_pointer_cast<Integer>(arguments[1]);
+    if (!index) return Result("Second parameter to remove must be an integer", arguments[1]);
+
+    return Remove(index->Value());
+  }
+
+  Result List::Insert(BindingPtr binding, std::vector<ValuePtr> arguments)
+  {
+    auto index = dynamic_pointer_cast<Integer>(arguments[1]);
+    if (!index) return Result("Second parameter to insert must be an integer", arguments[1]);
+
+    Result lastResult = Result(ValuePtr(NULL));
+    for (size_t i = 2; i < arguments.size(); i++) {
+      lastResult = binding->Interpret(arguments[i], true);
+      if (lastResult.Error()) return lastResult;
+      Insert(index->Value() + i - 2, lastResult.Value());
+    }
+
+    return lastResult;
+  }
+
 }

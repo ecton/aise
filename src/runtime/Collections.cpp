@@ -18,16 +18,8 @@ namespace Aise
 			auto collection = binding->Interpret(arguments[0], true);
 			if (collection.Error()) return collection;
 
-			auto list = dynamic_pointer_cast<List>(collection.Value());
-			if (!list) return Result("Only lists are supported with get currently.", collection.Value());
-			auto indexResult = binding->Interpret(arguments[1], true);
-			if (indexResult.Error()) return indexResult;
-
-			auto index = dynamic_pointer_cast<Integer>(indexResult.Value());
-			if (!index) return Result("get with a list only accepts integer indicies", indexResult.Value());
-
-			return list->Get(index->Value());
-		}
+			return collection.Value()->Get(binding, arguments);
+    }
 	};
 
 	class PushFunction : public NativeFunction::VariableArgumentFunctionImplementation
@@ -40,29 +32,19 @@ namespace Aise
 			auto collection = binding->Interpret(arguments[0], true);
 			if (collection.Error()) return collection;
 
-			auto list = dynamic_pointer_cast<List>(collection.Value());
-			if (!list) return Result("Only lists are supported with push currently.", collection.Value());
-
-			Result lastResult = Result(ValuePtr(NULL));
-			for (size_t i = 1; i < arguments.size(); i++) {
-				lastResult = binding->Interpret(arguments[i], true);
-				if (lastResult.Error()) return lastResult;
-				list->Push(lastResult.Value());
-			}
-
-			return lastResult;
+      return collection.Value()->Push(binding, arguments);
 		}
 	};
 
-	class PopFunction : public NativeFunction::UnaryFunctionImplementation
+	class PopFunction : public NativeFunction::VariableArgumentFunctionImplementation
 	{
 	public:
-		virtual Result Invoke(BindingPtr binding, ValuePtr value)
+		virtual Result Invoke(BindingPtr binding, vector<ValuePtr> &arguments)
 		{
-			auto list = dynamic_pointer_cast<List>(value);
-			if (!list) return Result("pop only works on lists.", value);
+			auto collection = binding->Interpret(arguments[0], true);
+      if (collection.Error()) return collection;
 
-			return list->Pop();
+			return collection.Value()->Pop(binding, arguments);
 		}
 	};
 
@@ -71,10 +53,7 @@ namespace Aise
 	public:
 		virtual Result Invoke(BindingPtr binding, ValuePtr value)
 		{
-			auto list = dynamic_pointer_cast<List>(value);
-			if (!list) return Result("count currently only works on lists.", value);
-
-			return ValuePtr(new Integer(false, list->Count()));
+      return value->Count(binding);
 		}
 	};
 
@@ -88,13 +67,7 @@ namespace Aise
 			auto collection = binding->Interpret(arguments[0], true);
 			if (collection.Error()) return collection;
 
-			auto list = dynamic_pointer_cast<List>(collection.Value());
-			if (!list) return Result("Only lists are supported with remove currently.", collection.Value());
-  
-      auto index = dynamic_pointer_cast<Integer>(arguments[1]);
-      if (!index) return Result("Second parameter to remove must be an integer", arguments[1]);
-
-      return list->Remove(index->Value());
+      return collection.Value()->Remove(binding, arguments);
 		}
 	};
 
@@ -108,20 +81,7 @@ namespace Aise
 			auto collection = binding->Interpret(arguments[0], true);
 			if (collection.Error()) return collection;
 
-			auto list = dynamic_pointer_cast<List>(collection.Value());
-			if (!list) return Result("Only lists are supported with insert currently.", collection.Value());
-      
-      auto index = dynamic_pointer_cast<Integer>(arguments[1]);
-      if (!index) return Result("Second parameter to insert must be an integer", arguments[1]);
-
-			Result lastResult = Result(ValuePtr(NULL));
-			for (size_t i = 2; i < arguments.size(); i++) {
-				lastResult = binding->Interpret(arguments[i], true);
-				if (lastResult.Error()) return lastResult;
-				list->Insert(index->Value() + i - 2, lastResult.Value());
-			}
-
-			return lastResult;
+      return collection.Value()->Insert(binding, arguments);
 		}
 	};
 

@@ -29,4 +29,35 @@ namespace Aise {
 			value = result.Value();
 		}
 	}
+
+  Result Value::Get(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+
+  Result Value::Push(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+
+  Result Value::Pop(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+  
+  Result Value::Count(BindingPtr binding) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+
+  Result Value::Remove(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+  
+  Result Value::Insert(BindingPtr binding, std::vector<ValuePtr> arguments) 
+  { 
+    return Result("Unimplemented", ValuePtr(NULL)); 
+  }
+
 }
