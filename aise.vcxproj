@@ -21,6 +21,7 @@
     <ClInclude Include="src\interpretter\Tokenizer.h" />
     <ClInclude Include="src\runtime\Flow.h" />
     <ClInclude Include="src\runtime\Functions.h" />
+    <ClInclude Include="src\runtime\Collections.h" />
     <ClInclude Include="src\runtime\Logic.h" />
     <ClInclude Include="src\runtime\Arithmetic.h" />
     <ClInclude Include="src\tests\Catch.h" />
@@ -47,9 +48,11 @@
     <ClCompile Include="src\interpretter\Tokenizer.cpp" />
     <ClCompile Include="src\runtime\Flow.cpp" />
     <ClCompile Include="src\runtime\Functions.cpp" />
+    <ClCompile Include="src\runtime\Collections.cpp" />
     <ClCompile Include="src\runtime\Logic.cpp" />
     <ClCompile Include="src\runtime\Arithmetic.cpp" />
     <ClCompile Include="src\tests\FunctionTests.cpp" />
+    <ClCompile Include="src\tests\ListTests.cpp" />
     <ClCompile Include="src\tests\LogicTests.cpp" />
     <ClCompile Include="src\tests\MathTests.cpp" />
     <ClCompile Include="src\values\Boolean.cpp" />

@@ -6,6 +6,7 @@
 #include "Real.h"
 #include "NativeFunction.h"
 #include "Boolean.h"
+#include "List.h"
 
 #include <iostream>
 
@@ -13,6 +14,7 @@
 #include "Logic.h"
 #include "Functions.h"
 #include "Flow.h"
+#include "Collections.h"
 
 #define CATCH_CONFIG_RUNNER
 #include "Catch.h"
@@ -29,6 +31,7 @@ namespace Aise {
         Logic::Initialize(Globals());
 		Functions::Initialize(Globals());
 		Flow::Initialize(Globals());
+		Collections::Initialize(Globals());
 	}
 
 	Environment::~Environment()
@@ -180,6 +183,9 @@ namespace Aise {
 			case Token::TYPE_OPEN_PAREN: {
 				return ParseSExp(tokens, isTemplate);
 			} break;
+			case Token::TYPE_OPEN_BRACKET: {
+				return ParseList(tokens, isTemplate);
+			} break;
 			case Token::TYPE_INTEGER: {
 				return ValuePtr(new Integer(isTemplate, tokens.Next()));
 			} break;
@@ -196,7 +202,6 @@ namespace Aise {
 
 	Result Environment::ParseSExp(Tokenizer &tokens, bool isTemplate)
 	{
-
 		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
 		auto openParen = tokens.Next();
 		if (openParen->Type() != Token::TYPE_OPEN_PAREN) return Result("Expected SExpression start", ValuePtr(NULL));
@@ -226,6 +231,35 @@ namespace Aise {
 		auto closeParen = tokens.Next();
 		if (closeParen->Type() != Token::TYPE_CLOSE_PAREN) return Result("Expected )", ValuePtr(NULL));
 		return dynamic_pointer_cast<Value>(top);
+	}
+
+	Result Environment::ParseList(Tokenizer &tokens, bool isTemplate)
+	{
+		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
+		auto openBracket = tokens.Next();
+		if (openBracket->Type() != Token::TYPE_OPEN_BRACKET) return Result("Expected list start", ValuePtr(NULL));
+		if (tokens.EndOfInput()) return Result("Expected end bracket or expression list", ValuePtr(NULL));
+
+		auto list = new List(isTemplate);
+
+		while (!tokens.EndOfInput() && tokens.Peek()->Type() != Token::TYPE_CLOSE_BRACKET) {
+			auto result = ParseValue(tokens, isTemplate);
+			if (result.Error()) return result;
+
+			list->Push(result.Value());
+
+			if (tokens.Peek()->Type() == Token::TYPE_COMMA) {
+				tokens.Next();
+			}
+			else if (tokens.Peek()->Type() != Token::TYPE_CLOSE_BRACKET) {
+				return Result("Expected end bracket or comma", ValuePtr(NULL));
+			}
+		}
+
+		if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
+		auto closeBracket = tokens.Next();
+		if (closeBracket->Type() != Token::TYPE_CLOSE_BRACKET) return Result("Expected )", ValuePtr(NULL));
+		return ValuePtr(list);
 	}
     
     Result Environment::Parse(shared_ptr<Source> source)

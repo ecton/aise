@@ -23,4 +23,7 @@ clean:
 dist-clean: clean
 		rm -f *~ .depend
 
+test: all
+	./aise
+
 include .depend

@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace Aise {
-	class List : public Value
+	class List : public Value, public std::enable_shared_from_this<List>
 	{
 	public:
 		List(bool isTemplate);
@@ -14,6 +14,14 @@ namespace Aise {
 		virtual ~List();
 
 		virtual Result EvaluateTemplate(BindingPtr binding);
+
+		void Push(ValuePtr value) { mVector.push_back(value); }
+		size_t Count() { return mVector.size(); }
+		Result Get(size_t index);
+		Result Pop();
+    Result Remove(size_t index);
+    Result Insert(size_t index, ValuePtr value);
+
 	private:
 		std::vector<ValuePtr> mVector;
 	};
