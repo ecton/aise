@@ -11,13 +11,13 @@ namespace Aise {
         Real(bool isTemplate, double value) : Aise::Value(isTemplate), mValue(value) { }
         virtual ~Real() { }
         
-		virtual std::string Description();
-		virtual int Compare(ValuePtr to);
+    virtual std::string Description();
+    virtual int Compare(ValuePtr to);
         
         std::shared_ptr<Aise::Token> Token() { return mToken; }
         double Value() { return mValue; }
 
-		virtual Result EvaluateTemplate(BindingPtr binding);
+    virtual Result EvaluateTemplate(BindingPtr binding);
     private:
         std::shared_ptr<Aise::Token> mToken;
         double mValue;

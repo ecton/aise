@@ -18,18 +18,18 @@ namespace Aise {
         stringstream ss;
         ss << mValue;
         return ss.str();
-	}
+  }
 
-	int Integer::Compare(std::shared_ptr<Aise::Value> to)
-	{
-		auto otherCasted = dynamic_pointer_cast<Integer>(to);
-		if (!otherCasted) return -1;
+  int Integer::Compare(std::shared_ptr<Aise::Value> to)
+  {
+    auto otherCasted = dynamic_pointer_cast<Integer>(to);
+    if (!otherCasted) return -1;
 
-		return (int)(mValue - otherCasted->Value());
-	}
+    return (int)(mValue - otherCasted->Value());
+  }
 
-	Result Integer::EvaluateTemplate(BindingPtr binding)
-	{
-		return ValuePtr(new Integer(false, mValue));
-	}
+  Result Integer::EvaluateTemplate(BindingPtr binding)
+  {
+    return ValuePtr(new Integer(false, mValue));
+  }
 }

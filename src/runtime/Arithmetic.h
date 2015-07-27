@@ -3,9 +3,9 @@
 #include "Environment.h"
 
 namespace Aise {
-	class Arithmetic
-	{
-	public:
-		static void Initialize(BindingPtr binding);
-	};
+  class Arithmetic
+  {
+  public:
+    static void Initialize(BindingPtr binding);
+  };
 }
