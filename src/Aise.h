@@ -9,6 +9,7 @@
 #include "Value.h"
 #include "Boolean.h"
 #include "Integer.h"
+#include "String.h"
 #include "List.h"
 #include "Macro.h"
 #include "InterprettedFunction.h"

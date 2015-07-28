@@ -4,6 +4,7 @@
 #include "Symbol.h"
 #include "Integer.h"
 #include "Real.h"
+#include "String.h"
 #include "NativeFunction.h"
 #include "Boolean.h"
 #include "List.h"
@@ -195,6 +196,9 @@ namespace Aise {
       case Token::TYPE_IDENTIFIER: {
         return ValuePtr(new Symbol(isTemplate, tokens.Next()));
       } break;
+      case Token::TYPE_STRING: {
+        return ValuePtr(new String(isTemplate, tokens.Next()));
+      }; 
       default:
         return Result("Unexpected token", ValuePtr(NULL));
     }
