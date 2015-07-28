@@ -26,10 +26,10 @@ namespace Aise {
   Environment::Environment()
   {
     mBindingStack.push_back(BindingPtr(new Binding(this)));
-        Globals()->Assign("true", ValuePtr(new Boolean(false, true)));
-        Globals()->Assign("false", ValuePtr(new Boolean(false, false)));
+    Globals()->Assign("true", ValuePtr(new Boolean(false, true)));
+    Globals()->Assign("false", ValuePtr(new Boolean(false, false)));
     Arithmetic::Initialize(Globals());
-        Logic::Initialize(Globals());
+    Logic::Initialize(Globals());
     Functions::Initialize(Globals());
     Flow::Initialize(Globals());
     Collections::Initialize(Globals());
@@ -44,14 +44,14 @@ namespace Aise {
   {
     return Catch::Session().run();
   }
-    
-    ValuePtr Environment::TrueValue() {
-        return Globals()->Get("true");
-    }
-    
-    ValuePtr Environment::FalseValue() {
-        return Globals()->Get("false");
-    }
+
+  ValuePtr Environment::TrueValue() {
+    return Globals()->Get("true");
+  }
+  
+  ValuePtr Environment::FalseValue() {
+    return Globals()->Get("false");
+  }
 
   void Environment::AddSource(string name, const std::string &src)
   {
@@ -68,91 +68,91 @@ namespace Aise {
     mBindingStack.pop_back();
   }
 
-    Result Environment::Evaluate(const std::string &main)
+  Result Environment::Evaluate(const std::string &main)
   {
-        auto mainSource = shared_ptr<Source>(new Source("main", StringPtr(new string(main))));
-        
-        Result program = Parse(mainSource);
-        if (program.Error()) return program;
-        
-        return Interpret(Globals(), program.Value());
+    auto mainSource = shared_ptr<Source>(new Source("main", StringPtr(new string(main))));
+    
+    Result program = Parse(mainSource);
+    if (program.Error()) return program;
+    
+    return Interpret(Globals(), program.Value());
   }
-    
-    Result Environment::Invoke(BindingPtr binding, ValuePtr lookup, SExpPtr expression)
-    {
-        auto method = dynamic_pointer_cast<Function>(lookup);
-        if (method) {
-            return method->Invoke(binding, expression);
-        }
-        return Result(lookup);
+
+  Result Environment::Invoke(BindingPtr binding, ValuePtr lookup, SExpPtr expression)
+  {
+    auto method = dynamic_pointer_cast<Function>(lookup);
+    if (method) {
+      return method->Invoke(binding, expression);
     }
-    
-    Result Environment::LookupAndInvoke(BindingPtr binding, shared_ptr<Symbol> symbol, SExpPtr expression)
-    {
-        auto value = binding->Get(symbol->String());
-        if (value) {
-            return Invoke(binding, value, expression);
-        }
-        if (binding != Globals()) {
-            value = Globals()->Get(symbol->String());
-            if (value) {
-                return Invoke(binding, value, expression);
-            }
-        }
-        return Result("Unknown reference", expression);
+    return Result(lookup);
+  }
+  
+  Result Environment::LookupAndInvoke(BindingPtr binding, shared_ptr<Symbol> symbol, SExpPtr expression)
+  {
+    auto value = binding->Get(symbol->String());
+    if (value) {
+      return Invoke(binding, value, expression);
     }
-    
-    Result Environment::Lookup(BindingPtr binding, shared_ptr<Symbol> symbol, ValuePtr expression)
-    {
-        auto value = binding->Get(symbol->String());
-        if (value) {
-            return Result(value);
-        }
-        if (binding != Globals()) {
-            value = Globals()->Get(symbol->String());
-            if (value) {
-                return Result(value);
-            }
-        }
-        return Result(dynamic_pointer_cast<Value>(symbol));
+    if (binding != Globals()) {
+      value = Globals()->Get(symbol->String());
+      if (value) {
+        return Invoke(binding, value, expression);
+      }
     }
-    
-    Result Environment::Interpret(BindingPtr binding, ValuePtr expression)
-    {
+    return Result("Unknown reference", expression);
+  }
+  
+  Result Environment::Lookup(BindingPtr binding, shared_ptr<Symbol> symbol, ValuePtr expression)
+  {
+    auto value = binding->Get(symbol->String());
+    if (value) {
+      return Result(value);
+    }
+    if (binding != Globals()) {
+      value = Globals()->Get(symbol->String());
+      if (value) {
+        return Result(value);
+      }
+    }
+    return Result(dynamic_pointer_cast<Value>(symbol));
+  }
+  
+  Result Environment::Interpret(BindingPtr binding, ValuePtr expression)
+  {
     if (!expression) return expression;
 
-    // If the expression is a template, evaluate the template
+  // If the expression is a template, evaluate the template
     if (expression->IsTemplate()) {
       return expression->EvaluateTemplate(binding);
     }
 
-        auto sexp = dynamic_pointer_cast<SExp>(expression);
-        if (sexp) {
-            // Reduce the sexp by evaluating it
+    auto sexp = dynamic_pointer_cast<SExp>(expression);
+    if (sexp) {
+      // Reduce the sexp by evaluating it
       // If it's another sexp, we should evaluate it and replace it
       auto innerSexp = dynamic_pointer_cast<SExp>(sexp->Left());
       if (innerSexp) {
-                auto left = Interpret(binding, sexp->Left());
-                if (left.Error()) return left;
-                
-                auto right = Interpret(binding, sexp->Right());
-                if (right.Error()) return right;
-                
-                return SExp::Create(false, left.Value(), right.Value());
+        auto left = Interpret(binding, sexp->Left());
+        if (left.Error()) return left;
+
+        auto right = Interpret(binding, sexp->Right());
+        if (right.Error()) return right;
+
+        return SExp::Create(false, left.Value(), right.Value());
       }
-      
-            auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
+
+      auto lval = dynamic_pointer_cast<Symbol>(sexp->Left());
       // If it's not a method, we can't simplify further
       if (!lval) return Result(expression);
-            
-            return LookupAndInvoke(binding, lval, sexp);
-        } else if (auto symbol = dynamic_pointer_cast<Symbol>(expression)) {
-            return Lookup(binding, symbol, expression);
-        } else {
-            // Already a fundamental type, that's the result
-            return Result(expression);
-        }
+
+      return LookupAndInvoke(binding, lval, sexp);
+    } else if (auto symbol = dynamic_pointer_cast<Symbol>(expression)) {
+      return Lookup(binding, symbol, expression);
+    } else {
+      // Already a fundamental type, that's the result
+      return Result(expression);
     }
+  }
 
   class SExpStackEntry
   {
@@ -170,9 +170,9 @@ namespace Aise {
     while (!tokens.EndOfInput() && !doneWithModifiers) {
       switch (tokens.Peek()->Type())
       {
-      case Token::TYPE_COMMA: tokens.Next();  isTemplate = false; break;
-      case Token::TYPE_BACKTICK: tokens.Next();  isTemplate = true; break;
-      default:
+        case Token::TYPE_COMMA: tokens.Next();  isTemplate = false; break;
+        case Token::TYPE_BACKTICK: tokens.Next();  isTemplate = true; break;
+        default:
         doneWithModifiers = true;
         break;
       }
@@ -200,7 +200,7 @@ namespace Aise {
         return ValuePtr(new String(isTemplate, tokens.Next()));
       }; 
       default:
-        return Result("Unexpected token", ValuePtr(NULL));
+      return Result("Unexpected token", ValuePtr(NULL));
     }
   }
 
@@ -263,13 +263,13 @@ namespace Aise {
     if (tokens.EndOfInput()) return Result("Unexpected end of input", ValuePtr(NULL));
     auto closeBracket = tokens.Next();
     if (closeBracket->Type() != Token::TYPE_CLOSE_BRACKET) return Result("Expected )", ValuePtr(NULL));
-    return ValuePtr(list);
+    return ValuePtr(dynamic_cast<Value *>(list));
   }
-    
-    Result Environment::Parse(shared_ptr<Source> source)
-    {
-        cout << "Parsing: " << *source->Src() << endl;
-        auto tokens = Tokenizer(source);
+
+  Result Environment::Parse(shared_ptr<Source> source)
+  {
+    cout << "Parsing: " << *source->Src() << endl;
+    auto tokens = Tokenizer(source);
 
     auto result = ParseSExp(tokens, false);
     if (!result.Error()) {
@@ -277,5 +277,5 @@ namespace Aise {
       cout << "Reproduced Tree: " << result.Value()->Description() << endl;
     }
     return result;
-    }
+  }
 }

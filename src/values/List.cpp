@@ -18,9 +18,9 @@ namespace Aise {
   List::~List()
   {
   }
-    
-    string List::Description()
-    {
+  
+  string List::Description()
+  {
     stringstream out;
     out << "[";
     for (size_t i = 0; i < mVector.size(); i++) {
@@ -38,7 +38,7 @@ namespace Aise {
 
     for (size_t i = 0; i < mVector.size(); i++) {
       if (i >= otherCasted->mVector.size()) return 1;
-      // TODO: Deal with null
+        // TODO: Deal with null
       int result = mVector[i]->Compare(otherCasted->mVector[i]);
       if (result != 0) return result;
     }
@@ -55,7 +55,7 @@ namespace Aise {
       if (result.Error()) return result;
       newList->Push(result.Value());
     }
-    return ValuePtr(newList);
+    return ValuePtr(dynamic_cast<Value *>(newList));
   }
 
   Result List::Pop()
@@ -73,7 +73,7 @@ namespace Aise {
 
     return mVector[index];
   }
-  
+
   Result List::Remove(size_t index)
   {
     if (index >= mVector.size()) return Result("Out Of Bounds", dynamic_pointer_cast<Value>(shared_from_this()));
@@ -96,13 +96,13 @@ namespace Aise {
     auto indexResult = binding->Interpret(arguments[1], true);
     if (indexResult.Error()) return indexResult;
 
-      auto index = dynamic_pointer_cast<Integer>(indexResult.Value());
-      if (!index) return Result("get with a list only accepts integer indicies", indexResult.Value());
+    auto index = dynamic_pointer_cast<Integer>(indexResult.Value());
+    if (!index) return Result("get with a list only accepts integer indicies", indexResult.Value());
 
-      return Get(index->Value());
+    return Get(index->Value());
 
   }
-  
+
   Result List::Push(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
     Result lastResult = Result(ValuePtr(NULL));
@@ -117,7 +117,7 @@ namespace Aise {
 
   Result List::Pop(BindingPtr binding, std::vector<ValuePtr> &arguments)
   {
-    // TODO: Support arguments array for popping more than one
+      // TODO: Support arguments array for popping more than one
     return Pop();
   }
 

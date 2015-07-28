@@ -14,11 +14,11 @@
 using namespace std;
 
 namespace Aise {
-    string Real::Description()
-    {
-        stringstream ss;
-        ss << mValue;
-        return ss.str();
+  string Real::Description()
+  {
+    stringstream ss;
+    ss << mValue;
+    return ss.str();
   }
 
   int Real::Compare(std::shared_ptr<Aise::Value> to)

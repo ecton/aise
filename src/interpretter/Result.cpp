@@ -6,8 +6,8 @@ namespace Aise {
   Result::Result(string message, ValuePtr where) {
     mError = true;
     mMessage = message;
-        mValue = where;
-    }
+    mValue = where;
+  }
 
   Result::Result(ValuePtr value) {
     mError = false;

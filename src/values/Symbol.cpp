@@ -12,13 +12,13 @@
 using namespace std;
 
 namespace Aise {
-    Symbol::Symbol(bool isTemplate, shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token) { }
-    
-    Symbol::~Symbol() { }
-    
-    
-    std::string Symbol::Description() {
-        return mToken->String();
+  Symbol::Symbol(bool isTemplate, shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token) { }
+  
+  Symbol::~Symbol() { }
+  
+  
+  std::string Symbol::Description() {
+    return mToken->String();
   }
 
   int Symbol::Compare(ValuePtr to)

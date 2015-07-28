@@ -13,11 +13,11 @@
 using namespace std;
 
 namespace Aise {
-    std::string Integer::Description()
-    {
-        stringstream ss;
-        ss << mValue;
-        return ss.str();
+  std::string Integer::Description()
+  {
+    stringstream ss;
+    ss << mValue;
+    return ss.str();
   }
 
   int Integer::Compare(std::shared_ptr<Aise::Value> to)

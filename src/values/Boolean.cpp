@@ -14,16 +14,16 @@ using namespace std;
 
 namespace Aise {
   Boolean::Boolean(bool isTemplate, shared_ptr<Aise::Token> token) : Aise::Value(isTemplate), mToken(token)
-    {
-         stringstream(token->String()) >> boolalpha >> mValue;
-    }
-    
-    std::string Boolean::Description()
-    {
-        stringstream ss;
-        ss << boolalpha << mValue;
-        return ss.str();
-    }
+  {
+    stringstream(token->String()) >> boolalpha >> mValue;
+  }
+
+  std::string Boolean::Description()
+  {
+    stringstream ss;
+    ss << boolalpha << mValue;
+    return ss.str();
+  }
 
   int Boolean::Compare(std::shared_ptr<Aise::Value> to)
   {

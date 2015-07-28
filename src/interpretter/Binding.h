@@ -8,22 +8,21 @@
 
 namespace Aise {
   class Environment;
-
     class Binding : public std::enable_shared_from_this<Binding>
     {
     public:
-        // Standard constructor
-        Binding(Aise::Environment *environment);
-        // Standard Destructor
-        virtual ~Binding() { }
-        
-        virtual void Assign(std::string name, ValuePtr value);
-        virtual ValuePtr Get(std::string name);
+      // Standard constructor
+      Binding(Aise::Environment *environment);
+      // Standard Destructor
+      virtual ~Binding() { }
+      
+      virtual void Assign(std::string name, ValuePtr value);
+      virtual ValuePtr Get(std::string name);
 
-        Aise::Environment *Environment() { return mEnvironment; }
-        virtual Result Interpret(ValuePtr expression, bool simplify = false);
+      Aise::Environment *Environment() { return mEnvironment; }
+      virtual Result Interpret(ValuePtr expression, bool simplify = false);
     private:
-        Aise::Environment *mEnvironment;
-    std::unordered_map<std::string, ValuePtr> mTable;
+      Aise::Environment *mEnvironment;
+      std::unordered_map<std::string, ValuePtr> mTable;
     };
 }

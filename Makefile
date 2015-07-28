@@ -1,7 +1,7 @@
 appname := aise
 
 CXX := g++
-CXXFLAGS := -std=c++11 -Isrc/ -Isrc/values/ -Isrc/runtime/ -Isrc/interpretter -Isrc/tests/
+CXXFLAGS := -std=c++11 -iquote src/ -iquote src/values/ -iquote src/runtime/ -iquote src/interpretter -iquote src/tests/
 
 srcfiles := $(shell find . -name "*.cpp")
 objects  := $(patsubst %.cpp, %.o, $(srcfiles))

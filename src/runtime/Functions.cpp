@@ -7,10 +7,10 @@ using namespace std;
 
 namespace Aise
 {
-    class DefineFunction : public NativeFunction::Implementation
+  class DefineFunction : public NativeFunction::Implementation
+  {
+    virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
     {
-        virtual Result Invoke(BindingPtr binding, SExpPtr sexp)
-        {
       // Syntax is (function name (args ...) (body))
       // Left starts off as "function", right is an SExp of (name sexp)
       auto nameContainer = dynamic_pointer_cast<SExp>(sexp->Right());
@@ -31,7 +31,7 @@ namespace Aise
       auto newFunction = ValuePtr(new InterprettedFunction(false, name, arguments, body));
       binding->Assign(name->String(), newFunction);
       return newFunction;
-        }
+    }
   };
 
   class EvalFunction : public NativeFunction::UnaryFunctionImplementation
@@ -70,11 +70,11 @@ namespace Aise
       return newFunction;
     }
   };
-    
-    void Functions::Initialize(BindingPtr binding)
-    {
+  
+  void Functions::Initialize(BindingPtr binding)
+  {
     NativeFunction::Initialize(binding, "function", new DefineFunction());
     NativeFunction::Initialize(binding, "eval", new EvalFunction());
     NativeFunction::Initialize(binding, "macro", new DefineMacro());
-    }
+  }
 }

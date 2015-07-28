@@ -14,8 +14,8 @@ namespace Aise {
   SExp::~SExp()
   {
   }
-    
-    std::string SExp::Description() {
+
+  std::string SExp::Description() {
     string output = "(";
     if (mLeft) {
       output += mLeft->Description();
@@ -38,7 +38,7 @@ namespace Aise {
     auto otherCasted = dynamic_pointer_cast<SExp>(to);
     if (!otherCasted) return -1;
 
-    // Todo
+    // TODO
     return -1;
   }
 
@@ -58,7 +58,7 @@ namespace Aise {
         if (newRight.Error()) return newRight;
       }
 
-            return SExp::Create(false, newLeft.Value(), newRight.Value());
+      return SExp::Create(false, newLeft.Value(), newRight.Value());
     }
     else {
       return binding->Interpret(dynamic_pointer_cast<Value>(shared_from_this()), false);

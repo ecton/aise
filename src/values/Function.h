@@ -6,12 +6,12 @@
 
 namespace Aise
 {
-    class Function : public Value
-    {
+  class Function : public Value
+  {
   public:
     virtual int Compare(ValuePtr to);
-        virtual Result Invoke(BindingPtr binding, SExpPtr arguments) = 0;
+    virtual Result Invoke(BindingPtr binding, SExpPtr arguments) = 0;
   protected:
     Function(bool isTemplate) : Aise::Value(isTemplate) {}
-    };
+  };
 }
